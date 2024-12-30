@@ -10,3 +10,5 @@ export const registerSchema = z
     message: 'Passwords must match',
     path: ['confirmPassword'],
   });
+
+export const loginSchema = z.object({})
