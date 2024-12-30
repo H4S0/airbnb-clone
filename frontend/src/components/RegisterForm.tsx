@@ -15,7 +15,6 @@ const RegisterForm = () => {
     resolver: zodResolver(registerSchema),
   });
 
-
   const onSubmit = (data: RegisterFormData) => {
     console.log('Form Data Submitted:', data);
   };
@@ -31,6 +30,7 @@ const RegisterForm = () => {
         <p>{errors.confirmPassword?.message}</p>
       )}
       <button type="submit">submit</button>
+      <button>delete</button>
     </form>
   );
 };
