@@ -9,6 +9,8 @@ export const registerSchema = z
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords must match',
     path: ['confirmPassword'],
-
   });
-export const loginSchema = z.object({})
+
+export type RegisterSchemaType = z.infer<typeof registerSchema>;
+
+export const loginSchema = z.object({});

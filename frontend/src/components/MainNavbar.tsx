@@ -10,7 +10,7 @@ const MainNavbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center mt-[-10px]">
       <div>
         <p>AirBnb logo</p>
       </div>
