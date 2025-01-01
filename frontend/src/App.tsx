@@ -1,14 +1,11 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
-import RegisterForm from './components/RegisterForm';
+import MainNavbar from './components/MainNavbar';
 
 function App() {
   return (
-    <>
-      <RegisterForm />
-    </>
+    <div>
+      <MainNavbar />
+    </div>
   );
 }
 
