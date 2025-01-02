@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { IoMenuSharp } from 'react-icons/io5';
 import DefaultLogo from '../assets/profile-default-icon-512x511-v4sw4m29.png';
 import RegistrationForm from './RegistrationForm';
+import LoginForm from './LoginForm';
 
 const MainNavbar = () => {
   const [isUserMenu, setIsUserMenu] = useState(false);
   const [isRegiserModal, setIsRegisterModal] = useState(false);
+  const [isLoginModal, setIsLoginModal] = useState(false);
 
   const toggleUserMenu = () => {
     setIsUserMenu((prev) => !prev);
@@ -13,6 +15,10 @@ const MainNavbar = () => {
 
   const onCloseRegisterModal = () => {
     setIsRegisterModal(false);
+  };
+
+  const onCloseLoginModal = () => {
+    setIsLoginModal(false);
   };
 
   return (
@@ -37,13 +43,19 @@ const MainNavbar = () => {
             >
               Register
             </p>
-            <p className="cursor-pointer hover:underline">Login</p>
+            <p
+              onClick={() => setIsLoginModal(true)}
+              className="cursor-pointer hover:underline"
+            >
+              Login
+            </p>
             <p className="cursor-pointer hover:underline">Your Apartments</p>
             <p className="cursor-pointer hover:underline">Helping Center</p>
           </div>
         )}
       </div>
       {isRegiserModal && <RegistrationForm onClose={onCloseRegisterModal} />}
+      {isLoginModal && <LoginForm onClose={onCloseLoginModal} />}
     </div>
   );
 };
