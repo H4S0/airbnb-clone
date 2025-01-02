@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
+import { UserService } from './user.service';
+import { UserController } from './user.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaService } from 'src/prismaService/prisma.service';
 
@@ -11,7 +11,7 @@ import { PrismaService } from 'src/prismaService/prisma.service';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [UsersController],
-  providers: [UsersService, PrismaService],
+  controllers: [UserController],
+  providers: [UserService, PrismaService],
 })
-export class UsersModule {}
+export class UserModule {}

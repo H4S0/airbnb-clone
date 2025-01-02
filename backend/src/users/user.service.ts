@@ -9,7 +9,7 @@ import { loginSchema, registerSchema } from '../../../shared/libs/zodSchema';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService
