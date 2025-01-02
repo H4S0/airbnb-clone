@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ onClose }) => {
   const {
     register,
     handleSubmit,
@@ -60,7 +60,9 @@ const RegistrationForm = () => {
             <Button className="w-full" type="submit" variant="destructive">
               Submit
             </Button>
-            <Button className="w-full mt-3">Cancel</Button>
+            <Button className="w-full mt-3" onClick={onClose}>
+              Cancel
+            </Button>
           </div>
         </form>
       </div>

@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { IoMenuSharp } from 'react-icons/io5';
 import DefaultLogo from '../assets/profile-default-icon-512x511-v4sw4m29.png';
+import RegistrationForm from './RegistrationForm';
 
 const MainNavbar = () => {
   const [isUserMenu, setIsUserMenu] = useState(false);
+  const [isRegiserModal, setIsRegisterModal] = useState(false);
 
   const toggleUserMenu = () => {
     setIsUserMenu((prev) => !prev);
+  };
+
+  const onCloseRegisterModal = () => {
+    setIsRegisterModal(false);
   };
 
   return (
@@ -25,7 +31,10 @@ const MainNavbar = () => {
         <img src={DefaultLogo} alt="logo" width={33} />
         {isUserMenu && (
           <div className="flex flex-col gap-3 absolute top-full mt-2 right-0 bg-white shadow-md p-4 rounded-lg items-start w-72">
-            <p className="cursor-pointer hover:underline font-semibold">
+            <p
+              onClick={() => setIsRegisterModal(true)}
+              className="cursor-pointer hover:underline font-semibold"
+            >
               Register
             </p>
             <p className="cursor-pointer hover:underline">Login</p>
@@ -34,6 +43,7 @@ const MainNavbar = () => {
           </div>
         )}
       </div>
+      {isRegiserModal && <RegistrationForm onClose={onCloseRegisterModal} />}
     </div>
   );
 };
