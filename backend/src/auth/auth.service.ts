@@ -53,13 +53,11 @@ export class AuthService {
     return { accessToken: token };
   }
 
-  async validateUser(email: string) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-
-    return user;
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.getUser(email);
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return user;
+    }
+    return null;
   }
 }

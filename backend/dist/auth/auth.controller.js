@@ -14,21 +14,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const users_service_1 = require("../users/users.service");
 const auth_service_1 = require("./auth.service");
-const passport_1 = require("@nestjs/passport");
-const auth_user_decorator_1 = require("../common/auth-user.decorator");
+const local_auth_guards_1 = require("./local-auth.guards");
 let AuthController = class AuthController {
-    constructor(userService) {
-        this.userService = userService;
+    constructor(usersService, authService) {
+        this.usersService = usersService;
+        this.authService = authService;
     }
     async register(body) {
-        return this.userService.register(body.email, body.password, body.confirmPassword);
+        const { email, password, confirmPassword } = body;
+        if (password !== confirmPassword) {
+            throw new common_1.ConflictException('Passwords do not match');
+        }
+        const newUser = await this.usersService.createUser(email, password);
+        const token = await this.authService.login(email, password);
+        return {
+            user: newUser,
+            token,
+        };
     }
     async login(body) {
-        return this.userService.login(body.email, body.password);
-    }
-    async getProfile(user) {
-        return user;
+        const { email, password } = body;
+        return this.authService.login(email, password);
     }
 };
 exports.AuthController = AuthController;
@@ -41,21 +49,15 @@ __decorate([
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.Post)('login'),
+    (0, common_1.UseGuards)(local_auth_guards_1.LocalAuthGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
-__decorate([
-    (0, common_1.Get)('profile'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    __param(0, (0, auth_user_decorator_1.default)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "getProfile", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [users_service_1.UsersService,
+        auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

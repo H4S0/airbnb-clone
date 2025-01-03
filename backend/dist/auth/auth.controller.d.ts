@@ -1,17 +1,23 @@
+import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
-import { User } from '@prisma/client';
 export declare class AuthController {
-    private userService;
-    constructor(userService: AuthService);
+    private readonly usersService;
+    private readonly authService;
+    constructor(usersService: UsersService, authService: AuthService);
     register(body: {
         email: string;
         password: string;
         confirmPassword: string;
     }): Promise<{
-        email: string;
-        password: string;
-        id: number;
-        createdAt: Date;
+        user: {
+            email: string;
+            password: string;
+            id: number;
+            createdAt: Date;
+        };
+        token: {
+            accessToken: string;
+        };
     }>;
     login(body: {
         email: string;
@@ -19,5 +25,4 @@ export declare class AuthController {
     }): Promise<{
         accessToken: string;
     }>;
-    getProfile(user: User): Promise<User>;
 }
