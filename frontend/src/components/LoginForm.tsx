@@ -1,9 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { loginSchema, LoginSchemaType } from '../../../shared/libs/zodSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import {
+  loginSchema,
+  LoginSchemaType,
+} from '../../../backend/src/shared/libs/zodSchema';
 
 const LoginForm = ({ onClose }) => {
   const {

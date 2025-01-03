@@ -1,9 +1,9 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  RegisterSchemaType,
   registerSchema,
-} from '../../../shared/libs/zodSchema';
+  RegisterSchemaType,
+} from '../../../backend/src/shared/libs/zodSchema';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
