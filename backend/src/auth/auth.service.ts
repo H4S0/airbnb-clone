@@ -7,12 +7,14 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prismaService/prisma.service';
 import { loginSchema, registerSchema } from '../../../shared/libs/zodSchema';
 import * as bcrypt from 'bcrypt';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
-export class UserService {
+export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private usersService: UsersService
   ) {}
 
   async register(email: string, password: string, confirmPassword: string) {
@@ -50,7 +52,13 @@ export class UserService {
     return { accessToken: token };
   }
 
-  async validateUser(userId: number) {
-    return this.prisma.user.findFirst({ where: { id: userId } });
+  async validateUser(email: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    return user;
   }
 }

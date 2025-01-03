@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { UserService } from './user.service';
+import { AuthService } from './auth.service';
 
 @Controller(`user`)
-export class UserController {
-  constructor(private userService: UserService) {}
+export class AuthController {
+  constructor(private userService: AuthService) {}
 
   @Post('register')
   async register(
