@@ -8,7 +8,8 @@ import { JwtService } from '@nestjs/jwt';
 import { loginSchema, registerSchema } from 'src/shared/libs/zodSchema';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prismaService/prisma.service';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -53,11 +54,17 @@ export class AuthService {
     return { accessToken: token };
   }
 
-  async validateUser(email: string, password: string): Promise<any> {
+  async validateUser(email: string, password: string): Promise<User> {
     const user = await this.usersService.getUser(email);
-    if (user && (await bcrypt.compare(password, user.password))) {
-      return user;
+    if (!user) {
+      throw new Error('user not found');
     }
-    return null;
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new Error('invalid password');
+    }
+
+    return user;
   }
 }

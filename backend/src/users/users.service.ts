@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prismaService/prisma.service';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -20,7 +20,6 @@ export class UsersService {
       throw new NotFoundException();
     }
 
-    delete user.password;
     return user;
   }
 
@@ -44,7 +43,6 @@ export class UsersService {
       },
     });
 
-    delete user.password;
     return user;
   }
 }

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
@@ -16,7 +15,7 @@ const jwt_1 = require("@nestjs/jwt");
 const zodSchema_1 = require("../shared/libs/zodSchema");
 const bcrypt = require("bcrypt");
 const users_service_1 = require("../users/users.service");
-const prisma_service_1 = require("src/prisma/prisma.service");
+const prisma_service_1 = require("../prismaService/prisma.service");
 let AuthService = class AuthService {
     constructor(prisma, jwtService, usersService) {
         this.prisma = prisma;
@@ -55,16 +54,21 @@ let AuthService = class AuthService {
     }
     async validateUser(email, password) {
         const user = await this.usersService.getUser(email);
-        if (user && (await bcrypt.compare(password, user.password))) {
-            return user;
+        if (!user) {
+            throw new Error('user not found');
         }
-        return null;
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new Error('invalid password');
+        }
+        return user;
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof prisma_service_1.PrismaService !== "undefined" && prisma_service_1.PrismaService) === "function" ? _a : Object, jwt_1.JwtService,
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        jwt_1.JwtService,
         users_service_1.UsersService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map
