@@ -22,16 +22,13 @@ export class AuthController {
   ) {
     const { email, password, confirmPassword } = body;
 
-    // Validate password confirmation
     if (password !== confirmPassword) {
       throw new ConflictException('Passwords do not match');
     }
 
-    // Create the user via UsersService
     const newUser = await this.usersService.createUser(email, password);
 
-    // You can optionally generate a JWT token right after registration if needed
-    const token = await this.authService.login(email, password); // Assuming login() method generates a token
+    const token = await this.authService.login(email, password);
 
     return {
       user: newUser,

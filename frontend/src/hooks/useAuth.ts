@@ -13,6 +13,9 @@ export const useAuth = () => {
     queryFn: async () => {
       try {
         const response = await api.get('/auth/me');
+        {
+          /* add here to get certain user to check if its login or not */
+        }
         return response.data;
       } catch (error) {
         console.log(error);
