@@ -7,7 +7,7 @@ import { Input } from './ui/input';
 import {
   registerSchema,
   RegisterSchemaType,
-} from '../../../shared/libs/zodSchema.ts';
+} from '../../../backend/src/shared/libs/zodSchema';
 
 const RegistrationForm = ({ onClose }) => {
   const {

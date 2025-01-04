@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const module_1 = require();
-'../../../shared/libs/zodSchema.ts';
+const zodSchema_1 = require("../shared/libs/zodSchema");
 const bcrypt = require("bcrypt");
 const users_service_1 = require("../users/users.service");
 const prisma_service_1 = require("../prismaService/prisma.service");
@@ -24,7 +23,7 @@ let AuthService = class AuthService {
         this.usersService = usersService;
     }
     async register(email, password, confirmPassword) {
-        const result = registerSchema.safeParse({
+        const result = zodSchema_1.registerSchema.safeParse({
             email,
             password,
             confirmPassword,
@@ -39,7 +38,7 @@ let AuthService = class AuthService {
         return user;
     }
     async login(email, password) {
-        const result = module_1.loginSchema.safeParse({ email, password });
+        const result = zodSchema_1.loginSchema.safeParse({ email, password });
         if (!result.success) {
             throw new common_1.BadRequestException(result.error.format());
         }
