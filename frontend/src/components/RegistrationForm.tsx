@@ -8,8 +8,11 @@ import {
   registerSchema,
   RegisterSchemaType,
 } from '../../../backend/src/shared/libs/zodSchema';
+import { useRegister } from '@/hooks/useRegister';
 
 const RegistrationForm = ({ onClose }) => {
+  const { mutate, isPending } = useRegister();
+
   const {
     register,
     handleSubmit,
@@ -18,8 +21,16 @@ const RegistrationForm = ({ onClose }) => {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterSchemaType> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<RegisterSchemaType> = (data) => {
+    mutate(data, {
+      onSuccess: (response) => {
+        alert(response.message);
+      },
+      onError: (error) => {
+        alert(error.message);
+      },
+    });
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -59,7 +70,7 @@ const RegistrationForm = ({ onClose }) => {
           </div>
           <div className="mt-4 ">
             <Button className="w-full" type="submit" variant="destructive">
-              Submit
+              {isPending ? 'Registering...' : 'Register'}
             </Button>
             <Button className="w-full mt-3" onClick={onClose}>
               Cancel

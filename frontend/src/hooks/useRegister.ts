@@ -1,4 +1,3 @@
-// src/hooks/useRegister.ts
 import { useMutation } from '@tanstack/react-query';
 import api from '../utils/api';
 
@@ -15,7 +14,11 @@ type RegisterResponse = {
 export const useRegister = () => {
   return useMutation<RegisterResponse, Error, RegisterData>({
     mutationFn: async (data: RegisterData) => {
-      const response = await api.post<RegisterResponse>('/auth/register', data);
+      const response = await api.post<RegisterResponse>(
+        '/auth/register',
+        data,
+        { withCredentials: true }
+      );
       return response.data;
     },
   });
