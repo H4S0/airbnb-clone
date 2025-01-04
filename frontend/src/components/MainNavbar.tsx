@@ -3,6 +3,7 @@ import { IoMenuSharp } from 'react-icons/io5';
 import DefaultLogo from '../assets/profile-default-icon-512x511-v4sw4m29.png';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
+import SearchingOptions from './SearchingOptions';
 
 const MainNavbar = () => {
   const [isUserMenu, setIsUserMenu] = useState(false);
@@ -27,7 +28,7 @@ const MainNavbar = () => {
         <p>AirBnb logo</p>
       </div>
       <div>
-        <p>mjest,dolazak,odlazak,gosti</p>
+        <SearchingOptions />
       </div>
       <div
         onClick={toggleUserMenu}

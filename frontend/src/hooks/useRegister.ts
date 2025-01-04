@@ -5,6 +5,7 @@ import api from '../utils/api';
 type RegisterData = {
   email: string;
   password: string;
+  confirmPassword: string;
 };
 
 type RegisterResponse = {
