@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { loginSchema, registerSchema } from 'src/shared/libs/zodSchema';
+import { loginSchema, registerSchema } from '../../../shared/libs/zodSchema';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { PrismaService } from 'src/prismaService/prisma.service';

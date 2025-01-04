@@ -6,7 +6,7 @@ import { Input } from './ui/input';
 import {
   loginSchema,
   LoginSchemaType,
-} from '../../../backend/src/shared/libs/zodSchema';
+} from '../../../shared/libs/zodSchema.ts';
 
 const LoginForm = ({ onClose }) => {
   const {

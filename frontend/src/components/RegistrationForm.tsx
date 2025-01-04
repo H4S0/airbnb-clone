@@ -1,12 +1,13 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  registerSchema,
-  RegisterSchemaType,
-} from '../../../backend/src/shared/libs/zodSchema';
+
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import {
+  registerSchema,
+  RegisterSchemaType,
+} from '../../../shared/libs/zodSchema.ts';
 
 const RegistrationForm = ({ onClose }) => {
   const {
