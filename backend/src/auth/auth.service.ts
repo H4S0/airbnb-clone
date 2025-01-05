@@ -1,15 +1,17 @@
 import {
   BadRequestException,
   Injectable,
+  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-
+import { Request } from 'express';
 import { loginSchema, registerSchema } from 'src/shared/libs/zodSchema';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { PrismaService } from 'src/prismaService/prisma.service';
 import { User } from '@prisma/client';
+import { response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -50,8 +52,15 @@ export class AuthService {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const token = this.jwtService.sign({ userId: user.id, email: user.email });
-    return { accessToken: token, email: email };
+    const token = this.jwtService.sign({ userId: user.id });
+    response.cookie('jwt', token, { httpOnly: true });
+    return {
+      message: 'success',
+    };
+  }
+
+  async findOne(condidition: any): Promise<User> {
+    return await this.prisma.user.findUnique(condidition);
   }
 
   async validateUser(email: string, password: string): Promise<User> {

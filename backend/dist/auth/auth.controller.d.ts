@@ -1,9 +1,12 @@
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
+import { Response, Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
 export declare class AuthController {
     private readonly usersService;
     private readonly authService;
-    constructor(usersService: UsersService, authService: AuthService);
+    private jwtService;
+    constructor(usersService: UsersService, authService: AuthService, jwtService: JwtService);
     register(body: {
         email: string;
         password: string;
@@ -12,20 +15,25 @@ export declare class AuthController {
         user: {
             email: string;
             password: string;
-            id: number;
             createdAt: Date;
+            id: number;
         };
         token: {
-            accessToken: string;
-            email: string;
+            message: string;
         };
     }>;
     login(body: {
         email: string;
         password: string;
     }): Promise<{
-        accessToken: string;
-        email: string;
+        message: string;
     }>;
-    getCurrentUser(req: any): any;
+    user(request: Request): Promise<{
+        email: string;
+        createdAt: Date;
+        id: number;
+    }>;
+    logout(response: Response): Promise<{
+        message: string;
+    }>;
 }
