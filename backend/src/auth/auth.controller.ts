@@ -2,12 +2,15 @@ import {
   Body,
   ConflictException,
   Controller,
+  Get,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service'; // Assuming AuthService handles JWT tokens
 import { LocalAuthGuard } from './local-auth.guards';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth') // Define base route for authentication
 export class AuthController {
@@ -41,5 +44,12 @@ export class AuthController {
   async login(@Body() body: { email: string; password: string }) {
     const { email, password } = body;
     return this.authService.login(email, password);
+  }
+
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  getCurrentUser(@Req() req: any) {
+    return req.user;
+    console.log(req.user);
   }
 }

@@ -12,8 +12,8 @@ type LoginResponse = {
 
 export const useLogin = () => {
   return useMutation<LoginResponse, unknown, LoginData>({
-    mutationFn: async (data) => {
-      const response = await api.post('/auth/login', data);
+    mutationFn: async (data: LoginData) => {
+      const response = await api.post<LoginResponse>('/auth/login', data);
       return response.data;
     },
     onSuccess: (data) => {

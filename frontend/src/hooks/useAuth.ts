@@ -1,26 +1,54 @@
-import { useQuery } from '@tanstack/react-query';
-import api from '../utils/api';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-type User = {
+interface User {
   id: string;
   email: string;
-};
+  token: string;
+}
 
 export const useAuth = () => {
-  return useQuery<User | null>({
-    queryKey: ['auth'],
-    queryFn: async () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true); // To show loading state while checking
+  const [error, setError] = useState<string | null>(null); // To handle any errors
+
+  useEffect(() => {
+    const checkAuth = async () => {
       try {
-        const response = await api.get('/auth/me');
-        {
-          /* add here to get certain user to check if its login or not */
+        // Assuming you have an `auth/me` endpoint to fetch user info
+        const response = await axios.get('/auth/me', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        // Set user data if authenticated
+        if (response.data.user) {
+          setUser(response.data.user);
+        } else {
+          setUser(null);
         }
-        return response.data;
       } catch (error) {
-        console.log(error);
-        return null;
+        setError('Not authenticated');
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-    },
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  });
+    };
+
+    checkAuth();
+  }, []);
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+
+  return {
+    user,
+    loading,
+    error,
+    logout,
+  };
 };

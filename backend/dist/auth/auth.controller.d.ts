@@ -17,6 +17,7 @@ export declare class AuthController {
         };
         token: {
             accessToken: string;
+            email: string;
         };
     }>;
     login(body: {
@@ -24,5 +25,7 @@ export declare class AuthController {
         password: string;
     }): Promise<{
         accessToken: string;
+        email: string;
     }>;
+    getCurrentUser(req: any): any;
 }

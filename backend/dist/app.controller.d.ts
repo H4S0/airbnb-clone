@@ -10,5 +10,6 @@ export declare class AppController {
         password: string;
     }): Promise<{
         accessToken: string;
+        email: string;
     }>;
 }
