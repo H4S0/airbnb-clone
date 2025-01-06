@@ -13,21 +13,17 @@ export declare class AuthController {
         confirmPassword: string;
     }): Promise<{
         user: {
-            id: number;
             email: string;
             password: string;
+            id: number;
             createdAt: Date;
         };
-        token: {
-            accesToken: string;
-        };
+        token: void;
     }>;
     login(body: {
         email: string;
         password: string;
-    }): Promise<{
-        accesToken: string;
-    }>;
+    }): Promise<void>;
     logout(response: Response): Promise<{
         message: string;
     }>;

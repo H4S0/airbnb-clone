@@ -10,11 +10,9 @@ export declare class AuthService {
     register(email: string, password: string, confirmPassword: string): Promise<{
         email: string;
         password: string;
-        createdAt: Date;
         id: number;
+        createdAt: Date;
     }>;
-    login(email: string, password: string): Promise<{
-        accesToken: string;
-    }>;
+    login(email: string, password: string): Promise<void>;
     validateUser(email: string, password: string): Promise<User>;
 }

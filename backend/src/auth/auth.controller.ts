@@ -2,17 +2,14 @@ import {
   Body,
   ConflictException,
   Controller,
-  Get,
   Post,
-  Req,
   Res,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guards';
-import { Response, Request } from 'express';
+import { Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth')

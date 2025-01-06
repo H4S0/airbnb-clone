@@ -14,11 +14,4 @@ export class AppController {
   getHello(): string {
     return 'Hello, NestJS!';
   }
-
-  @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
-  async login(@Body() body: { email: string; password: string }) {
-    const { email, password } = body;
-    return this.authService.login(email, password);
-  }
 }

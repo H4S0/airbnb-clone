@@ -53,7 +53,7 @@ export class AuthService {
     }
 
     const token = this.jwtService.sign({ userId: user.id, email: user.email });
-    return { accesToken: token };
+    return console.log('prijavljen');
   }
 
   async validateUser(email: string, password: string): Promise<User> {

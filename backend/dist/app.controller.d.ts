@@ -5,10 +5,4 @@ export declare class AppController {
     private readonly authService;
     constructor(appService: AppService, authService: AuthService);
     getHello(): string;
-    login(body: {
-        email: string;
-        password: string;
-    }): Promise<{
-        accesToken: string;
-    }>;
 }
