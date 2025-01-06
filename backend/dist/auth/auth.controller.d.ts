@@ -13,10 +13,10 @@ export declare class AuthController {
         confirmPassword: string;
     }): Promise<{
         user: {
-            id: number;
             email: string;
             password: string;
             createdAt: Date;
+            id: number;
         };
         token: {
             accessToken: string;

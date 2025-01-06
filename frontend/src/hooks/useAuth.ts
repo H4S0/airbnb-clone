@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+type User = {
+  email: string;
+};
+
 const useAuth = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
-    console.log('Token from localStorage:', token); // Debug log
+
     if (token) {
       verifyToken(token);
     } else {
@@ -20,10 +24,9 @@ const useAuth = () => {
       const response = await axios.get('/auth/verify', {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log('Verify API Response:', response.data); // Debug log
 
-      if (response.data.user) {
-        setUser(response.data.user);
+      if (response.data) {
+        setUser(response.data);
         setIsLoggedIn(true);
       } else {
         console.log('User not found in response.');
@@ -36,7 +39,12 @@ const useAuth = () => {
     }
   };
 
-  return { user, isLoggedIn };
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    location.reload();
+  };
+
+  return { user, isLoggedIn, logout };
 };
 
 export default useAuth;

@@ -1,19 +1,15 @@
 import {
   BadRequestException,
-  createParamDecorator,
-  ExecutionContext,
   Injectable,
-  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Request } from 'express';
+
 import { loginSchema, registerSchema } from 'src/shared/libs/zodSchema';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { PrismaService } from 'src/prismaService/prisma.service';
 import { User } from '@prisma/client';
-import { response } from 'express';
 
 @Injectable()
 export class AuthService {

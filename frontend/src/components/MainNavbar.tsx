@@ -5,12 +5,13 @@ import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
 import SearchingOptions from './SearchingOptions';
 import useAuth from '@/hooks/useAuth';
+import { Button } from './ui/button';
 
 const MainNavbar = () => {
   const [isUserMenu, setIsUserMenu] = useState(false);
   const [isRegiserModal, setIsRegisterModal] = useState(false);
   const [isLoginModal, setIsLoginModal] = useState(false);
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, logout } = useAuth();
   const toggleUserMenu = () => {
     setIsUserMenu((prev) => !prev);
   };
@@ -23,8 +24,9 @@ const MainNavbar = () => {
     setIsLoginModal(false);
   };
 
-  console.log(isLoggedIn);
-  console.log(user);
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div className="flex justify-between items-center mt-[-10px]">
@@ -35,7 +37,7 @@ const MainNavbar = () => {
         <SearchingOptions />
       </div>
       {isLoggedIn ? (
-        'prijvaljen'
+        <Button onClick={handleLogout}>Logout</Button>
       ) : (
         <div
           onClick={toggleUserMenu}
