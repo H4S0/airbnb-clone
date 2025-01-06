@@ -14,8 +14,7 @@ export declare class AuthService {
         id: number;
     }>;
     login(email: string, password: string): Promise<{
-        message: string;
+        accesToken: string;
     }>;
-    findOne(condidition: any): Promise<User>;
     validateUser(email: string, password: string): Promise<User>;
 }

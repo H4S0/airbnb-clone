@@ -40,21 +40,6 @@ let AuthController = class AuthController {
         const { email, password } = body;
         return this.authService.login(email, password);
     }
-    async user(request) {
-        try {
-            const cookie = request.cookies['jwt'];
-            const data = await this.jwtService.verifyAsync(cookie);
-            if (!data) {
-                throw new common_1.UnauthorizedException();
-            }
-            const user = await this.authService.findOne({ id: data['id'] });
-            const { password, ...result } = user;
-            return result;
-        }
-        catch (e) {
-            throw new common_1.UnauthorizedException();
-        }
-    }
     async logout(response) {
         response.clearCookie('jwt');
         return {
@@ -78,13 +63,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
-__decorate([
-    (0, common_1.Get)('user'),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "user", null);
 __decorate([
     (0, common_1.Post)('logout'),
     __param(0, (0, common_1.Res)({ passthrough: true })),

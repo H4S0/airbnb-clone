@@ -50,27 +50,6 @@ export class AuthController {
     return this.authService.login(email, password);
   }
 
-  @Get('user')
-  async user(@Req() request: Request) {
-    try {
-      const cookie = request.cookies['jwt'];
-
-      const data = await this.jwtService.verifyAsync(cookie);
-
-      if (!data) {
-        throw new UnauthorizedException();
-      }
-
-      const user = await this.authService.findOne({ id: data['id'] });
-
-      const { password, ...result } = user;
-
-      return result;
-    } catch (e) {
-      throw new UnauthorizedException();
-    }
-  }
-
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('jwt');

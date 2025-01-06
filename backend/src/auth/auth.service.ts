@@ -52,28 +52,19 @@ export class AuthService {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const token = this.jwtService.sign({ userId: user.id });
-    response.cookie('jwt', token, { httpOnly: true });
-    return {
-      message: 'success',
-    };
-  }
-
-  async findOne(condidition: any): Promise<User> {
-    return await this.prisma.user.findUnique(condidition);
+    const token = this.jwtService.sign({ userId: user.id, email: user.email });
+    return { accesToken: token };
   }
 
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.usersService.getUser(email);
-    if (!user) {
-      throw new Error('user not found');
-    }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new Error('invalid password');
-    }
 
-    return user;
+    if (user && isPasswordValid) {
+      delete user.password;
+      return user;
+    }
+    return null;
   }
 }

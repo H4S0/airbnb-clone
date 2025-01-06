@@ -16,7 +16,6 @@ const zodSchema_1 = require("../shared/libs/zodSchema");
 const bcrypt = require("bcrypt");
 const users_service_1 = require("../users/users.service");
 const prisma_service_1 = require("../prismaService/prisma.service");
-const express_1 = require("express");
 let AuthService = class AuthService {
     constructor(prisma, jwtService, usersService) {
         this.prisma = prisma;
@@ -50,25 +49,17 @@ let AuthService = class AuthService {
         if (!isPasswordValid) {
             throw new common_1.UnauthorizedException('Invalid Credentials');
         }
-        const token = this.jwtService.sign({ userId: user.id });
-        express_1.response.cookie('jwt', token, { httpOnly: true });
-        return {
-            message: 'success',
-        };
-    }
-    async findOne(condidition) {
-        return await this.prisma.user.findUnique(condidition);
+        const token = this.jwtService.sign({ userId: user.id, email: user.email });
+        return { accesToken: token };
     }
     async validateUser(email, password) {
         const user = await this.usersService.getUser(email);
-        if (!user) {
-            throw new Error('user not found');
-        }
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            throw new Error('invalid password');
+        if (user && isPasswordValid) {
+            delete user.password;
+            return user;
         }
-        return user;
+        return null;
     }
 };
 exports.AuthService = AuthService;
