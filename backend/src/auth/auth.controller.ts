@@ -2,7 +2,11 @@ import {
   Body,
   ConflictException,
   Controller,
+  createParamDecorator,
+  ExecutionContext,
+  Get,
   Post,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -11,6 +15,8 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guards';
 import { Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/decorators/get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -54,5 +60,12 @@ export class AuthController {
     return {
       message: 'success',
     };
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('verify')
+  verify(@GetUser() user) {
+    console.log(user);
+    return { user };
   }
 }

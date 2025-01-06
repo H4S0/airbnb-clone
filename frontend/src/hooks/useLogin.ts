@@ -7,7 +7,7 @@ type LoginData = {
 };
 
 type LoginResponse = {
-  token: string;
+  accessToken: string;
 };
 
 export const useLogin = () => {
@@ -17,7 +17,8 @@ export const useLogin = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      localStorage.setItem('token', data.token);
+      const accessToken = data.accessToken;
+      localStorage.setItem('accessToken', accessToken);
     },
   });
 };

@@ -8,7 +8,6 @@ import {
   LoginSchemaType,
 } from '../../../backend/src/shared/libs/zodSchema';
 import { useLogin } from '@/hooks/useLogin';
-import { useAuth } from '@/hooks/useAuth';
 
 const LoginForm = ({ onClose }) => {
   const { mutate, isPending } = useLogin();

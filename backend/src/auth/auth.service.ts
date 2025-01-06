@@ -1,5 +1,7 @@
 import {
   BadRequestException,
+  createParamDecorator,
+  ExecutionContext,
   Injectable,
   Req,
   UnauthorizedException,
@@ -53,7 +55,7 @@ export class AuthService {
     }
 
     const token = this.jwtService.sign({ userId: user.id, email: user.email });
-    return console.log('prijavljen');
+    return { accessToken: token };
   }
 
   async validateUser(email: string, password: string): Promise<User> {

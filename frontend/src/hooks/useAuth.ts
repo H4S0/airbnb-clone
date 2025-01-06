@@ -1,54 +1,42 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-interface User {
-  id: string;
-  email: string;
-  token: string;
-}
-
-export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // To show loading state while checking
-  const [error, setError] = useState<string | null>(null); // To handle any errors
+const useAuth = () => {
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // Assuming you have an `auth/me` endpoint to fetch user info
-        const response = await axios.get('/auth/me', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        // Set user data if authenticated
-        if (response.data.user) {
-          setUser(response.data.user);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        setError('Not authenticated');
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
+    const token = localStorage.getItem('accessToken');
+    console.log('Token from localStorage:', token); // Debug log
+    if (token) {
+      verifyToken(token);
+    } else {
+      console.log('No token found in localStorage.');
+    }
   }, []);
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+  const verifyToken = async (token: string) => {
+    try {
+      const response = await axios.get('/auth/verify', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log('Verify API Response:', response.data); // Debug log
+
+      if (response.data.user) {
+        setUser(response.data.user);
+        setIsLoggedIn(true);
+      } else {
+        console.log('User not found in response.');
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      console.error('Error during token verification:', error);
+      setIsLoggedIn(false);
+      setUser(null);
+    }
   };
 
-  return {
-    user,
-    loading,
-    error,
-    logout,
-  };
+  return { user, isLoggedIn };
 };
+
+export default useAuth;
