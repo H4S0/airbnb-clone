@@ -13,9 +13,9 @@ export declare class AuthController {
         confirmPassword: string;
     }): Promise<{
         user: {
-            id: number;
             email: string;
             password: string;
+            id: number;
             createdAt: Date;
         };
         token: {
