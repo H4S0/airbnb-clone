@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import SearchingOptions from './SearchingOptions';
 import useAuth from '@/hooks/useAuth';
 import { Button } from './ui/button';
+import { Link } from 'react-router';
 
 const MainNavbar = () => {
   const [isUserMenu, setIsUserMenu] = useState(false);
@@ -33,7 +34,7 @@ const MainNavbar = () => {
   return (
     <div className="flex justify-between items-center mt-[-10px]">
       <div>
-        <p>AirBnb logo</p>
+        <Link to={'/'}>AirBnb Logo</Link>
       </div>
       <div>
         <SearchingOptions />
@@ -42,7 +43,7 @@ const MainNavbar = () => {
       <div
         onClick={toggleUserMenu}
         className={`flex items-center p-2 ${
-          isLoggedIn ? `bg-red-500 ` : ''
+          isLoggedIn ? `bg-red-500` : ''
         }  relative rounded-3xl gap-3 border-gray-200 border-2 hover:shadow-md hover:transition-shadow`}
       >
         <IoMenuSharp size={23} />
@@ -54,7 +55,7 @@ const MainNavbar = () => {
 
               <div className="border-t border-gray-300 w-full my-2" />
 
-              <p className="cursor-pointer hover:underline">Your Apartments</p>
+              <Link to={'/apartments'}>Your apartments</Link>
               <p className="cursor-pointer hover:underline">Helping Center</p>
               <Button onClick={handleLogout}>Logout</Button>
             </div>
