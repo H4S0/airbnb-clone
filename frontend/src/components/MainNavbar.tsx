@@ -39,10 +39,10 @@ const MainNavbar = () => {
         <SearchingOptions />
       </div>
       {isLoggedIn ? (
-        <>
-          <p>emal{user?.email}</p>
+        <div className="flex flex-row bg-red-700 p-2 items-center justify-between gap-3 rounded-lg">
+          <p className="text-white">{user?.email}</p>
           <Button onClick={handleLogout}>Logout</Button>
-        </>
+        </div>
       ) : (
         <div
           onClick={toggleUserMenu}
