@@ -50,7 +50,7 @@ let AuthController = class AuthController {
     }
     verify(user) {
         console.log(user);
-        return { user };
+        return user;
     }
 };
 exports.AuthController = AuthController;

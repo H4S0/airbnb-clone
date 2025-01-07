@@ -66,6 +66,6 @@ export class AuthController {
   @Get('verify')
   verify(@GetUser() user) {
     console.log(user);
-    return { user };
+    return user;
   }
 }

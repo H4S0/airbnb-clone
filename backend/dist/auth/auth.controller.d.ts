@@ -13,10 +13,10 @@ export declare class AuthController {
         confirmPassword: string;
     }): Promise<{
         user: {
+            id: number;
             email: string;
             password: string;
             createdAt: Date;
-            id: number;
         };
         token: {
             accessToken: string;
@@ -31,7 +31,5 @@ export declare class AuthController {
     logout(response: Response): Promise<{
         message: string;
     }>;
-    verify(user: any): {
-        user: any;
-    };
+    verify(user: any): any;
 }

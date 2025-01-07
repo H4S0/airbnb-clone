@@ -28,6 +28,8 @@ const MainNavbar = () => {
     logout();
   };
 
+  console.log('useremail', user);
+  console.log('jelprijavljen', isLoggedIn);
   return (
     <div className="flex justify-between items-center mt-[-10px]">
       <div>
@@ -37,7 +39,10 @@ const MainNavbar = () => {
         <SearchingOptions />
       </div>
       {isLoggedIn ? (
-        <Button onClick={handleLogout}>Logout</Button>
+        <>
+          <p>emal{user?.email}</p>
+          <Button onClick={handleLogout}>Logout</Button>
+        </>
       ) : (
         <div
           onClick={toggleUserMenu}

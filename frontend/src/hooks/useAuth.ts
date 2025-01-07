@@ -3,48 +3,54 @@ import axios from 'axios';
 
 type User = {
   email: string;
+  // Add other user properties here
 };
 
 const useAuth = () => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-
-    if (token) {
-      verifyToken(token);
-    } else {
-      console.log('No token found in localStorage.');
-    }
-  }, []);
-
-  const verifyToken = async (token: string) => {
-    try {
-      const response = await axios.get('/auth/verify', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (response.data) {
-        setUser(response.data);
-        setIsLoggedIn(true);
-      } else {
-        console.log('User not found in response.');
-        setIsLoggedIn(false);
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        console.log('No token found in localStorage.');
+        setIsLoading(false);
+        return;
       }
-    } catch (error) {
-      console.error('Error during token verification:', error);
-      setIsLoggedIn(false);
-      setUser(null);
-    }
-  };
+
+      try {
+        const response = await axios.get('http://localhost:4000/auth/verify', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setUser(response.data); // Adjust if response.data has a nested structure
+        setIsLoggedIn(true);
+        console.log('User data:', response.data);
+      } catch (error) {
+        console.error(
+          'Error fetching user data:',
+          error.response || error.message || error
+        );
+        setUser(null);
+        setIsLoggedIn(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const logout = () => {
     localStorage.removeItem('accessToken');
+    setUser(null);
+    setIsLoggedIn(false);
     location.reload();
   };
 
-  return { user, isLoggedIn, logout };
+  return { user, isLoggedIn, isLoading, logout };
 };
 
 export default useAuth;
