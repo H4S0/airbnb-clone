@@ -21,7 +21,7 @@ const Apartments = () => {
           {[1, 2, 3].map((number) => (
             <div
               key={number}
-              className="flex items-start gap-6 p-6 rounded-lg shadow-lg border border-gray-200"
+              className="flex items-start gap-6 p-6 rounded-lg shadow-lg "
             >
               <div className="flex items-center justify-center w-12 h-12 text-white bg-red-900 rounded-full font-bold text-xl">
                 {number}
