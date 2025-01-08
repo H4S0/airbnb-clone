@@ -42,9 +42,7 @@ const MainNavbar = () => {
 
       <div
         onClick={toggleUserMenu}
-        className={`flex items-center p-2 ${
-          isLoggedIn ? `bg-red-500` : ''
-        }  relative rounded-3xl gap-3 border-gray-200 border-2 hover:shadow-md hover:transition-shadow`}
+        className={`flex items-center p-2 relative rounded-3xl gap-3 border-gray-200 border-2 hover:shadow-md hover:transition-shadow`}
       >
         <IoMenuSharp size={23} />
         <img src={DefaultLogo} alt="logo" width={33} />
