@@ -12,6 +12,8 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+
+  listings Listing[]
 }
 
 model Listing {
@@ -23,4 +25,7 @@ model Listing {
   price       Float
   createdAt   DateTime
   updatedAt   DateTime @updatedAt
+  userId      Int
+
+  user User @relation(fields: [userId], references: [id])
 }
