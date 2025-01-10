@@ -1,13 +1,17 @@
 import api from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 
-type listingData = {
-  category: string;
-  location: string;
+export interface listingDetails {
   rooms: number;
   description: string;
+}
+
+export interface listingData {
+  category: string;
+  location: string;
+  listingDetails: listingDetails;
   price: number;
-};
+}
 
 {
   /* ovdje će se listingData zamjeniti sa onom iz zustanda */
