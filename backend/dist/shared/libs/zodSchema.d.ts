@@ -32,3 +32,23 @@ export declare const loginSchema: z.ZodObject<{
     password?: string;
 }>;
 export type LoginSchemaType = z.infer<typeof loginSchema>;
+export declare const listingSchema: z.ZodObject<{
+    category: z.ZodString;
+    location: z.ZodString;
+    rooms: z.ZodNumber;
+    description: z.ZodString;
+    price: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    category?: string;
+    location?: string;
+    rooms?: number;
+    description?: string;
+    price?: number;
+}, {
+    category?: string;
+    location?: string;
+    rooms?: number;
+    description?: string;
+    price?: number;
+}>;
+export type ListingSchemaType = z.infer<typeof listingSchema>;

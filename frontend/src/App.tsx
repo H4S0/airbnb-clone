@@ -4,14 +4,20 @@ import Apartments from './Apartments';
 import Home from './Home';
 import ProtectedRoute from './pages/ProtectedPage';
 import useAuth from './hooks/useAuth';
+import CategoryStep from './steps/CategoryStep';
+import LocationStep from './steps/LocationStep';
+import DetailsStep from './steps/DetailsStep';
+import PriceStep from './steps/PriceStep';
 
 function App() {
   const { isLoggedIn } = useAuth();
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 mt-7">
       <MainNavbar />
       <Routes>
-        <Route index element={<Home />}></Route>
+        <Route index element={<Home />} />
+
         <Route
           path="/apartments"
           element={
@@ -19,9 +25,12 @@ function App() {
               <Apartments />
             </ProtectedRoute>
           }
-        />
+        ></Route>
 
-        {/* Add more routes as needed */}
+        <Route path="category" element={<CategoryStep />} />
+        <Route path="location" element={<LocationStep />} />
+        <Route path="details" element={<DetailsStep />} />
+        <Route path="price" element={<PriceStep />} />
       </Routes>
     </div>
   );

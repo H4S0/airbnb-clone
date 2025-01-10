@@ -5,7 +5,7 @@ const Apartments = () => {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    navigate('/create-apartment');
+    navigate('/category');
   };
 
   return (
@@ -21,7 +21,7 @@ const Apartments = () => {
           {[1, 2, 3].map((number) => (
             <div
               key={number}
-              className="flex items-start gap-6 p-6 rounded-lg shadow-lg "
+              className="flex items-start gap-6 p-6 rounded-lg shadow-lg"
             >
               <div className="flex items-center justify-center w-12 h-12 text-white bg-red-900 rounded-full font-bold text-xl">
                 {number}
@@ -33,7 +33,7 @@ const Apartments = () => {
                 </h2>
                 <p className="text-gray-600">
                   Navedite nekoliko osnovnih informacija, kao što su lokacija
-                  smještaja i koliko gostiju može u njemu boraviti.12f3
+                  smještaja i koliko gostiju može u njemu boraviti.
                 </p>
               </div>
             </div>
@@ -43,7 +43,7 @@ const Apartments = () => {
 
       <div className="border-t"></div>
 
-      <div className="flex items-center justify-between p-6 ">
+      <div className="flex items-center justify-between p-6">
         <p className="text-gray-700 text-3xl font-semibold">
           Go to the next page or step
         </p>
