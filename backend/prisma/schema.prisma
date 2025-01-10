@@ -13,3 +13,14 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
+
+model Listing {
+  id          String   @id @default(cuid())
+  category    String
+  location    String
+  rooms       Int
+  description String
+  price       Float
+  createdAt   DateTime
+  updatedAt   DateTime @updatedAt
+}

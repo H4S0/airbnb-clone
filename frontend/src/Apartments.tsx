@@ -10,11 +10,11 @@ const Apartments = () => {
 
   return (
     <div className="flex flex-col justify-between gap-6">
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-16 p-6 lg:p-12">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-48 p-6 lg:p-12">
         <div className="text-center lg:text-left">
           <h2 className="text-3xl font-bold mb-2">It's really easy</h2>
           <h2 className="text-3xl font-bold mb-2">to post something on</h2>
-          <h2 className="text-4xl font-extrabold text-red-900">Airbnb</h2>
+          <h2 className="text-7xl font-extrabold text-red-900">Airbnb</h2>
         </div>
 
         <div className="space-y-12">
