@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
+import { categoryData } from './categoryData';
+import CategoryCard from '@/components/CategoryCard';
 
 const CategoryStep = () => {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    navigate('/location'); // Redirect to the location step
+    navigate('/location');
   };
 
   return (
@@ -15,8 +17,10 @@ const CategoryStep = () => {
         Choose the type of apartment you want to list.
       </p>
 
-      <div className="grid grid-cols-2 gap-6 mb-8">
-        {/* ovdje dodati map a kreirati data file sa iconama i nazivom */}
+      <div className="grid grid-cols-2 gap-6 mb-8 sm:grid-cols-3">
+        {categoryData.map((item) => (
+          <CategoryCard data={item} />
+        ))}
       </div>
 
       <Button variant="destructive" onClick={handleNext}>
