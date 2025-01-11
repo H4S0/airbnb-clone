@@ -23,9 +23,17 @@ const CategoryStep = () => {
         ))}
       </div>
 
-      <Button variant="destructive" onClick={handleNext}>
-        Next
-      </Button>
+      <div className=" border-gray-400 border-[1px] w-full"></div>
+
+      <div className="flex flex-row mt-6 items-center justify-between w-full">
+        <h2 className="font-semibold text-xl w-96">
+          When you select category, go to next page to select location of your
+          listing
+        </h2>
+        <Button variant="destructive" onClick={handleNext}>
+          Next
+        </Button>
+      </div>
     </div>
   );
 };
