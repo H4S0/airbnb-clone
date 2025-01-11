@@ -2,12 +2,20 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { categoryData } from './categoryData';
 import CategoryCard from '@/components/CategoryCard';
+import { useState } from 'react';
 
 const CategoryStep = () => {
+  const [isSelected, SetIsSelected] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleNext = () => {
-    navigate('/location');
+    if (isSelected) {
+      navigate('/location');
+    }
+  };
+
+  const handleCategorySet = (category: string) => {
+    SetIsSelected(category);
   };
 
   return (
