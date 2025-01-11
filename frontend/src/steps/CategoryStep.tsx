@@ -27,7 +27,11 @@ const CategoryStep = () => {
 
       <div className="grid grid-cols-2 gap-6 mb-8 sm:grid-cols-3">
         {categoryData.map((item) => (
-          <CategoryCard data={item} />
+          <CategoryCard
+            data={item}
+            selected={isSelected === item.name}
+            onSelect={() => handleCategorySet(item.name)}
+          />
         ))}
       </div>
 
