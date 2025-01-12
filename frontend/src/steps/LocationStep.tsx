@@ -25,8 +25,6 @@ const LocationStep = () => {
     fetchCountries();
   }, []);
 
-  console.log(selectedCountry);
-
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchTerm(query);
@@ -43,7 +41,13 @@ const LocationStep = () => {
     setIsOpen(false);
   };
 
-  console.log(filteredCountries);
+  {
+    /* dodati na page 
+    if (selectedCountry) {
+    const cities = selectedCountry.cities.map((item) => item);
+  }
+    */
+  }
 
   return (
     <div className="p-8 max-w-lg mx-auto">

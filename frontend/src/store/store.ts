@@ -1,5 +1,6 @@
 import { listingData, listingDetails } from '@/hooks/useListing';
 import { create } from 'zustand';
+
 interface ListingStore {
   listingData: listingData;
   updateListing: (
