@@ -45,6 +45,7 @@ const LocationStep = () => {
     /* dodati na page 
     if (selectedCountry) {
     const cities = selectedCountry.cities.map((item) => item);
+    dodati i u store.ts sve za lokaciju isto tako i u prismu i zod schema
   }
     */
   }
