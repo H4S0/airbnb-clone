@@ -5,18 +5,18 @@ const LocationStep = () => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isOpen, setIsOpen] = useState(false); // Controls the dropdown visibility
-  const [selectedCountry, setSelectedCountry] = useState(null); // Stores selected country
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           'https://countriesnow.space/api/v0.1/countries'
         );
-        const result = await response.json();
-        setCountries(result.data);
-        setFilteredCountries(result.data);
+
+        setCountries(response.data.data);
+        setFilteredCountries(response.data.data);
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
@@ -25,12 +25,13 @@ const LocationStep = () => {
     fetchCountries();
   }, []);
 
+  console.log(selectedCountry);
+
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchTerm(query);
 
-    // Filter countries based on search query
-    const filtered = countries.filter((country) =>
+    const filtered = countries.filter((country: any) =>
       country.country.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredCountries(filtered);
