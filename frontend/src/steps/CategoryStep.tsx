@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import { categoryData } from './categoryData';
+import { categoryData } from './data/categoryData';
 import CategoryCard from '@/components/CategoryCard';
 import { useState } from 'react';
 
