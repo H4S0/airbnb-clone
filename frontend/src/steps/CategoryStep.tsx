@@ -3,9 +3,11 @@ import { Button } from '../components/ui/button';
 import { categoryData } from './data/categoryData';
 import CategoryCard from '@/components/CategoryCard';
 import { useState } from 'react';
+import { useListingStore } from '@/store/store';
 
 const CategoryStep = () => {
   const [isSelected, SetIsSelected] = useState<string | null>(null);
+  const { updateListing, listingData } = useListingStore();
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -16,6 +18,7 @@ const CategoryStep = () => {
 
   const handleCategorySet = (category: string) => {
     SetIsSelected(category);
+    updateListing('category', category);
   };
 
   return (
@@ -41,7 +44,11 @@ const CategoryStep = () => {
           When you select category, go to next page to select location of your
           listing
         </h2>
-        <Button variant="destructive" onClick={handleNext}>
+        <Button
+          variant="destructive"
+          onClick={handleNext}
+          disabled={!isSelected}
+        >
           Next
         </Button>
       </div>

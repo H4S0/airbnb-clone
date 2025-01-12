@@ -11,11 +11,11 @@ import { GiTreehouse } from 'react-icons/gi';
 
 export const categoryData = [
   {
-    name: 'Kuća',
+    name: 'House',
     icon: <IoHomeOutline />,
   },
   {
-    name: 'Stan',
+    name: 'Apartment',
     icon: <PiBuildingApartment />,
   },
   {
