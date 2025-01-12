@@ -11,9 +11,12 @@ const LocationStep = () => {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await axios.get('https://restcountries.com/v3.1/all');
-        setCountries(response.data);
-        setFilteredCountries(response.data);
+        const response = await fetch(
+          'https://countriesnow.space/api/v0.1/countries'
+        );
+        const result = await response.json();
+        setCountries(result.data);
+        setFilteredCountries(result.data);
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
@@ -26,17 +29,20 @@ const LocationStep = () => {
     const query = e.target.value;
     setSearchTerm(query);
 
+    // Filter countries based on search query
     const filtered = countries.filter((country) =>
-      country.name.common.toLowerCase().includes(query.toLowerCase())
+      country.country.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredCountries(filtered);
   };
 
-  const handleSelectCountry = (country) => {
+  const handleSelectCountry = (country: any) => {
     setSelectedCountry(country);
-    setSearchTerm(country.name.common);
+    setSearchTerm(country.country);
     setIsOpen(false);
   };
+
+  console.log(filteredCountries);
 
   return (
     <div className="p-8 max-w-lg mx-auto">
@@ -44,13 +50,12 @@ const LocationStep = () => {
         Select Your Country
       </h2>
 
-      {/* Custom Dropdown */}
       <div className="relative mb-6">
         <div
-          onClick={() => setIsOpen(!isOpen)} // Toggle dropdown visibility
+          onClick={() => setIsOpen(!isOpen)}
           className="w-full border border-gray-300 rounded-lg p-3 cursor-pointer text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {selectedCountry ? selectedCountry.name.common : 'Select a country'}
+          {selectedCountry ? selectedCountry.country : 'Select a country'}
         </div>
 
         {isOpen && (
@@ -63,13 +68,13 @@ const LocationStep = () => {
               className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <div>
-              {filteredCountries.map((country) => (
+              {filteredCountries.map((country: any) => (
                 <div
-                  key={country.cca2}
+                  key={country.country}
                   onClick={() => handleSelectCountry(country)}
                   className="cursor-pointer p-3 hover:bg-gray-100 rounded-b-lg"
                 >
-                  {country.name.common}
+                  {country.country}
                 </div>
               ))}
             </div>
@@ -77,10 +82,9 @@ const LocationStep = () => {
         )}
       </div>
 
-      {/* Display Selected Country */}
       {selectedCountry && (
         <div className="mt-4 text-gray-600">
-          You selected: <strong>{selectedCountry.name.common}</strong>
+          You selected: <strong>{selectedCountry.country}</strong>
         </div>
       )}
     </div>
