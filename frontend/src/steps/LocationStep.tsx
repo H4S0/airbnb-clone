@@ -1,7 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import {
+  listingSchema,
+  ListingSchemaType,
+} from '../../../backend/src/shared/libs/zodSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useListing } from '@/hooks/useListing';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 const LocationStep = () => {
+  const { mutate } = useListing();
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,10 +52,10 @@ const LocationStep = () => {
   const handleSelectCountry = (country) => {
     setSelectedCountry(country);
     setSearchTerm(country.country);
-    setFilteredCities(country.cities); // Set cities for selected country
+    setFilteredCities(country.cities);
     setIsOpen(false);
-    setCitySearch(''); // Reset city search term
-    setSelectedCity(''); // Reset selected city
+    setCitySearch('');
+    setSelectedCity('');
   };
 
   const handleCitySearch = (e) => {
@@ -64,6 +74,25 @@ const LocationStep = () => {
     setSelectedCity(city);
     setCitySearch(city);
     setCityOpen(false);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ListingSchemaType>({
+    resolver: zodResolver(listingSchema),
+  });
+
+  const onSubmit: SubmitHandler<ListingSchemaType> = (data) => {
+    mutate(data, {
+      onSuccess: () => {
+        console.log('Location setted');
+      },
+      onError: (error) => {
+        console.error('Location fail', error);
+      },
+    });
   };
 
   return (
@@ -140,9 +169,22 @@ const LocationStep = () => {
         )}
 
         {selectedCountry && selectedCity ? (
-          <div>
-            <h2>forma za adesu</h2>
-          </div>
+          <>
+            <div>
+              <Label>Address</Label>
+              <Input
+                {...register('address')}
+                placeholder="Enter your address"
+              />
+            </div>
+            <div>
+              <Label>Postal Number</Label>
+              <Input
+                {...register('postalNumber')}
+                placeholder="Enter your postal number"
+              />
+            </div>
+          </>
         ) : (
           <h2>nema forme</h2>
         )}
