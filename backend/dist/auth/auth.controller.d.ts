@@ -15,8 +15,8 @@ export declare class AuthController {
         user: {
             email: string;
             password: string;
-            id: number;
             createdAt: Date;
+            id: number;
         };
         token: {
             accessToken: string;

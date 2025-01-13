@@ -22,7 +22,10 @@ export type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export const listingSchema = z.object({
   category: z.string().min(1, 'Category is required'),
-  location: z.string().min(1, 'Location is required'),
+  country: z.string().min(1, 'Country is required'),
+  city: z.string().min(1, 'City is required'),
+  address: z.string().min(2, 'Address is required'),
+  postalNumber: z.number().positive(),
   rooms: z.number().int().positive('Rooms must be a positive integer'),
   description: z.string().min(1, 'Description is required'),
   price: z.number().positive('Price must be a positive number'),

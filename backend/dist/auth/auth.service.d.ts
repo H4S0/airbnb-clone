@@ -10,8 +10,8 @@ export declare class AuthService {
     register(email: string, password: string, confirmPassword: string): Promise<{
         email: string;
         password: string;
-        id: number;
         createdAt: Date;
+        id: number;
     }>;
     login(email: string, password: string): Promise<{
         accessToken: string;

@@ -18,7 +18,10 @@ exports.loginSchema = zod_1.z.object({
 });
 exports.listingSchema = zod_1.z.object({
     category: zod_1.z.string().min(1, 'Category is required'),
-    location: zod_1.z.string().min(1, 'Location is required'),
+    country: zod_1.z.string().min(1, 'Country is required'),
+    city: zod_1.z.string().min(1, 'City is required'),
+    address: zod_1.z.string().min(2, 'Address is required'),
+    postalNumber: zod_1.z.number().positive(),
     rooms: zod_1.z.number().int().positive('Rooms must be a positive integer'),
     description: zod_1.z.string().min(1, 'Description is required'),
     price: zod_1.z.number().positive('Price must be a positive number'),
