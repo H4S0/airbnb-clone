@@ -21,6 +21,8 @@ const CategoryStep = () => {
     updateListing('category', category);
   };
 
+  console.log(listingData);
+
   return (
     <div className="flex flex-col items-center justify-center h-full p-6">
       <h2 className="text-3xl font-bold mb-4">Select a Category</h2>
@@ -42,7 +44,7 @@ const CategoryStep = () => {
       <div className="flex flex-row mt-6 items-center justify-between w-full">
         <h2 className="font-semibold text-xl w-96">
           When you select category, go to next page to select location of your
-          listing 
+          listing
         </h2>
         <Button
           variant="destructive"

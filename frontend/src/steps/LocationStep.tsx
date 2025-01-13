@@ -10,12 +10,14 @@ import { useListing } from '@/hooks/useListing';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useListingStore } from '@/store/store';
+import { Button } from '@/components/ui/button';
 
 const LocationStep = () => {
   const { mutate } = useListing();
-
-  const { listingData, updateLocation } = useListingStore(); // Zustand store access
-
+  const { listingData, updateLocation } = useListingStore();
+  {
+    /* naci neku sliku i staviti desno ili ss ili google */
+  }
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -214,12 +216,9 @@ const LocationStep = () => {
             </>
           )}
 
-        <button
-          type="submit"
-          className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-lg"
-        >
+        <Button variant="destructive" type="submit">
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );
