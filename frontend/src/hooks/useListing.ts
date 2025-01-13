@@ -6,9 +6,16 @@ export interface listingDetails {
   description: string;
 }
 
+export interface listingLocation {
+  country: string;
+  city: string;
+  address: string;
+  postalNumber: number;
+}
+
 export interface listingData {
   category: string;
-  location: string;
+  listingLocation: listingLocation;
   listingDetails: listingDetails;
   price: number;
 }
