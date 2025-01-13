@@ -21,7 +21,7 @@ exports.listingSchema = zod_1.z.object({
     country: zod_1.z.string().min(1, 'Country is required'),
     city: zod_1.z.string().min(1, 'City is required'),
     address: zod_1.z.string().min(2, 'Address is required'),
-    postalNumber: zod_1.z.number().positive(),
+    postalNumber: zod_1.z.string(),
     rooms: zod_1.z.number().int().positive('Rooms must be a positive integer'),
     description: zod_1.z.string().min(1, 'Description is required'),
     price: zod_1.z.number().positive('Price must be a positive number'),

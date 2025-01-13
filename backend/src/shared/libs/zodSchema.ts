@@ -25,7 +25,7 @@ export const listingSchema = z.object({
   country: z.string().min(1, 'Country is required'),
   city: z.string().min(1, 'City is required'),
   address: z.string().min(2, 'Address is required'),
-  postalNumber: z.number().positive(),
+  postalNumber: z.string(),
   rooms: z.number().int().positive('Rooms must be a positive integer'),
   description: z.string().min(1, 'Description is required'),
   price: z.number().positive('Price must be a positive number'),

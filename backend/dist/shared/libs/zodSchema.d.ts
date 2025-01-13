@@ -37,7 +37,7 @@ export declare const listingSchema: z.ZodObject<{
     country: z.ZodString;
     city: z.ZodString;
     address: z.ZodString;
-    postalNumber: z.ZodNumber;
+    postalNumber: z.ZodString;
     rooms: z.ZodNumber;
     description: z.ZodString;
     price: z.ZodNumber;
@@ -46,7 +46,7 @@ export declare const listingSchema: z.ZodObject<{
     country?: string;
     city?: string;
     address?: string;
-    postalNumber?: number;
+    postalNumber?: string;
     rooms?: number;
     description?: string;
     price?: number;
@@ -55,7 +55,7 @@ export declare const listingSchema: z.ZodObject<{
     country?: string;
     city?: string;
     address?: string;
-    postalNumber?: number;
+    postalNumber?: string;
     rooms?: number;
     description?: string;
     price?: number;

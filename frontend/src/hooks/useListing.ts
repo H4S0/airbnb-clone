@@ -10,7 +10,7 @@ export interface listingLocation {
   country: string;
   city: string;
   address: string;
-  postalNumber: number;
+  postalNumber: string;
 }
 
 export interface listingData {

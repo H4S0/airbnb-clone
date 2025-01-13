@@ -22,7 +22,7 @@ export const useListingStore = create<ListingStore>((set) => ({
       country: '',
       city: '',
       address: '',
-      postalNumber: 0,
+      postalNumber: '',
     },
     listingDetails: {
       rooms: 0,
