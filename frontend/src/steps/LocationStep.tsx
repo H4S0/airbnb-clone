@@ -7,6 +7,10 @@ const LocationStep = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [citySearch, setCitySearch] = useState('');
+  const [filteredCities, setFilteredCities] = useState([]);
+  const [cityOpen, setCityOpen] = useState(false);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -29,31 +33,43 @@ const LocationStep = () => {
     const query = e.target.value;
     setSearchTerm(query);
 
-    const filtered = countries.filter((country: any) =>
+    const filtered = countries.filter((country) =>
       country.country.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredCountries(filtered);
   };
 
-  const handleSelectCountry = (country: any) => {
+  const handleSelectCountry = (country) => {
     setSelectedCountry(country);
     setSearchTerm(country.country);
+    setFilteredCities(country.cities); // Set cities for selected country
     setIsOpen(false);
+    setCitySearch(''); // Reset city search term
+    setSelectedCity(''); // Reset selected city
   };
 
-  {
-    /* dodati na page 
-    if (selectedCountry) {
-    const cities = selectedCountry.cities.map((item) => item);
-    dodati i u store.ts sve za lokaciju isto tako i u prismu i zod schema
-  }
-    */
-  }
+  const handleCitySearch = (e) => {
+    const query = e.target.value;
+    setCitySearch(query);
+
+    const cities = selectedCountry.cities;
+
+    const filtered = cities.filter((city) =>
+      city.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredCities(filtered);
+  };
+
+  const handleSelectCity = (city) => {
+    setSelectedCity(city);
+    setCitySearch(city);
+    setCityOpen(false);
+  };
 
   return (
     <div className="p-8 max-w-lg mx-auto">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-        Select Your Country
+        Select Your Country and City
       </h2>
 
       <div className="relative mb-6">
@@ -74,7 +90,7 @@ const LocationStep = () => {
               className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <div>
-              {filteredCountries.map((country: any) => (
+              {filteredCountries.map((country) => (
                 <div
                   key={country.country}
                   onClick={() => handleSelectCountry(country)}
@@ -88,9 +104,50 @@ const LocationStep = () => {
         )}
       </div>
 
+      {/* City Selection */}
+      {selectedCountry && (
+        <div className="relative mb-6">
+          <div
+            onClick={() => setCityOpen(!cityOpen)}
+            className="w-full border border-gray-300 rounded-lg p-3 cursor-pointer text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {selectedCity ? selectedCity : 'Select a city'}
+          </div>
+
+          {cityOpen && (
+            <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+              <input
+                type="text"
+                value={citySearch}
+                onChange={handleCitySearch}
+                placeholder="Search for a city..."
+                className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <div>
+                {filteredCities.map((city) => (
+                  <div
+                    key={city}
+                    onClick={() => handleSelectCity(city)}
+                    className="cursor-pointer p-3 hover:bg-gray-100 rounded-b-lg"
+                  >
+                    {city}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {selectedCountry && (
         <div className="mt-4 text-gray-600">
           You selected: <strong>{selectedCountry.country}</strong>
+          {selectedCity && (
+            <>
+              {' '}
+              and <strong>{selectedCity}</strong>
+            </>
+          )}
         </div>
       )}
     </div>
