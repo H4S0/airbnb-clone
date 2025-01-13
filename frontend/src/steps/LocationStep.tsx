@@ -71,85 +71,82 @@ const LocationStep = () => {
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">
         Select Your Country and City
       </h2>
-
-      <div className="relative mb-6">
-        <div
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full border border-gray-300 rounded-lg p-3 cursor-pointer text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {selectedCountry ? selectedCountry.country : 'Select a country'}
-        </div>
-
-        {isOpen && (
-          <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={handleSearch}
-              placeholder="Search for a country..."
-              className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <div>
-              {filteredCountries.map((country) => (
-                <div
-                  key={country.country}
-                  onClick={() => handleSelectCountry(country)}
-                  className="cursor-pointer p-3 hover:bg-gray-100 rounded-b-lg"
-                >
-                  {country.country}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* City Selection */}
-      {selectedCountry && (
+      <form>
         <div className="relative mb-6">
           <div
-            onClick={() => setCityOpen(!cityOpen)}
+            onClick={() => setIsOpen(!isOpen)}
             className="w-full border border-gray-300 rounded-lg p-3 cursor-pointer text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            {selectedCity ? selectedCity : 'Select a city'}
+            {selectedCountry ? selectedCountry.country : 'Select a country'}
           </div>
 
-          {cityOpen && (
+          {isOpen && (
             <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
               <input
                 type="text"
-                value={citySearch}
-                onChange={handleCitySearch}
-                placeholder="Search for a city..."
+                value={searchTerm}
+                onChange={handleSearch}
+                placeholder="Search for a country..."
                 className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <div>
-                {filteredCities.map((city) => (
+                {filteredCountries.map((country) => (
                   <div
-                    key={city}
-                    onClick={() => handleSelectCity(city)}
+                    key={country.country}
+                    onClick={() => handleSelectCountry(country)}
                     className="cursor-pointer p-3 hover:bg-gray-100 rounded-b-lg"
                   >
-                    {city}
+                    {country.country}
                   </div>
                 ))}
               </div>
             </div>
           )}
         </div>
-      )}
 
-      {selectedCountry && (
-        <div className="mt-4 text-gray-600">
-          You selected: <strong>{selectedCountry.country}</strong>
-          {selectedCity && (
-            <>
-              {' '}
-              and <strong>{selectedCity}</strong>
-            </>
-          )}
-        </div>
-      )}
+        {/* City Selection */}
+        {selectedCountry && (
+          <div className="relative mb-6">
+            <div
+              onClick={() => setCityOpen(!cityOpen)}
+              className="w-full border border-gray-300 rounded-lg p-3 cursor-pointer text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {selectedCity ? selectedCity : 'Select a city'}
+            </div>
+
+            {cityOpen && (
+              <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                <input
+                  type="text"
+                  value={citySearch}
+                  onChange={handleCitySearch}
+                  placeholder="Search for a city..."
+                  className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <div>
+                  {filteredCities.map((city) => (
+                    <div
+                      key={city}
+                      onClick={() => handleSelectCity(city)}
+                      className="cursor-pointer p-3 hover:bg-gray-100 rounded-b-lg"
+                    >
+                      {city}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedCountry && selectedCity ? (
+          <div>
+            <h2>forma za adesu</h2>
+          </div>
+        ) : (
+          <h2>nema forme</h2>
+        )}
+      </form>
     </div>
   );
 };
