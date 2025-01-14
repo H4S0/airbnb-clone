@@ -11,13 +11,11 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useListingStore } from '@/store/store';
 import { Button } from '@/components/ui/button';
-
+import { motion } from 'framer-motion';
+import slika from '../assets/Screenshot 2025-01-14 095848.png';
 const LocationStep = () => {
   const { mutate } = useListing();
   const { listingData, updateLocation } = useListingStore();
-  {
-    /* naci neku sliku i staviti desno ili ss ili google */
-  }
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,7 +25,6 @@ const LocationStep = () => {
   const [citySearch, setCitySearch] = useState('');
   const [filteredCities, setFilteredCities] = useState([]);
 
-  // Fetch countries
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -43,7 +40,6 @@ const LocationStep = () => {
     fetchCountries();
   }, []);
 
-  // Search for a country
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchTerm(query);
@@ -53,17 +49,15 @@ const LocationStep = () => {
     setFilteredCountries(filtered);
   };
 
-  // Select a country
   const handleSelectCountry = (country) => {
     updateLocation('country', country.country);
     setSearchTerm(country.country);
     setFilteredCities(country.cities);
     setIsOpen(false);
     setCitySearch('');
-    updateLocation('city', ''); // Reset city
+    updateLocation('city', '');
   };
 
-  // Search for a city
   const handleCitySearch = (e) => {
     const query = e.target.value;
     setCitySearch(query);
@@ -75,7 +69,6 @@ const LocationStep = () => {
     setFilteredCities(filtered);
   };
 
-  // Select a city
   const handleSelectCity = (city) => {
     updateLocation('city', city);
     setCitySearch(city);
@@ -112,19 +105,17 @@ const LocationStep = () => {
   console.log(listingData);
 
   return (
-    <div className="p-8 max-w-lg mx-auto">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-        Select Your Country and City
-      </h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Country Selection */}
-        <div className="relative mb-6">
-          <div
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-10 mt-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-1/3">
+        <div className="relative mb-3">
+          <Label>Country</Label>
+          <Input
             onClick={() => setIsOpen(!isOpen)}
-            className="w-full border border-gray-300 rounded-lg p-3 cursor-pointer text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {listingData.listingLocation.country || 'Select a country'}
-          </div>
+            placeholder={
+              listingData.listingLocation.country || 'Select a country'
+            }
+          />
+
           {isOpen && (
             <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
               <input
@@ -149,15 +140,14 @@ const LocationStep = () => {
           )}
         </div>
 
-        {/* City Selection */}
         {listingData.listingLocation.country && (
-          <div className="relative mb-6">
-            <div
+          <div className="relative mb-3">
+            <Label>City</Label>
+            <Input
               onClick={() => setCityOpen(!cityOpen)}
-              className="w-full border border-gray-300 rounded-lg p-3 cursor-pointer text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {listingData.listingLocation.city || 'Select a city'}
-            </div>
+              placeholder={listingData.listingLocation.city || 'Select a city'}
+            />
+
             {cityOpen && (
               <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                 <input
@@ -183,11 +173,10 @@ const LocationStep = () => {
           </div>
         )}
 
-        {/* Address and Postal Number */}
         {listingData.listingLocation.country &&
           listingData.listingLocation.city && (
             <>
-              <div>
+              <div className="mb-3">
                 <Label>Address</Label>
                 <Input
                   {...register('address')}
@@ -196,7 +185,7 @@ const LocationStep = () => {
                   placeholder="Enter your address"
                 />
               </div>
-              <div>
+              <div className="mb-3">
                 <Label>Postal Number</Label>
                 <Input
                   {...register('postalNumber')}
@@ -216,10 +205,17 @@ const LocationStep = () => {
             </>
           )}
 
-        <Button variant="destructive" type="submit">
+        <Button variant="destructive" type="submit" className="w-full">
           Submit
         </Button>
       </form>
+      <motion.div
+        initial={{ x: '100%', opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <img src={slika} alt="Your Image Description" />
+      </motion.div>
     </div>
   );
 };
