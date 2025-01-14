@@ -13,6 +13,7 @@ import { useListingStore } from '@/store/store';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import slika from '../assets/Screenshot 2025-01-14 095848.png';
+//maketi mutate to staviti samo na kraj
 
 const LocationStep = () => {
   const { mutate } = useListing();
@@ -84,24 +85,15 @@ const LocationStep = () => {
   });
 
   const onSubmit: SubmitHandler<ListingSchemaType> = (data) => {
-    mutate(
-      {
-        ...data,
-        listingLocation: listingData.listingLocation,
-        listingDetails: undefined,
-      },
-      {
-        onSuccess: () => {
-          console.log('Location successfully submitted');
-          console.log(data);
-        },
-        onError: (error) => {
-          console.error('Failed to submit location', error);
-        },
+    const validKeys = ['address', 'postalNumber', 'country', 'city'];
+    Object.entries(data).forEach(([key, value]) => {
+      if (validKeys.includes(key)) {
+        updateLocation(key, value);
       }
-    );
+    });
   };
 
+  console.log(listingData);
   return (
     <>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-10 mt-10">
