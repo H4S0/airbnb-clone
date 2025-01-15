@@ -16,7 +16,6 @@ import slika from '../assets/Screenshot 2025-01-14 095848.png';
 //maketi mutate to staviti samo na kraj
 
 const LocationStep = () => {
-  const { mutate } = useListing();
   const { listingData, updateLocation } = useListingStore();
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -93,7 +92,6 @@ const LocationStep = () => {
     });
   };
 
-  console.log(listingData);
   return (
     <>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-10 mt-10">
@@ -208,18 +206,15 @@ const LocationStep = () => {
           <img src={slika} alt="Your Image Description" />
         </motion.div>
       </div>
-      {/* napraviti footer componentu za button za sledeci step */}
-      <div className="mt-10 flex flex-col items-center">
-        <p className="text-gray-700 mb-4">
-          After providing your location, you can proceed to the next step.
-        </p>
-        <Button
-          onClick={() => console.log('Proceed to next step')}
-          variant="primary"
-          className="w-full sm:w-auto"
-        >
-          Proceed to Next Step
-        </Button>
+
+      <div className=" border-gray-400 border-[1px] w-full mt-7"></div>
+
+      <div className="flex flex-row mt-6 items-center justify-between w-full">
+        <h2 className="font-semibold text-xl w-96">
+          When you select category, go to next page to select location of your
+          listing
+        </h2>
+        <Button variant="destructive">Next</Button>
       </div>
     </>
   );
