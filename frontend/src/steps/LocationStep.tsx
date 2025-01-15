@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
@@ -6,24 +6,23 @@ import {
   ListingSchemaType,
 } from '../../../backend/src/shared/libs/zodSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useListing } from '@/hooks/useListing';
+
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useListingStore } from '@/store/store';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import slika from '../assets/Screenshot 2025-01-14 095848.png';
-//maketi mutate to staviti samo na kraj
+import Footer from '@/components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const LocationStep = () => {
+  const navigate = useNavigate();
   const { listingData, updateLocation } = useListingStore();
   const [countries, setCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
-  const [cityOpen, setCityOpen] = useState(false);
   const [citySearch, setCitySearch] = useState('');
-  const [filteredCities, setFilteredCities] = useState([]);
+  const [dropdowns, setDropdowns] = useState({ country: false, city: false });
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -31,8 +30,7 @@ const LocationStep = () => {
         const response = await axios.get(
           'https://countriesnow.space/api/v0.1/countries'
         );
-        setCountries(response.data.data);
-        setFilteredCountries(response.data.data);
+        setCountries(response.data.data || []);
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
@@ -40,40 +38,61 @@ const LocationStep = () => {
     fetchCountries();
   }, []);
 
-  const handleSearch = (e) => {
-    const query = e.target.value;
-    setSearchTerm(query);
-    const filtered = countries.filter((country) =>
-      country.country.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredCountries(filtered);
-  };
+  const filteredCountries = useMemo(
+    () =>
+      countries.filter((country) =>
+        country.country.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    [countries, searchTerm]
+  );
 
-  const handleSelectCountry = (country) => {
-    updateLocation('country', country.country);
-    setSearchTerm(country.country);
-    setFilteredCities(country.cities);
-    setIsOpen(false);
-    setCitySearch('');
-    updateLocation('city', '');
-  };
+  const filteredCities = useMemo(
+    () =>
+      listingData.listingLocation.country
+        ? countries
+            .find(
+              (country) =>
+                country.country === listingData.listingLocation.country
+            )
+            ?.cities.filter((city) =>
+              city.toLowerCase().includes(citySearch.toLowerCase())
+            ) || []
+        : [],
+    [countries, listingData.listingLocation.country, citySearch]
+  );
 
-  const handleCitySearch = (e) => {
-    const query = e.target.value;
-    setCitySearch(query);
-    const filtered = listingData.listingLocation.country
-      ? filteredCities.filter((city) =>
-          city.toLowerCase().includes(query.toLowerCase())
-        )
-      : [];
-    setFilteredCities(filtered);
-  };
+  const handleSearch = useCallback((e) => setSearchTerm(e.target.value), []);
+  const handleCitySearch = useCallback(
+    (e) => setCitySearch(e.target.value),
+    []
+  );
 
-  const handleSelectCity = (city) => {
-    updateLocation('city', city);
-    setCitySearch(city);
-    setCityOpen(false);
-  };
+  const handleSelectCountry = useCallback(
+    (country) => {
+      updateLocation('country', country.country);
+      setSearchTerm(country.country);
+      updateLocation('city', '');
+      setDropdowns((prev) => ({ ...prev, country: false }));
+    },
+    [updateLocation]
+  );
+
+  const handleSelectCity = useCallback(
+    (city) => {
+      updateLocation('city', city);
+      setCitySearch(city);
+      setDropdowns((prev) => ({ ...prev, city: false }));
+    },
+    [updateLocation]
+  );
+
+  const allFieldsSet = useMemo(
+    () =>
+      ['country', 'city', 'address', 'postalNumber'].every(
+        (key) => listingData.listingLocation[key]
+      ),
+    [listingData.listingLocation]
+  );
 
   const {
     register,
@@ -84,13 +103,14 @@ const LocationStep = () => {
   });
 
   const onSubmit: SubmitHandler<ListingSchemaType> = (data) => {
-    const validKeys = ['address', 'postalNumber', 'country', 'city'];
     Object.entries(data).forEach(([key, value]) => {
-      if (validKeys.includes(key)) {
-        updateLocation(key, value);
-      }
+      updateLocation(key, value);
     });
   };
+
+  const handleNext = useCallback(() => {
+    if (allFieldsSet) navigate('/details');
+  }, [allFieldsSet, navigate]);
 
   return (
     <>
@@ -99,31 +119,26 @@ const LocationStep = () => {
           <div className="relative mb-3">
             <Label>Country</Label>
             <Input
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() =>
+                setDropdowns((prev) => ({ ...prev, country: !prev.country }))
+              }
               placeholder={
                 listingData.listingLocation.country || 'Select a country'
               }
+              value={searchTerm}
+              onChange={handleSearch}
             />
-            {isOpen && (
-              <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={handleSearch}
-                  placeholder="Search for a country..."
-                  className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <div>
-                  {filteredCountries.map((country) => (
-                    <div
-                      key={country.country}
-                      onClick={() => handleSelectCountry(country)}
-                      className="cursor-pointer p-3 hover:bg-gray-100 rounded-b-lg"
-                    >
-                      {country.country}
-                    </div>
-                  ))}
-                </div>
+            {dropdowns.country && (
+              <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {filteredCountries.map((country) => (
+                  <div
+                    key={country.country}
+                    onClick={() => handleSelectCountry(country)}
+                    className="cursor-pointer p-3 hover:bg-gray-100"
+                  >
+                    {country.country}
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -132,31 +147,26 @@ const LocationStep = () => {
             <div className="relative mb-3">
               <Label>City</Label>
               <Input
-                onClick={() => setCityOpen(!cityOpen)}
+                onClick={() =>
+                  setDropdowns((prev) => ({ ...prev, city: !prev.city }))
+                }
                 placeholder={
                   listingData.listingLocation.city || 'Select a city'
                 }
+                value={citySearch}
+                onChange={handleCitySearch}
               />
-              {cityOpen && (
-                <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                  <input
-                    type="text"
-                    value={citySearch}
-                    onChange={handleCitySearch}
-                    placeholder="Search for a city..."
-                    className="w-full border-b border-gray-300 p-3 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <div>
-                    {filteredCities.map((city) => (
-                      <div
-                        key={city}
-                        onClick={() => handleSelectCity(city)}
-                        className="cursor-pointer p-3 hover:bg-gray-100 rounded-b-lg"
-                      >
-                        {city}
-                      </div>
-                    ))}
-                  </div>
+              {dropdowns.city && (
+                <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                  {filteredCities.map((city) => (
+                    <div
+                      key={city}
+                      onClick={() => handleSelectCity(city)}
+                      className="cursor-pointer p-3 hover:bg-gray-100"
+                    >
+                      {city}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
@@ -169,7 +179,7 @@ const LocationStep = () => {
                   <Label>Address</Label>
                   <Input
                     {...register('address')}
-                    value={listingData.listingLocation.address}
+                    value={listingData.listingLocation.address || ''}
                     onChange={(e) => updateLocation('address', e.target.value)}
                     placeholder="Enter your address"
                   />
@@ -179,7 +189,7 @@ const LocationStep = () => {
                   <Input
                     {...register('postalNumber')}
                     type="text"
-                    value={listingData.listingLocation.postalNumber}
+                    value={listingData.listingLocation.postalNumber || ''}
                     onChange={(e) =>
                       updateLocation('postalNumber', e.target.value)
                     }
@@ -207,15 +217,7 @@ const LocationStep = () => {
         </motion.div>
       </div>
 
-      <div className=" border-gray-400 border-[1px] w-full mt-7"></div>
-
-      <div className="flex flex-row mt-6 items-center justify-between w-full">
-        <h2 className="font-semibold text-xl w-96">
-          When you select category, go to next page to select location of your
-          listing
-        </h2>
-        <Button variant="destructive">Next</Button>
-      </div>
+      <Footer handleNext={handleNext} disabled={!allFieldsSet} />
     </>
   );
 };

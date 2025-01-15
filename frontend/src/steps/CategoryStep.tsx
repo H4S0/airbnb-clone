@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/ui/button';
+
 import { categoryData } from '@/data/categoryData.tsx';
 import CategoryCard from '@/components/CategoryCard';
 import { useState } from 'react';
@@ -31,11 +31,13 @@ const CategoryStep = () => {
 
       <div className="grid grid-cols-2 gap-6 mb-8 sm:grid-cols-3">
         {categoryData.map((item) => (
-          <CategoryCard
-            data={item}
-            selected={isSelected === item.name}
-            onSelect={() => handleCategorySet(item.name)}
-          />
+          <div key={item.name}>
+            <CategoryCard
+              data={item}
+              selected={isSelected === item.name}
+              onSelect={() => handleCategorySet(item.name)}
+            />
+          </div>
         ))}
       </div>
       <Footer handleNext={handleNext} disabled={!isSelected} />
