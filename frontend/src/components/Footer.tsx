@@ -1,4 +1,5 @@
 import { Button } from './ui/button';
+import { Separator } from './ui/separator';
 
 interface FooterProps {
   handleNext: () => void;
@@ -8,7 +9,7 @@ interface FooterProps {
 const Footer = ({ handleNext, disabled }: FooterProps) => {
   return (
     <>
-      <div className=" border-gray-400 border-[1px] w-full mt-7"></div>
+      <Separator />
 
       <div className="flex flex-row mt-6 items-center justify-between w-full">
         <h2 className="font-semibold text-xl w-96">

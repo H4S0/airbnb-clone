@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from './components/ui/button';
+import { Separator } from './components/ui/separator';
+import { Checkbox } from './components/ui/checkbox';
 
 const Apartments = () => {
   const navigate = useNavigate();
@@ -41,7 +43,7 @@ const Apartments = () => {
         </div>
       </div>
 
-      <div className="border-t"></div>
+      <Separator />
 
       <div className="flex items-center justify-between p-6">
         <p className="text-gray-700 text-3xl font-semibold">

@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const DetailsStep = () => {
   const {
@@ -20,6 +21,34 @@ const DetailsStep = () => {
     resolver: zodResolver(registerSchema),
   });
   const [bedrooms, setBedrooms] = useState(0);
+  {
+    /* dodati za ostale sobe stateove */
+  }
+  const [isSelected, setIsSelected] = useState<string[]>([]);
+
+  const handleSelect = (index: string) => {
+    setIsSelected((prev) =>
+      prev.includes(index)
+        ? prev.filter((item) => item !== index)
+        : [...prev, index]
+    );
+  };
+
+  const amenities = [
+    'Wi-Fi',
+    'TV',
+    'Kitchen',
+    'Wash machine',
+    'Free parking',
+    'Air conditioner',
+    'Pool',
+    'Garden',
+    'Gym',
+    'Beach access',
+    'Fire alarm',
+    'First aid',
+    'CO2 alarm',
+  ];
 
   const handleIncrease = () => {
     setBedrooms(bedrooms + 1);
@@ -58,7 +87,7 @@ const DetailsStep = () => {
           <h2 className="py-5 text-2xl">Rooms information:</h2>
           <Separator />
           <div className="flex flex-row items-center justify-between p-8">
-            <h2>Bedroom</h2>
+            <h2 className="text-2xl">Bedroom</h2>
             <div className="flex items-center gap-4">
               <Button type="button" onClick={handleIncrease}>
                 +
@@ -71,7 +100,7 @@ const DetailsStep = () => {
           </div>
           <Separator />
           <div className="flex flex-row items-center justify-between p-8">
-            <h2>WC</h2>
+            <h2 className="text-2xl">WC</h2>
             <div className="flex items-center gap-4">
               <Button type="button" onClick={handleIncrease}>
                 +
@@ -84,7 +113,7 @@ const DetailsStep = () => {
           </div>
           <Separator />
           <div className="flex flex-row items-center justify-between p-8">
-            <h2>Living room</h2>
+            <h2 className="text-2xl">Living room</h2>
             <div className="flex items-center gap-4">
               <Button type="button" onClick={handleIncrease}>
                 +
@@ -97,7 +126,7 @@ const DetailsStep = () => {
           </div>
           <Separator />
           <div className="flex flex-row items-center justify-between p-8">
-            <h2>Beds</h2>
+            <h2 className="text-2xl">Beds</h2>
             <div className="flex items-center gap-4">
               <Button type="button" onClick={handleIncrease}>
                 +
@@ -110,9 +139,25 @@ const DetailsStep = () => {
           </div>
         </form>
       </div>
-      <div>additional stuff</div>
+      <div className="grid grid-cols-2 gap-4">
+        {amenities.map((amenity) => (
+          <div
+            key={amenity}
+            onClick={() => handleSelect(amenity)}
+            className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer ${
+              isSelected.includes(amenity)
+                ? 'bg-blue-500 text-white border-blue-500'
+                : 'bg-gray-200 text-black border-gray-300'
+            }`}
+          >
+            {amenity}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
+
+const checkboxStyle = 'flex flex-row items-center';
 
 export default DetailsStep;
