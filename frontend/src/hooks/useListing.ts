@@ -2,8 +2,12 @@ import api from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 
 export interface listingDetails {
-  rooms: number;
+  name: string;
   description: string;
+  rooms: number;
+  bedRoom: number;
+  wc: number;
+  livingRoom: number;
 }
 
 export interface listingLocation {

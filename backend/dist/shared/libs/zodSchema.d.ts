@@ -40,6 +40,10 @@ export declare const listingSchema: z.ZodObject<{
     postalNumber: z.ZodString;
     rooms: z.ZodNumber;
     description: z.ZodString;
+    name: z.ZodString;
+    bedRoom: z.ZodNumber;
+    wc: z.ZodNumber;
+    livingRoom: z.ZodNumber;
     price: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
     category?: string;
@@ -49,6 +53,10 @@ export declare const listingSchema: z.ZodObject<{
     postalNumber?: string;
     rooms?: number;
     description?: string;
+    name?: string;
+    bedRoom?: number;
+    wc?: number;
+    livingRoom?: number;
     price?: number;
 }, {
     category?: string;
@@ -58,6 +66,10 @@ export declare const listingSchema: z.ZodObject<{
     postalNumber?: string;
     rooms?: number;
     description?: string;
+    name?: string;
+    bedRoom?: number;
+    wc?: number;
+    livingRoom?: number;
     price?: number;
 }>;
 export type ListingSchemaType = z.infer<typeof listingSchema>;

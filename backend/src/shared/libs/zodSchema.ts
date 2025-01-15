@@ -28,6 +28,10 @@ export const listingSchema = z.object({
   postalNumber: z.string(),
   rooms: z.number().int().positive('Rooms must be a positive integer'),
   description: z.string().min(1, 'Description is required'),
+  name: z.string().min(3, 'Name is required'),
+  bedRoom: z.number(),
+  wc: z.number(),
+  livingRoom: z.number(),
   price: z.number().positive('Price must be a positive number'),
 });
 
