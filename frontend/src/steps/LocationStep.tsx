@@ -6,7 +6,6 @@ import {
   ListingSchemaType,
 } from '../../../backend/src/shared/libs/zodSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useListingStore } from '@/store/store';
@@ -114,9 +113,12 @@ const LocationStep = () => {
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-10 mt-10">
-        <form onSubmit={handleSubmit(onSubmit)} className="w-1/3">
-          <div className="relative mb-3">
+      <div className="flex flex-col sm:flex-row items-start justify-between gap-40 p-4 sm:p-10 mt-16">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full sm:w-1/2 bg-white p-4 rounded-lg shadow-md"
+        >
+          <div className="relative mb-4">
             <Label>Country</Label>
             <Input
               onClick={() =>
@@ -127,14 +129,15 @@ const LocationStep = () => {
               }
               value={searchTerm}
               onChange={handleSearch}
+              className="w-full"
             />
             {dropdowns.country && (
-              <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+              <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg max-h-40 overflow-y-auto">
                 {filteredCountries.map((country) => (
                   <div
                     key={country.country}
                     onClick={() => handleSelectCountry(country)}
-                    className="cursor-pointer p-3 hover:bg-gray-100"
+                    className="cursor-pointer px-4 py-2 hover:bg-gray-100"
                   >
                     {country.country}
                   </div>
@@ -144,7 +147,7 @@ const LocationStep = () => {
           </div>
 
           {listingData.listingLocation.country && (
-            <div className="relative mb-3">
+            <div className="relative mb-4">
               <Label>City</Label>
               <Input
                 onClick={() =>
@@ -155,14 +158,15 @@ const LocationStep = () => {
                 }
                 value={citySearch}
                 onChange={handleCitySearch}
+                className="w-full"
               />
               {dropdowns.city && (
-                <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg max-h-40 overflow-y-auto">
                   {filteredCities.map((city) => (
                     <div
                       key={city}
                       onClick={() => handleSelectCity(city)}
-                      className="cursor-pointer p-3 hover:bg-gray-100"
+                      className="cursor-pointer px-4 py-2 hover:bg-gray-100"
                     >
                       {city}
                     </div>
@@ -175,16 +179,17 @@ const LocationStep = () => {
           {listingData.listingLocation.country &&
             listingData.listingLocation.city && (
               <>
-                <div className="mb-3">
+                <div className="mb-4">
                   <Label>Address</Label>
                   <Input
                     {...register('address')}
                     value={listingData.listingLocation.address || ''}
                     onChange={(e) => updateLocation('address', e.target.value)}
                     placeholder="Enter your address"
+                    className="w-full"
                   />
                 </div>
-                <div className="mb-3">
+                <div className="mb-4">
                   <Label>Postal Number</Label>
                   <Input
                     {...register('postalNumber')}
@@ -194,6 +199,7 @@ const LocationStep = () => {
                       updateLocation('postalNumber', e.target.value)
                     }
                     placeholder="Enter your postal number"
+                    className="w-full"
                   />
                   {errors.postalNumber && (
                     <p className="text-red-500 text-sm">
@@ -208,12 +214,18 @@ const LocationStep = () => {
             Submit
           </Button>
         </form>
+
         <motion.div
           initial={{ x: '100%', opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}
+          className="w-full sm:w-1/2 flex justify-center"
         >
-          <img src={slika} alt="Your Image Description" />
+          <img
+            src={slika}
+            alt="Your Image Description"
+            className="max-w-full h-auto rounded-lg"
+          />
         </motion.div>
       </div>
 
