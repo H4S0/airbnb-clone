@@ -3,7 +3,6 @@ import {
   listingDetails,
   listingLocation,
 } from '@/hooks/useListing';
-import { boolean } from 'zod';
 import { create } from 'zustand';
 
 interface ListingStore {
@@ -12,10 +11,7 @@ interface ListingStore {
     key: keyof listingData,
     value: string | number | listingDetails | listingLocation
   ) => void;
-  updateDetails: (
-    key: keyof listingDetails,
-    value: string | number | boolean
-  ) => void;
+  updateDetails: (key: keyof listingDetails, value: string | number) => void;
   updateLocation: (key: keyof listingLocation, value: string | number) => void;
 }
 
@@ -31,22 +27,11 @@ export const useListingStore = create<ListingStore>((set) => ({
     listingDetails: {
       name: '',
       description: '',
-      rooms: 0,
+      beds: 0,
       bedRoom: 0,
       livingRoom: 0,
       wc: 0,
-      wifi: false,
-      washMachine: false,
-      airConditioner: false,
-      tv: false,
-      kitchen: false,
-      freeParking: false,
-      garden: false,
-      gym: false,
-      beachAccess: false,
-      fireAlarm: false,
-      firstAid: false,
-      pool: false,
+      amenities: [],
     },
     price: 0,
   },
@@ -67,6 +52,22 @@ export const useListingStore = create<ListingStore>((set) => ({
         },
       },
     })),
+  updateAmenities: (amenity) =>
+    set((state) => {
+      const currentAmenities = state.listingData.listingDetails.amenities;
+      const updatedAmenities = currentAmenities.includes(amenity)
+        ? currentAmenities.filter((a) => a !== amenity) // Remove if already selected
+        : [...currentAmenities, amenity]; // Add if not selected
+      return {
+        listingData: {
+          ...state.listingData,
+          listingDetails: {
+            ...state.listingData.listingDetails,
+            amenities: updatedAmenities,
+          },
+        },
+      };
+    }),
   updateLocation: (key, value) =>
     set((state) => ({
       listingData: {

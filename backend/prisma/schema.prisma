@@ -17,15 +17,22 @@ model User {
 }
 
 model Listing {
-  id          String   @id @default(cuid())
-  category    String
-  location    String
-  rooms       Int
-  description String
-  price       Float
-  createdAt   DateTime
-  updatedAt   DateTime @updatedAt
-  userId      Int
+  id           String   @id @default(cuid())
+  category     String
+  country      String
+  city         String
+  address      String
+  postalNumber Int
+  beds         Int
+  bedRoom      Int
+  livingRoom   Int
+  wc           Int
+  Amenities    String[]
+  description  String
+  price        Float
+  createdAt    DateTime
+  updatedAt    DateTime @updatedAt
+  userId       Int
 
   user User @relation(fields: [userId], references: [id])
 }

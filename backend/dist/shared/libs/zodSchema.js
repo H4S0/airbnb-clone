@@ -22,24 +22,15 @@ exports.listingSchema = zod_1.z.object({
     city: zod_1.z.string().min(1, 'City is required'),
     address: zod_1.z.string().min(2, 'Address is required'),
     postalNumber: zod_1.z.string(),
-    rooms: zod_1.z.number().int().positive('Rooms must be a positive integer'),
+    beds: zod_1.z.number().int().positive('Rooms must be a positive integer'),
     description: zod_1.z.string().min(1, 'Description is required'),
     name: zod_1.z.string().min(3, 'Name is required'),
     bedRoom: zod_1.z.number(),
     wc: zod_1.z.number(),
     livingRoom: zod_1.z.number(),
-    wifi: zod_1.z.boolean(),
-    kitchen: zod_1.z.boolean(),
-    tv: zod_1.z.boolean(),
-    freeParking: zod_1.z.boolean(),
-    airConditioner: zod_1.z.boolean(),
-    garden: zod_1.z.boolean(),
-    pool: zod_1.z.boolean(),
-    washMachine: zod_1.z.boolean(),
-    gym: zod_1.z.boolean(),
-    beachAccess: zod_1.z.boolean(),
-    fireAlarm: zod_1.z.boolean(),
-    firstAid: zod_1.z.boolean(),
+    selectedAmenities: zod_1.z
+        .array(zod_1.z.string())
+        .nonempty('At least one amenity must be selected'),
     price: zod_1.z.number().positive('Price must be a positive number'),
 });
 //# sourceMappingURL=zodSchema.js.map
