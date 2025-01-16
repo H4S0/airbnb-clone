@@ -100,9 +100,7 @@ const DetailsStep = () => {
 
   const allFieldSet = useMemo(
     () =>
-      ['name', 'description', 'beds', 'bedRoom', 'livingRoom', 'wc'].every(
-        (key) => listingData.listingDetails[key]
-      ),
+      ['name', 'description'].every((key) => listingData.listingDetails[key]),
     [listingData.listingDetails]
   );
 
@@ -145,17 +143,11 @@ const DetailsStep = () => {
             <div className="flex flex-row items-center justify-between p-8">
               <h2 className="text-2xl">Bedroom</h2>
               <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  onClick={() => handleIncrease('bedrooms')}
-                >
+                <Button type="button" onClick={() => handleIncrease('bedRoom')}>
                   +
                 </Button>
                 <p>{bedrooms}</p>
-                <Button
-                  type="button"
-                  onClick={() => handleDecrease('bedrooms')}
-                >
+                <Button type="button" onClick={() => handleDecrease('bedRoom')}>
                   -
                 </Button>
               </div>
@@ -181,7 +173,7 @@ const DetailsStep = () => {
             </div>
             <Separator />
             <div className="flex flex-row items-center justify-between p-8">
-              <h2 className="text-2xl">Bedroom</h2>
+              <h2 className="text-2xl">Licing room</h2>
               <div className="flex items-center gap-4">
                 <Button
                   type="button"

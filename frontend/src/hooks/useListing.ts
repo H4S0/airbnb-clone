@@ -19,6 +19,7 @@ export interface listingLocation {
 }
 
 export interface listingData {
+  images: any;
   category: string;
   listingLocation: listingLocation;
   listingDetails: listingDetails;

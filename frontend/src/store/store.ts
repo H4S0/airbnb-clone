@@ -9,10 +9,11 @@ interface ListingStore {
   listingData: listingData;
   updateListing: (
     key: keyof listingData,
-    value: string | number | listingDetails | listingLocation
+    value: string | number | listingDetails | listingLocation | []
   ) => void;
   updateDetails: (key: keyof listingDetails, value: string | number) => void;
   updateLocation: (key: keyof listingLocation, value: string | number) => void;
+  uploadImages: (files: File[]) => void;
 }
 
 export const useListingStore = create<ListingStore>((set) => ({
@@ -34,6 +35,7 @@ export const useListingStore = create<ListingStore>((set) => ({
       amenities: [],
     },
     price: 0,
+    images: [],
   },
   updateListing: (key, value) =>
     set((state) => ({
@@ -76,6 +78,13 @@ export const useListingStore = create<ListingStore>((set) => ({
           ...state.listingData.listingLocation,
           [key]: value,
         },
+      },
+    })),
+  uploadImages: (files) =>
+    set((state) => ({
+      listingData: {
+        ...state.listingData,
+        images: [...state.listingData.images, ...files],
       },
     })),
 }));

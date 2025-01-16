@@ -30,6 +30,7 @@ model Listing {
   Amenities    String[]
   description  String
   price        Float
+  listingImage Bytes[]
   createdAt    DateTime
   updatedAt    DateTime @updatedAt
   userId       Int
