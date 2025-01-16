@@ -56,8 +56,8 @@ export const useListingStore = create<ListingStore>((set) => ({
     set((state) => {
       const currentAmenities = state.listingData.listingDetails.amenities;
       const updatedAmenities = currentAmenities.includes(amenity)
-        ? currentAmenities.filter((a) => a !== amenity) // Remove if already selected
-        : [...currentAmenities, amenity]; // Add if not selected
+        ? currentAmenities.filter((a) => a !== amenity)
+        : [...currentAmenities, amenity];
       return {
         listingData: {
           ...state.listingData,

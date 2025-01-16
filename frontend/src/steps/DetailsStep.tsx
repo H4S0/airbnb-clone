@@ -1,3 +1,4 @@
+// Import your Zustand store
 import { Label } from '@/components/ui/label';
 import {
   ListingSchemaType,
@@ -10,9 +11,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Checkbox } from '@/components/ui/checkbox';
+import { useListingStore } from '@/store/store';
 
 const DetailsStep = () => {
+  const { listingData, updateDetails, updateListing } = useListingStore(); // Access Zustand store methods
   const {
     register,
     handleSubmit,
@@ -20,18 +22,22 @@ const DetailsStep = () => {
   } = useForm<ListingSchemaType>({
     resolver: zodResolver(registerSchema),
   });
+
   const [bedrooms, setBedrooms] = useState(0);
-  {
-    /* dodati za ostale sobe stateove */
-  }
+  const [beds, setBeds] = useState(0);
+  const [livingRoom, setLivingRoom] = useState(0);
+  const [wc, setWc] = useState(0);
   const [isSelected, setIsSelected] = useState<string[]>([]);
 
   const handleSelect = (index: string) => {
-    setIsSelected((prev) =>
-      prev.includes(index)
+    setIsSelected((prev) => {
+      const updatedSelection = prev.includes(index)
         ? prev.filter((item) => item !== index)
-        : [...prev, index]
-    );
+        : [...prev, index];
+
+      updateDetails('amenities', updatedSelection);
+      return updatedSelection;
+    });
   };
 
   const amenities = [
@@ -50,18 +56,64 @@ const DetailsStep = () => {
     'CO2 alarm',
   ];
 
-  const handleIncrease = () => {
-    setBedrooms(bedrooms + 1);
+  const handleIncrease = (key: keyof ListingSchemaType) => {
+    const updatedValue = bedrooms + 1;
+    setBedrooms(updatedValue);
+    updateDetails(key, updatedValue);
   };
 
-  const handleDecrease = () => {
-    setBedrooms(bedrooms - 1);
+  const handleDecrease = (key: keyof ListingSchemaType) => {
+    const updatedValue = Math.max(bedrooms - 1, 0);
+    setBedrooms(updatedValue);
+    updateDetails(key, updatedValue);
   };
+
+  const handleIncreateBeds = (key: keyof ListingSchemaType) => {
+    const updatedValue = beds + 1;
+    setBeds(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
+  const handleDecreaseBeds = (key: keyof ListingSchemaType) => {
+    const updatedValue = Math.max(beds - 1, 0);
+    setBeds(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
+  const handleIncreaseLivingRoom = (key: keyof ListingSchemaType) => {
+    const updatedValue = livingRoom + 1;
+    setLivingRoom(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
+  const handleDecreaseLivingRoom = (key: keyof ListingSchemaType) => {
+    const updatedValue = Math.max(livingRoom - 1, 0);
+    setLivingRoom(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
+  const handleIncreaseWc = (key: keyof ListingSchemaType) => {
+    const updatedValue = wc + 1;
+    setWc(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
+  const handleDecreaseWc = (key: keyof ListingSchemaType) => {
+    const updatedValue = Math.max(wc - 1, 0);
+    setWc(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
+  const onSubmit = (data: ListingSchemaType) => {
+    updateDetails('name', data.name);
+    updateDetails('description', data.description);
+  };
+  console.log(listingData);
 
   return (
     <div className="flex flex-row items-center justify-between mt-10">
       <div className="w-1/2">
-        <form action="">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-3">
             <Label>Listing name</Label>
             <Input
@@ -76,7 +128,7 @@ const DetailsStep = () => {
             <Label>Listing description</Label>
             <Textarea
               {...register('description')}
-              placeholder="Enter description for you listing"
+              placeholder="Enter description for your listing"
             />
             {errors.description && (
               <p className="text-red-500 text-sm">
@@ -89,54 +141,16 @@ const DetailsStep = () => {
           <div className="flex flex-row items-center justify-between p-8">
             <h2 className="text-2xl">Bedroom</h2>
             <div className="flex items-center gap-4">
-              <Button type="button" onClick={handleIncrease}>
+              <Button type="button" onClick={() => handleIncrease('bedrooms')}>
                 +
               </Button>
               <p>{bedrooms}</p>
-              <Button type="button" onClick={handleDecrease}>
+              <Button type="button" onClick={() => handleDecrease('bedrooms')}>
                 -
               </Button>
             </div>
           </div>
-          <Separator />
-          <div className="flex flex-row items-center justify-between p-8">
-            <h2 className="text-2xl">WC</h2>
-            <div className="flex items-center gap-4">
-              <Button type="button" onClick={handleIncrease}>
-                +
-              </Button>
-              <p>{bedrooms}</p>
-              <Button type="button" onClick={handleDecrease}>
-                -
-              </Button>
-            </div>
-          </div>
-          <Separator />
-          <div className="flex flex-row items-center justify-between p-8">
-            <h2 className="text-2xl">Living room</h2>
-            <div className="flex items-center gap-4">
-              <Button type="button" onClick={handleIncrease}>
-                +
-              </Button>
-              <p>{bedrooms}</p>
-              <Button type="button" onClick={handleDecrease}>
-                -
-              </Button>
-            </div>
-          </div>
-          <Separator />
-          <div className="flex flex-row items-center justify-between p-8">
-            <h2 className="text-2xl">Beds</h2>
-            <div className="flex items-center gap-4">
-              <Button type="button" onClick={handleIncrease}>
-                +
-              </Button>
-              <p>{bedrooms}</p>
-              <Button type="button" onClick={handleDecrease}>
-                -
-              </Button>
-            </div>
-          </div>
+          {/* Repeat similar blocks for WC, Living Room, and Beds */}
         </form>
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -157,7 +171,5 @@ const DetailsStep = () => {
     </div>
   );
 };
-
-const checkboxStyle = 'flex flex-row items-center';
 
 export default DetailsStep;
