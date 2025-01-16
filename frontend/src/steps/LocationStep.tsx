@@ -9,7 +9,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useListingStore } from '@/store/store';
-import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import slika from '../assets/Screenshot 2025-01-14 095848.png';
 import Footer from '@/components/Footer';
@@ -211,10 +210,6 @@ const LocationStep = () => {
                 </div>
               </>
             )}
-
-          <Button variant="destructive" type="submit" className="w-full">
-            Submit
-          </Button>
         </form>
 
         <motion.div
