@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useListingStore } from '@/store/store';
+import { detailsData } from '@/data/detailsData';
 
 const DetailsStep = () => {
   const { listingData, updateDetails, updateListing } = useListingStore(); // Access Zustand store methods
@@ -39,22 +40,6 @@ const DetailsStep = () => {
       return updatedSelection;
     });
   };
-
-  const amenities = [
-    'Wi-Fi',
-    'TV',
-    'Kitchen',
-    'Wash machine',
-    'Free parking',
-    'Air conditioner',
-    'Pool',
-    'Garden',
-    'Gym',
-    'Beach access',
-    'Fire alarm',
-    'First aid',
-    'CO2 alarm',
-  ];
 
   const handleIncrease = (key: keyof ListingSchemaType) => {
     const updatedValue = bedrooms + 1;
@@ -201,18 +186,19 @@ const DetailsStep = () => {
       <div className="flex flex-col items-start gap-5">
         <h2 className="text-2xl">Additional infromation</h2>
         <Separator />
-        <div className="grid grid-cols-3 gap-4">
-          {amenities.map((amenity) => (
+        <div className="grid grid-cols-3 gap-5">
+          {detailsData.map((amenity) => (
             <div
-              key={amenity}
-              onClick={() => handleSelect(amenity)}
-              className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer ${
-                isSelected.includes(amenity)
-                  ? 'bg-blue-500 text-white border-blue-500'
+              key={amenity.name}
+              onClick={() => handleSelect(amenity.name)}
+              className={`flex flex-col gap-3 items-start justify-start p-4 border rounded-lg cursor-pointer ${
+                isSelected.includes(amenity.name)
+                  ? 'bg-red-500 text-white border-red-500'
                   : 'bg-gray-200 text-black border-gray-300'
               }`}
             >
-              {amenity}
+              <p className="text-2xl">{amenity.icon}</p>
+              <p>{amenity.name}</p>
             </div>
           ))}
         </div>
