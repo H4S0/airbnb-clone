@@ -68,7 +68,7 @@ const DetailsStep = () => {
     updateDetails(key, updatedValue);
   };
 
-  const handleIncreateBeds = (key: keyof ListingSchemaType) => {
+  const handleIncreaseBeds = (key: keyof ListingSchemaType) => {
     const updatedValue = beds + 1;
     setBeds(updatedValue);
     updateDetails(key, updatedValue);
@@ -111,7 +111,7 @@ const DetailsStep = () => {
   console.log(listingData);
 
   return (
-    <div className="flex flex-row items-center justify-between mt-10">
+    <div className="flex flex-row items-start justify-between mt-10">
       <div className="w-1/2">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-3">
@@ -150,23 +150,72 @@ const DetailsStep = () => {
               </Button>
             </div>
           </div>
-          {/* Repeat similar blocks for WC, Living Room, and Beds */}
+          <Separator />
+          <div className="flex flex-row items-center justify-between p-8">
+            <h2 className="text-2xl">Beds</h2>
+            <div className="flex items-center gap-4">
+              <Button type="button" onClick={() => handleIncreaseBeds('beds')}>
+                +
+              </Button>
+              <p>{beds}</p>
+              <Button type="button" onClick={() => handleDecreaseBeds('beds')}>
+                -
+              </Button>
+            </div>
+          </div>
+          <Separator />
+          <div className="flex flex-row items-center justify-between p-8">
+            <h2 className="text-2xl">Bedroom</h2>
+            <div className="flex items-center gap-4">
+              <Button
+                type="button"
+                onClick={() => handleIncreaseLivingRoom('livingRoom')}
+              >
+                +
+              </Button>
+              <p>{livingRoom}</p>
+              <Button
+                type="button"
+                onClick={() => handleDecreaseLivingRoom('livingRoom')}
+              >
+                -
+              </Button>
+            </div>
+          </div>
+          <Separator />
+          <div className="flex flex-row items-center justify-between p-8">
+            <h2 className="text-2xl">Wc</h2>
+            <div className="flex items-center gap-4">
+              <Button type="button" onClick={() => handleIncreaseWc('wc')}>
+                +
+              </Button>
+              <p>{wc}</p>
+              <Button type="button" onClick={() => handleDecreaseWc('wc')}>
+                -
+              </Button>
+            </div>
+          </div>
         </form>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        {amenities.map((amenity) => (
-          <div
-            key={amenity}
-            onClick={() => handleSelect(amenity)}
-            className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer ${
-              isSelected.includes(amenity)
-                ? 'bg-blue-500 text-white border-blue-500'
-                : 'bg-gray-200 text-black border-gray-300'
-            }`}
-          >
-            {amenity}
-          </div>
-        ))}
+
+      <div className="flex flex-col items-start gap-5">
+        <h2 className="text-2xl">Additional infromation</h2>
+        <Separator />
+        <div className="grid grid-cols-3 gap-4">
+          {amenities.map((amenity) => (
+            <div
+              key={amenity}
+              onClick={() => handleSelect(amenity)}
+              className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer ${
+                isSelected.includes(amenity)
+                  ? 'bg-blue-500 text-white border-blue-500'
+                  : 'bg-gray-200 text-black border-gray-300'
+              }`}
+            >
+              {amenity}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
