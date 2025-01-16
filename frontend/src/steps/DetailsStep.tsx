@@ -182,7 +182,6 @@ const DetailsStep = () => {
               </Button>
             </div>
           </div>
-          <button type="submit">submit</button>
         </form>
       </div>
 
