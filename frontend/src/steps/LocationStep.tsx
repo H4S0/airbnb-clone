@@ -107,6 +107,8 @@ const LocationStep = () => {
     });
   };
 
+  console.log(listingData);
+
   const handleNext = useCallback(() => {
     if (allFieldsSet) navigate('/details');
   }, [allFieldsSet, navigate]);

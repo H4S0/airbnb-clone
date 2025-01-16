@@ -104,6 +104,7 @@ const DetailsStep = () => {
             <Input
               {...register('name')}
               placeholder="Enter the name of your listing"
+              onChange={(e) => updateDetails('name', e.target.value)}
             />
             {errors.name && (
               <p className="text-red-500 text-sm">{errors.name.message}</p>
@@ -114,6 +115,7 @@ const DetailsStep = () => {
             <Textarea
               {...register('description')}
               placeholder="Enter description for your listing"
+              onChange={(e) => updateDetails('description', e.target.value)}
             />
             {errors.description && (
               <p className="text-red-500 text-sm">
@@ -180,6 +182,7 @@ const DetailsStep = () => {
               </Button>
             </div>
           </div>
+          <button type="submit">submit</button>
         </form>
       </div>
 
