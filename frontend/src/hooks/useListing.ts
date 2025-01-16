@@ -8,6 +8,18 @@ export interface listingDetails {
   bedRoom: number;
   wc: number;
   livingRoom: number;
+  wifi: boolean;
+  kitchen: boolean;
+  tv: boolean;
+  freeParking: boolean;
+  airConditioner: boolean;
+  garden: boolean;
+  pool: boolean;
+  washMachine: boolean;
+  gym: boolean;
+  beachAccess: boolean;
+  fireAlarm: boolean;
+  firstAid: boolean;
 }
 
 export interface listingLocation {

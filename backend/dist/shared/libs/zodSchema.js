@@ -28,6 +28,18 @@ exports.listingSchema = zod_1.z.object({
     bedRoom: zod_1.z.number(),
     wc: zod_1.z.number(),
     livingRoom: zod_1.z.number(),
+    wifi: zod_1.z.boolean(),
+    kitchen: zod_1.z.boolean(),
+    tv: zod_1.z.boolean(),
+    freeParking: zod_1.z.boolean(),
+    airConditioner: zod_1.z.boolean(),
+    garden: zod_1.z.boolean(),
+    pool: zod_1.z.boolean(),
+    washMachine: zod_1.z.boolean(),
+    gym: zod_1.z.boolean(),
+    beachAccess: zod_1.z.boolean(),
+    fireAlarm: zod_1.z.boolean(),
+    firstAid: zod_1.z.boolean(),
     price: zod_1.z.number().positive('Price must be a positive number'),
 });
 //# sourceMappingURL=zodSchema.js.map

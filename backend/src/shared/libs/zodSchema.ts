@@ -32,6 +32,18 @@ export const listingSchema = z.object({
   bedRoom: z.number(),
   wc: z.number(),
   livingRoom: z.number(),
+  wifi: z.boolean(),
+  kitchen: z.boolean(),
+  tv: z.boolean(),
+  freeParking: z.boolean(),
+  airConditioner: z.boolean(),
+  garden: z.boolean(),
+  pool: z.boolean(),
+  washMachine: z.boolean(),
+  gym: z.boolean(),
+  beachAccess: z.boolean(),
+  fireAlarm: z.boolean(),
+  firstAid: z.boolean(),
   price: z.number().positive('Price must be a positive number'),
 });
 

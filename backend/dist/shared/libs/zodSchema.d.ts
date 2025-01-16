@@ -44,6 +44,18 @@ export declare const listingSchema: z.ZodObject<{
     bedRoom: z.ZodNumber;
     wc: z.ZodNumber;
     livingRoom: z.ZodNumber;
+    wifi: z.ZodBoolean;
+    kitchen: z.ZodBoolean;
+    tv: z.ZodBoolean;
+    freeParking: z.ZodBoolean;
+    airConditioner: z.ZodBoolean;
+    garden: z.ZodBoolean;
+    pool: z.ZodBoolean;
+    washMachine: z.ZodBoolean;
+    gym: z.ZodBoolean;
+    beachAccess: z.ZodBoolean;
+    fireAlarm: z.ZodBoolean;
+    firstAid: z.ZodBoolean;
     price: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
     category?: string;
@@ -57,6 +69,18 @@ export declare const listingSchema: z.ZodObject<{
     bedRoom?: number;
     wc?: number;
     livingRoom?: number;
+    wifi?: boolean;
+    kitchen?: boolean;
+    tv?: boolean;
+    freeParking?: boolean;
+    airConditioner?: boolean;
+    garden?: boolean;
+    pool?: boolean;
+    washMachine?: boolean;
+    gym?: boolean;
+    beachAccess?: boolean;
+    fireAlarm?: boolean;
+    firstAid?: boolean;
     price?: number;
 }, {
     category?: string;
@@ -70,6 +94,18 @@ export declare const listingSchema: z.ZodObject<{
     bedRoom?: number;
     wc?: number;
     livingRoom?: number;
+    wifi?: boolean;
+    kitchen?: boolean;
+    tv?: boolean;
+    freeParking?: boolean;
+    airConditioner?: boolean;
+    garden?: boolean;
+    pool?: boolean;
+    washMachine?: boolean;
+    gym?: boolean;
+    beachAccess?: boolean;
+    fireAlarm?: boolean;
+    firstAid?: boolean;
     price?: number;
 }>;
 export type ListingSchemaType = z.infer<typeof listingSchema>;
