@@ -1,0 +1,45 @@
+import { z } from 'zod';
+export declare const listingSchema: z.ZodObject<{
+    category: z.ZodString;
+    country: z.ZodString;
+    city: z.ZodString;
+    address: z.ZodString;
+    postalNumber: z.ZodString;
+    beds: z.ZodNumber;
+    description: z.ZodString;
+    name: z.ZodString;
+    bedRoom: z.ZodNumber;
+    wc: z.ZodNumber;
+    livingRoom: z.ZodNumber;
+    selectedAmenities: z.ZodArray<z.ZodString, "atleastone">;
+    price: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    category?: string;
+    country?: string;
+    city?: string;
+    address?: string;
+    postalNumber?: string;
+    beds?: number;
+    description?: string;
+    name?: string;
+    bedRoom?: number;
+    wc?: number;
+    livingRoom?: number;
+    selectedAmenities?: [string, ...string[]];
+    price?: number;
+}, {
+    category?: string;
+    country?: string;
+    city?: string;
+    address?: string;
+    postalNumber?: string;
+    beds?: number;
+    description?: string;
+    name?: string;
+    bedRoom?: number;
+    wc?: number;
+    livingRoom?: number;
+    selectedAmenities?: [string, ...string[]];
+    price?: number;
+}>;
+export type ListingSchemaType = z.infer<typeof listingSchema>;

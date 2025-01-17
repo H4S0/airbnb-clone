@@ -1,2 +1,78 @@
+import { PrismaService } from 'src/prismaService/prisma.service';
+import { CreateListingDto } from './dto/create-listing.dto';
 export declare class ListingService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    createListing(data: CreateListingDto): Promise<{
+        id: string;
+        category: string;
+        country: string;
+        city: string;
+        address: string;
+        postalNumber: number;
+        beds: number;
+        bedRoom: number;
+        livingRoom: number;
+        wc: number;
+        Amenities: string[];
+        description: string;
+        price: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
+    }>;
+    getAllListings(): Promise<{
+        id: string;
+        category: string;
+        country: string;
+        city: string;
+        address: string;
+        postalNumber: number;
+        beds: number;
+        bedRoom: number;
+        livingRoom: number;
+        wc: number;
+        Amenities: string[];
+        description: string;
+        price: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
+    }[]>;
+    updateListing(id: string, data: CreateListingDto): Promise<{
+        id: string;
+        category: string;
+        country: string;
+        city: string;
+        address: string;
+        postalNumber: number;
+        beds: number;
+        bedRoom: number;
+        livingRoom: number;
+        wc: number;
+        Amenities: string[];
+        description: string;
+        price: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
+    }>;
+    deleteListing(id: string): Promise<{
+        id: string;
+        category: string;
+        country: string;
+        city: string;
+        address: string;
+        postalNumber: number;
+        beds: number;
+        bedRoom: number;
+        livingRoom: number;
+        wc: number;
+        Amenities: string[];
+        description: string;
+        price: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
+    }>;
 }
