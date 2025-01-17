@@ -1,9 +1,9 @@
 import { PrismaService } from 'src/prismaService/prisma.service';
-import { CreateListingDto } from './dto/create-listing.dto';
+import { ListingSchemaType } from 'src/shared/libs/zodSchema';
 export declare class ListingService {
     private prisma;
     constructor(prisma: PrismaService);
-    createListing(data: CreateListingDto): Promise<{
+    createListing(data: ListingSchemaType): Promise<{
         id: string;
         category: string;
         country: string;
@@ -14,6 +14,7 @@ export declare class ListingService {
         bedRoom: number;
         livingRoom: number;
         wc: number;
+        listingName: string;
         Amenities: string[];
         description: string;
         price: number;
@@ -32,6 +33,7 @@ export declare class ListingService {
         bedRoom: number;
         livingRoom: number;
         wc: number;
+        listingName: string;
         Amenities: string[];
         description: string;
         price: number;
@@ -39,7 +41,7 @@ export declare class ListingService {
         updatedAt: Date;
         userId: number;
     }[]>;
-    updateListing(id: string, data: CreateListingDto): Promise<{
+    updateListing(id: string, data: ListingSchemaType): Promise<{
         id: string;
         category: string;
         country: string;
@@ -50,6 +52,7 @@ export declare class ListingService {
         bedRoom: number;
         livingRoom: number;
         wc: number;
+        listingName: string;
         Amenities: string[];
         description: string;
         price: number;
@@ -68,6 +71,7 @@ export declare class ListingService {
         bedRoom: number;
         livingRoom: number;
         wc: number;
+        listingName: string;
         Amenities: string[];
         description: string;
         price: number;

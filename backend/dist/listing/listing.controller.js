@@ -15,33 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListingController = void 0;
 const common_1 = require("@nestjs/common");
 const listing_service_1 = require("./listing.service");
-const platform_express_1 = require("@nestjs/platform-express");
 let ListingController = class ListingController {
     constructor(listingService) {
         this.listingService = listingService;
     }
-    async createListing(createListingDto, images) {
-        try {
-            const imagesBuffers = images.map((file) => file.buffer);
-            const newListing = await this.listingService.createListing({
-                ...createListingDto,
-                listingImage: imagesBuffers,
-            });
-            return newListing;
-        }
-        catch (error) {
-            throw new common_1.HttpException(error.message, common_1.HttpStatus.BAD_REQUEST);
-        }
+    async createListing(createListingDto) {
+        const newListing = await this.listingService.createListing(createListingDto);
+        return newListing;
     }
 };
 exports.ListingController = ListingController;
 __decorate([
-    (0, common_1.Post)(),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('images', 4)),
-    __param(0, common_1.Body),
-    __param(1, (0, common_1.UploadedFiles)()),
+    (0, common_1.Post)('create'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Array]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ListingController.prototype, "createListing", null);
 exports.ListingController = ListingController = __decorate([

@@ -21,7 +21,7 @@ exports.listingSchema = zod_1.z.object({
     country: zod_1.z.string().min(1, 'Country is required'),
     city: zod_1.z.string().min(1, 'City is required'),
     address: zod_1.z.string().min(2, 'Address is required'),
-    postalNumber: zod_1.z.string(),
+    postalNumber: zod_1.z.number(),
     beds: zod_1.z.number().int().positive('Rooms must be a positive integer'),
     description: zod_1.z.string().min(1, 'Description is required'),
     name: zod_1.z.string().min(3, 'Name is required'),
@@ -32,5 +32,6 @@ exports.listingSchema = zod_1.z.object({
         .array(zod_1.z.string())
         .nonempty('At least one amenity must be selected'),
     price: zod_1.z.number().positive('Price must be a positive number'),
+    userId: zod_1.z.coerce.number().min(1, 'Must provide companiesId'),
 });
 //# sourceMappingURL=zodSchema.js.map

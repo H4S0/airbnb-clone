@@ -18,7 +18,26 @@ let ListingService = class ListingService {
     }
     async createListing(data) {
         return this.prisma.listing.create({
-            data,
+            data: {
+                category: data.category,
+                country: data.country,
+                city: data.city,
+                address: data.address,
+                postalNumber: data.postalNumber,
+                beds: data.beds,
+                bedRoom: data.bedRoom,
+                livingRoom: data.livingRoom,
+                wc: data.wc,
+                listingName: data.name,
+                Amenities: data.selectedAmenities,
+                description: data.description,
+                price: data.price,
+                user: {
+                    connect: {
+                        id: data.userId,
+                    },
+                },
+            },
         });
     }
     async getAllListings() {
