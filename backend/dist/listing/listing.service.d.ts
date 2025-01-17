@@ -4,7 +4,7 @@ export declare class ListingService {
     private prisma;
     constructor(prisma: PrismaService);
     createListing(data: ListingSchemaType): Promise<{
-        id: string;
+        id: number;
         category: string;
         country: string;
         city: string;
@@ -23,7 +23,7 @@ export declare class ListingService {
         userId: number;
     }>;
     getAllListings(): Promise<{
-        id: string;
+        id: number;
         category: string;
         country: string;
         city: string;
@@ -41,8 +41,8 @@ export declare class ListingService {
         updatedAt: Date;
         userId: number;
     }[]>;
-    updateListing(id: string, data: ListingSchemaType): Promise<{
-        id: string;
+    updateListing(id: number, data: ListingSchemaType): Promise<{
+        id: number;
         category: string;
         country: string;
         city: string;
@@ -60,8 +60,8 @@ export declare class ListingService {
         updatedAt: Date;
         userId: number;
     }>;
-    deleteListing(id: string): Promise<{
-        id: string;
+    deleteListing(id: number): Promise<{
+        id: number;
         category: string;
         country: string;
         city: string;

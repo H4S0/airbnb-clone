@@ -18,7 +18,7 @@ export class ListingService {
         bedRoom: data.bedRoom,
         livingRoom: data.livingRoom,
         wc: data.wc,
-        listingName: data.name,
+        listingName: data.listingName,
         Amenities: data.selectedAmenities,
         description: data.description,
         price: data.price,
@@ -35,14 +35,14 @@ export class ListingService {
     return this.prisma.listing.findMany();
   }
 
-  async updateListing(id: string, data: ListingSchemaType) {
+  async updateListing(id: number, data: ListingSchemaType) {
     return this.prisma.listing.update({
       where: { id },
       data,
     });
   }
 
-  async deleteListing(id: string) {
+  async deleteListing(id: number) {
     return this.prisma.listing.delete({
       where: { id },
     });

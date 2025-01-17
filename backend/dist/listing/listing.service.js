@@ -28,7 +28,7 @@ let ListingService = class ListingService {
                 bedRoom: data.bedRoom,
                 livingRoom: data.livingRoom,
                 wc: data.wc,
-                listingName: data.name,
+                listingName: data.listingName,
                 Amenities: data.selectedAmenities,
                 description: data.description,
                 price: data.price,

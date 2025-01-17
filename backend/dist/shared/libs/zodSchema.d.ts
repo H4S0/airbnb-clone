@@ -40,7 +40,7 @@ export declare const listingSchema: z.ZodObject<{
     postalNumber: z.ZodNumber;
     beds: z.ZodNumber;
     description: z.ZodString;
-    name: z.ZodString;
+    listingName: z.ZodString;
     bedRoom: z.ZodNumber;
     wc: z.ZodNumber;
     livingRoom: z.ZodNumber;
@@ -55,7 +55,7 @@ export declare const listingSchema: z.ZodObject<{
     postalNumber?: number;
     beds?: number;
     description?: string;
-    name?: string;
+    listingName?: string;
     bedRoom?: number;
     wc?: number;
     livingRoom?: number;
@@ -70,7 +70,7 @@ export declare const listingSchema: z.ZodObject<{
     postalNumber?: number;
     beds?: number;
     description?: string;
-    name?: string;
+    listingName?: string;
     bedRoom?: number;
     wc?: number;
     livingRoom?: number;

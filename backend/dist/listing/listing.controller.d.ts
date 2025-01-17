@@ -4,7 +4,7 @@ export declare class ListingController {
     private readonly listingService;
     constructor(listingService: ListingService);
     createListing(createListingDto: ListingSchemaType): Promise<{
-        id: string;
+        id: number;
         category: string;
         country: string;
         city: string;
