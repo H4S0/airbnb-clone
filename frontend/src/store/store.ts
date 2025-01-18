@@ -34,7 +34,7 @@ export const useListingStore = create<ListingStore>((set) => ({
       wc: 0,
       amenities: [],
     },
-    price: 0,
+    price: 50,
     images: [],
   },
   updateListing: (key, value) =>

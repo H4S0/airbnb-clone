@@ -23,7 +23,7 @@ export interface listingData {
   category: string;
   listingLocation: listingLocation;
   listingDetails: listingDetails;
-  price: number;
+  price: any;
 }
 
 {
