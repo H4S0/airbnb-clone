@@ -1,14 +1,5 @@
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-  UploadedFiles,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ListingService } from './listing.service';
-import { FilesInterceptor } from '@nestjs/platform-express';
 import { ListingSchemaType } from 'src/shared/libs/zodSchema';
 
 @Controller('listing')
@@ -20,5 +11,11 @@ export class ListingController {
     const newListing =
       await this.listingService.createListing(createListingDto);
     return newListing;
+  }
+
+  @Get('getAllListings')
+  async getAllListings() {
+    const allListings = this.listingService.getAllListings();
+    return allListings;
   }
 }

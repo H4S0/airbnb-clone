@@ -17,7 +17,7 @@ import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router';
 
 const DetailsStep = () => {
-  const { listingData, updateDetails, updateListing } = useListingStore(); // Access Zustand store methods
+  const { listingData, updateDetails } = useListingStore(); // Access Zustand store methods
   const {
     register,
     handleSubmit,
