@@ -8,7 +8,6 @@ import CategoryStep from './steps/CategoryStep';
 import LocationStep from './steps/LocationStep';
 import DetailsStep from './steps/DetailsStep';
 import PriceStep from './steps/PriceStep';
-import PictureUpload from './steps/PictureStep';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -31,7 +30,7 @@ function App() {
         <Route path="category" element={<CategoryStep />} />
         <Route path="location" element={<LocationStep />} />
         <Route path="details" element={<DetailsStep />} />
-        <Route path="picture" element={<PictureUpload />} />
+
         <Route path="price" element={<PriceStep />} />
       </Routes>
     </div>

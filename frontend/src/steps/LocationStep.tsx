@@ -109,7 +109,7 @@ const LocationStep = () => {
   console.log(listingData);
 
   const handleNext = useCallback(() => {
-    if (allFieldsSet) navigate('/picture');
+    if (allFieldsSet) navigate('/price');
   }, [allFieldsSet, navigate]);
 
   return (
