@@ -35,6 +35,29 @@ export class ListingService {
     return this.prisma.listing.findMany();
   }
 
+  async getListingByID(id: number) {
+    return this.prisma.listing.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        listingName: true,
+        description: true,
+        country: true,
+        city: true,
+        address: true,
+        postalNumber: true,
+        wc: true,
+        livingRoom: true,
+        bedRoom: true,
+        beds: true,
+        Amenities: true,
+        category: true,
+        price: true,
+      },
+    });
+  }
+
   async updateListing(id: number, data: ListingSchemaType) {
     return this.prisma.listing.update({
       where: { id },

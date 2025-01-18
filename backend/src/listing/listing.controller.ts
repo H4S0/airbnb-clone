@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { ListingService } from './listing.service';
 import { ListingSchemaType } from 'src/shared/libs/zodSchema';
 
@@ -17,5 +24,10 @@ export class ListingController {
   async getAllListings() {
     const allListings = this.listingService.getAllListings();
     return allListings;
+  }
+
+  @Get(':id')
+  async getListingByID(@Param('id', ParseIntPipe) id: number) {
+    return this.listingService.getListingByID(id);
   }
 }

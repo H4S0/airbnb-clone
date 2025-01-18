@@ -43,6 +43,28 @@ let ListingService = class ListingService {
     async getAllListings() {
         return this.prisma.listing.findMany();
     }
+    async getListingByID(id) {
+        return this.prisma.listing.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                listingName: true,
+                description: true,
+                country: true,
+                city: true,
+                address: true,
+                postalNumber: true,
+                wc: true,
+                livingRoom: true,
+                bedRoom: true,
+                beds: true,
+                Amenities: true,
+                category: true,
+                price: true,
+            },
+        });
+    }
     async updateListing(id, data) {
         return this.prisma.listing.update({
             where: { id },

@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { Buffer } from 'buffer';
 
 export const registerSchema = z
   .object({

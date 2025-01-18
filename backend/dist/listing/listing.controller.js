@@ -23,6 +23,13 @@ let ListingController = class ListingController {
         const newListing = await this.listingService.createListing(createListingDto);
         return newListing;
     }
+    async getAllListings() {
+        const allListings = this.listingService.getAllListings();
+        return allListings;
+    }
+    async getListingByID(id) {
+        return this.listingService.getListingByID(id);
+    }
 };
 exports.ListingController = ListingController;
 __decorate([
@@ -32,6 +39,19 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ListingController.prototype, "createListing", null);
+__decorate([
+    (0, common_1.Get)('getAllListings'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ListingController.prototype, "getAllListings", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ListingController.prototype, "getListingByID", null);
 exports.ListingController = ListingController = __decorate([
     (0, common_1.Controller)('listing'),
     __metadata("design:paramtypes", [listing_service_1.ListingService])
