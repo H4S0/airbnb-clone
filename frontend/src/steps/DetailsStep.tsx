@@ -117,12 +117,14 @@ const DetailsStep = () => {
             <div className="grid gap-3">
               <Label>Listing name</Label>
               <Input
-                {...register('name')}
+                {...register('listingName')}
                 placeholder="Enter the name of your listing"
                 onChange={(e) => updateDetails('name', e.target.value)}
               />
-              {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name.message}</p>
+              {errors.listingName && (
+                <p className="text-red-500 text-sm">
+                  {errors.listingName.message}
+                </p>
               )}
             </div>
             <div className="grid gap-3 mt-3">
