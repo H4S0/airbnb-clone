@@ -3,10 +3,12 @@ import { Slider } from '@/components/ui/slider';
 import { useListingStore } from '@/store/store';
 import { Button } from '@/components/ui/button';
 import { useListing } from '@/hooks/useListing';
+import { useNavigate } from 'react-router';
 
 const PriceStep = () => {
-  const { listingData, updateListing } = useListingStore();
+  const navigate = useNavigate();
   const { mutate } = useListing();
+  const { listingData, updateListing } = useListingStore();
   const [price, setPrice] = useState([listingData.price]);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const PriceStep = () => {
     console.log('Data sent to API:', listingData);
     mutate(listingData, {
       onSuccess: () => {
-        console.log('uspjesno');
+        navigate('/');
       },
       onError: () => {
         console.log('neuspjesno');

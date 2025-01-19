@@ -183,7 +183,7 @@ const LocationStep = () => {
                 <div className="mb-4">
                   <Label>Address</Label>
                   <Input
-                    {...register('address')}
+                    {...register('listingLocation.address')}
                     value={listingData.listingLocation.address || ''}
                     onChange={(e) => updateLocation('address', e.target.value)}
                     placeholder="Enter your address"
@@ -193,18 +193,21 @@ const LocationStep = () => {
                 <div className="mb-4">
                   <Label>Postal Number</Label>
                   <Input
-                    {...register('postalNumber')}
-                    type="text"
+                    {...register('listingLocation.postalNumber')}
+                    type="number"
                     value={listingData.listingLocation.postalNumber || ''}
                     onChange={(e) =>
-                      updateLocation('postalNumber', e.target.value)
+                      updateLocation(
+                        'postalNumber',
+                        parseInt(e.target.value, 10)
+                      )
                     }
                     placeholder="Enter your postal number"
                     className="w-full"
                   />
-                  {errors.postalNumber && (
+                  {errors.listingLocation?.postalNumber && (
                     <p className="text-red-500 text-sm">
-                      {errors.postalNumber.message}
+                      {errors.listingLocation.postalNumber.message}
                     </p>
                   )}
                 </div>
