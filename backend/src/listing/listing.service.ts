@@ -6,7 +6,7 @@ import { ListingSchemaType } from 'src/shared/libs/zodSchema';
 export class ListingService {
   constructor(private prisma: PrismaService) {}
 
-  async createListing(data: ListingSchemaType) {
+  async createListing(data: ListingSchemaType & { userId: number }) {
     const {
       category,
       price,

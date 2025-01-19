@@ -25,14 +25,15 @@ export interface listingData {
   price: any;
 }
 
-{
-  /* ovdje će se listingData zamjeniti sa onom iz zustanda */
-}
-
 export const useListing = () => {
+  const token = localStorage.getItem('accessToken');
   return useMutation<unknown, unknown, listingData>({
     mutationFn: async (data: listingData) => {
-      const response = await api.post('/listing/create', data);
+      const response = await api.post('/listing/create', data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     },
   });

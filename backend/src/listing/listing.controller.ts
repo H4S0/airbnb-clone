@@ -5,19 +5,31 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ListingService } from './listing.service';
 import { ListingSchemaType } from 'src/shared/libs/zodSchema';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/decorators/get-user.decorator';
+import { User } from '@prisma/client';
 
 @Controller('listing')
 export class ListingController {
   constructor(private readonly listingService: ListingService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('create')
-  async createListing(@Body() createListingDto: ListingSchemaType) {
-    console.log('Data received in backend:', createListingDto);
-    const newListing =
-      await this.listingService.createListing(createListingDto);
+  async createListing(
+    @Body() createListingDto: ListingSchemaType,
+    @GetUser() user: { userId: number; email: string }
+  ) {
+    const { userId } = user;
+
+    const newListing = await this.listingService.createListing({
+      ...createListingDto,
+      userId,
+    });
     return newListing;
   }
 

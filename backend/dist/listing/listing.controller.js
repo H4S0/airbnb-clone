@@ -15,13 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListingController = void 0;
 const common_1 = require("@nestjs/common");
 const listing_service_1 = require("./listing.service");
+const passport_1 = require("@nestjs/passport");
+const get_user_decorator_1 = require("../decorators/get-user.decorator");
 let ListingController = class ListingController {
     constructor(listingService) {
         this.listingService = listingService;
     }
-    async createListing(createListingDto) {
-        console.log('Data received in backend:', createListingDto);
-        const newListing = await this.listingService.createListing(createListingDto);
+    async createListing(createListingDto, user) {
+        const { userId } = user;
+        const newListing = await this.listingService.createListing({
+            ...createListingDto,
+            userId,
+        });
         return newListing;
     }
     async getAllListings() {
@@ -34,10 +39,12 @@ let ListingController = class ListingController {
 };
 exports.ListingController = ListingController;
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, get_user_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ListingController.prototype, "createListing", null);
 __decorate([

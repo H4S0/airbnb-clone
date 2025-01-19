@@ -3,57 +3,60 @@ import { ListingSchemaType } from 'src/shared/libs/zodSchema';
 export declare class ListingController {
     private readonly listingService;
     constructor(listingService: ListingService);
-    createListing(createListingDto: ListingSchemaType): Promise<{
+    createListing(createListingDto: ListingSchemaType, user: {
         userId: number;
+        email: string;
+    }): Promise<{
+        id: number;
         category: string;
-        price: number;
         country: string;
         city: string;
         address: string;
         postalNumber: number;
-        description: string;
         beds: number;
         bedRoom: number;
         livingRoom: number;
         wc: number;
-        id: number;
         listingName: string;
         Amenities: string[];
+        description: string;
+        price: number;
         createdAt: Date;
         updatedAt: Date;
+        userId: number;
     }>;
     getAllListings(): Promise<{
-        userId: number;
+        id: number;
         category: string;
-        price: number;
         country: string;
         city: string;
         address: string;
         postalNumber: number;
-        description: string;
         beds: number;
         bedRoom: number;
         livingRoom: number;
         wc: number;
-        id: number;
         listingName: string;
         Amenities: string[];
+        description: string;
+        price: number;
         createdAt: Date;
         updatedAt: Date;
+        userId: number;
     }[]>;
     getListingByID(id: number): Promise<{
         category: string;
-        price: number;
         country: string;
         city: string;
         address: string;
         postalNumber: number;
-        description: string;
         beds: number;
         bedRoom: number;
         livingRoom: number;
         wc: number;
         listingName: string;
         Amenities: string[];
+        description: string;
+        price: number;
     }>;
 }
