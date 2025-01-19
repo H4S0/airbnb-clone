@@ -18,8 +18,8 @@ export declare class ListingService {
         price: number;
         userId: number;
         id: number;
-        Amenities: string[];
         createdAt: Date;
+        Amenities: string[];
         updatedAt: Date;
     }>;
     getAllListings(): Promise<{
@@ -37,8 +37,8 @@ export declare class ListingService {
         price: number;
         userId: number;
         id: number;
-        Amenities: string[];
         createdAt: Date;
+        Amenities: string[];
         updatedAt: Date;
     }[]>;
     getListingByID(id: number): Promise<{
@@ -71,8 +71,8 @@ export declare class ListingService {
         price: number;
         userId: number;
         id: number;
-        Amenities: string[];
         createdAt: Date;
+        Amenities: string[];
         updatedAt: Date;
     }>;
     deleteListing(id: number): Promise<{
@@ -90,8 +90,8 @@ export declare class ListingService {
         price: number;
         userId: number;
         id: number;
-        Amenities: string[];
         createdAt: Date;
+        Amenities: string[];
         updatedAt: Date;
     }>;
 }

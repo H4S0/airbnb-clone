@@ -145,12 +145,12 @@ const DetailsStep = () => {
             <div className="flex flex-row items-center justify-between p-8">
               <h2 className="text-2xl">Bedroom</h2>
               <div className="flex items-center gap-4">
-                <Button type="button" onClick={() => handleIncrease('bedRoom')}>
-                  +
-                </Button>
-                <p>{bedrooms}</p>
                 <Button type="button" onClick={() => handleDecrease('bedRoom')}>
                   -
+                </Button>
+                <p>{bedrooms}</p>
+                <Button type="button" onClick={() => handleIncrease('bedRoom')}>
+                  +
                 </Button>
               </div>
             </div>
@@ -160,48 +160,48 @@ const DetailsStep = () => {
               <div className="flex items-center gap-4">
                 <Button
                   type="button"
-                  onClick={() => handleIncreaseBeds('beds')}
+                  onClick={() => handleDecreaseBeds('beds')}
                 >
-                  +
+                  -
                 </Button>
                 <p>{beds}</p>
                 <Button
                   type="button"
-                  onClick={() => handleDecreaseBeds('beds')}
+                  onClick={() => handleIncreaseBeds('beds')}
                 >
-                  -
+                  +
                 </Button>
               </div>
             </div>
             <Separator />
             <div className="flex flex-row items-center justify-between p-8">
-              <h2 className="text-2xl">Licing room</h2>
+              <h2 className="text-2xl">Living room</h2>
               <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  onClick={() => handleIncreaseLivingRoom('livingRoom')}
-                >
-                  +
-                </Button>
-                <p>{livingRoom}</p>
                 <Button
                   type="button"
                   onClick={() => handleDecreaseLivingRoom('livingRoom')}
                 >
                   -
                 </Button>
+                <p>{livingRoom}</p>
+                <Button
+                  type="button"
+                  onClick={() => handleIncreaseLivingRoom('livingRoom')}
+                >
+                  +
+                </Button>
               </div>
             </div>
             <Separator />
             <div className="flex flex-row items-center justify-between p-8">
-              <h2 className="text-2xl">Wc</h2>
+              <h2 className="text-2xl">WC</h2>
               <div className="flex items-center gap-4">
-                <Button type="button" onClick={() => handleIncreaseWc('wc')}>
-                  +
-                </Button>
-                <p>{wc}</p>
                 <Button type="button" onClick={() => handleDecreaseWc('wc')}>
                   -
+                </Button>
+                <p>{wc}</p>
+                <Button type="button" onClick={() => handleIncreaseWc('wc')}>
+                  +
                 </Button>
               </div>
             </div>
