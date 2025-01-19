@@ -38,7 +38,7 @@ export class ListingService {
         Amenities: amenities,
         user: {
           connect: {
-            id: data.userId, // Replace with actual user ID logic
+            id: data.userId,
           },
         },
       },

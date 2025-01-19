@@ -3,13 +3,14 @@ import { Slider } from '@/components/ui/slider';
 import { useListingStore } from '@/store/store';
 import { Button } from '@/components/ui/button';
 import { useListing } from '@/hooks/useListing';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const PriceStep = () => {
   const navigate = useNavigate();
   const { mutate } = useListing();
   const { listingData, updateListing } = useListingStore();
   const [price, setPrice] = useState([listingData.price]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     updateListing('price', price[0]);
@@ -28,6 +29,18 @@ const PriceStep = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (
+      !listingData.category ||
+      !listingData.listingLocation ||
+      !listingData.listingDetails
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [listingData]);
 
   return (
     <div className="flex flex-col items-center gap-10 py-8 min-h-screen mt-9">
@@ -64,13 +77,27 @@ const PriceStep = () => {
           Ensure all the details, including the price, are set correctly. Click
           the button below to finalize your listing.
         </p>
-        <Button
-          onClick={onSubmit}
-          variant="destructive"
-          className="w-full py-3 text-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition rounded-md"
-        >
-          Post Your Listing
-        </Button>
+        {error ? (
+          <div className="grid gap-2">
+            <p className="text-xl text-red-500">
+              {' '}
+              Please make sure to pass all steps, so we can post your listing !!
+            </p>
+            <Link to={'/apartments'}>
+              <Button type="button" variant="destructive">
+                Start again
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <Button
+            onClick={onSubmit}
+            variant="destructive"
+            className="w-full py-3 text-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition rounded-md"
+          >
+            Post Your Listing
+          </Button>
+        )}
       </div>
     </div>
   );
