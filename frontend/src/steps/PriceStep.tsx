@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { useListingStore } from '@/store/store';
 import { Button } from '@/components/ui/button';
+import { useListing } from '@/hooks/useListing';
 
 const PriceStep = () => {
   const { listingData, updateListing } = useListingStore();
+  const { mutate } = useListing();
   const [price, setPrice] = useState([listingData.price]);
 
   useEffect(() => {
@@ -12,6 +14,18 @@ const PriceStep = () => {
   }, [price, updateListing]);
 
   console.log(listingData);
+
+  const onSubmit = () => {
+    console.log('Data sent to API:', listingData);
+    mutate(listingData, {
+      onSuccess: () => {
+        console.log('uspjesno');
+      },
+      onError: () => {
+        console.log('neuspjesno');
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col items-center gap-10 py-8 min-h-screen mt-9">
@@ -49,6 +63,7 @@ const PriceStep = () => {
           the button below to finalize your listing.
         </p>
         <Button
+          onClick={onSubmit}
           variant="destructive"
           className="w-full py-3 text-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition rounded-md"
         >

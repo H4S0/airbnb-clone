@@ -20,6 +20,7 @@ let ListingController = class ListingController {
         this.listingService = listingService;
     }
     async createListing(createListingDto) {
+        console.log('Data received in backend:', createListingDto);
         const newListing = await this.listingService.createListing(createListingDto);
         return newListing;
     }

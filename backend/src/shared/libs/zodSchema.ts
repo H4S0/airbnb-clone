@@ -21,22 +21,24 @@ export const loginSchema = z.object({
 export type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export const listingSchema = z.object({
+  userId: z.coerce.number().min(1, 'Must provide userId'),
   category: z.string().min(1, 'Category is required'),
-  country: z.string().min(1, 'Country is required'),
-  city: z.string().min(1, 'City is required'),
-  address: z.string().min(2, 'Address is required'),
-  postalNumber: z.number(),
-  beds: z.number().int().positive('Rooms must be a positive integer'),
-  description: z.string().min(1, 'Description is required'),
-  listingName: z.string().min(3, 'Name is required'),
-  bedRoom: z.number(),
-  wc: z.number(),
-  livingRoom: z.number(),
-  selectedAmenities: z
-    .array(z.string())
-    .nonempty('At least one amenity must be selected'),
   price: z.number().positive('Price must be a positive number'),
-  userId: z.coerce.number().min(1, 'Must provide companiesId'),
+  listingLocation: z.object({
+    country: z.string().min(1, 'Country is required'),
+    city: z.string().min(1, 'City is required'),
+    address: z.string().min(1, 'Address is required'),
+    postalNumber: z.number(),
+  }),
+  listingDetails: z.object({
+    name: z.string().min(1, 'Name is required'),
+    description: z.string().min(1, 'Description is required'),
+    beds: z.number().int().positive(),
+    bedRoom: z.number().int().positive(),
+    livingRoom: z.number().int(),
+    wc: z.number().int(),
+    amenities: z.array(z.string()).nonempty(),
+  }),
 });
 
 export type ListingSchemaType = z.infer<typeof listingSchema>;

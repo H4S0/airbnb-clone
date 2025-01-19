@@ -15,11 +15,10 @@ export interface listingLocation {
   country: string;
   city: string;
   address: string;
-  postalNumber: string;
+  postalNumber: number;
 }
 
 export interface listingData {
-  images: any;
   category: string;
   listingLocation: listingLocation;
   listingDetails: listingDetails;

@@ -15,6 +15,7 @@ export class ListingController {
 
   @Post('create')
   async createListing(@Body() createListingDto: ListingSchemaType) {
+    console.log('Data received in backend:', createListingDto);
     const newListing =
       await this.listingService.createListing(createListingDto);
     return newListing;

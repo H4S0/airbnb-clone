@@ -33,49 +33,87 @@ export declare const loginSchema: z.ZodObject<{
 }>;
 export type LoginSchemaType = z.infer<typeof loginSchema>;
 export declare const listingSchema: z.ZodObject<{
-    category: z.ZodString;
-    country: z.ZodString;
-    city: z.ZodString;
-    address: z.ZodString;
-    postalNumber: z.ZodNumber;
-    beds: z.ZodNumber;
-    description: z.ZodString;
-    listingName: z.ZodString;
-    bedRoom: z.ZodNumber;
-    wc: z.ZodNumber;
-    livingRoom: z.ZodNumber;
-    selectedAmenities: z.ZodArray<z.ZodString, "atleastone">;
-    price: z.ZodNumber;
     userId: z.ZodNumber;
+    category: z.ZodString;
+    price: z.ZodNumber;
+    listingLocation: z.ZodObject<{
+        country: z.ZodString;
+        city: z.ZodString;
+        address: z.ZodString;
+        postalNumber: z.ZodNumber;
+    }, "strip", z.ZodTypeAny, {
+        country?: string;
+        city?: string;
+        address?: string;
+        postalNumber?: number;
+    }, {
+        country?: string;
+        city?: string;
+        address?: string;
+        postalNumber?: number;
+    }>;
+    listingDetails: z.ZodObject<{
+        name: z.ZodString;
+        description: z.ZodString;
+        beds: z.ZodNumber;
+        bedRoom: z.ZodNumber;
+        livingRoom: z.ZodNumber;
+        wc: z.ZodNumber;
+        amenities: z.ZodArray<z.ZodString, "atleastone">;
+    }, "strip", z.ZodTypeAny, {
+        name?: string;
+        description?: string;
+        beds?: number;
+        bedRoom?: number;
+        livingRoom?: number;
+        wc?: number;
+        amenities?: [string, ...string[]];
+    }, {
+        name?: string;
+        description?: string;
+        beds?: number;
+        bedRoom?: number;
+        livingRoom?: number;
+        wc?: number;
+        amenities?: [string, ...string[]];
+    }>;
 }, "strip", z.ZodTypeAny, {
-    category?: string;
-    country?: string;
-    city?: string;
-    address?: string;
-    postalNumber?: number;
-    beds?: number;
-    description?: string;
-    listingName?: string;
-    bedRoom?: number;
-    wc?: number;
-    livingRoom?: number;
-    selectedAmenities?: [string, ...string[]];
-    price?: number;
     userId?: number;
+    category?: string;
+    price?: number;
+    listingLocation?: {
+        country?: string;
+        city?: string;
+        address?: string;
+        postalNumber?: number;
+    };
+    listingDetails?: {
+        name?: string;
+        description?: string;
+        beds?: number;
+        bedRoom?: number;
+        livingRoom?: number;
+        wc?: number;
+        amenities?: [string, ...string[]];
+    };
 }, {
-    category?: string;
-    country?: string;
-    city?: string;
-    address?: string;
-    postalNumber?: number;
-    beds?: number;
-    description?: string;
-    listingName?: string;
-    bedRoom?: number;
-    wc?: number;
-    livingRoom?: number;
-    selectedAmenities?: [string, ...string[]];
-    price?: number;
     userId?: number;
+    category?: string;
+    price?: number;
+    listingLocation?: {
+        country?: string;
+        city?: string;
+        address?: string;
+        postalNumber?: number;
+    };
+    listingDetails?: {
+        name?: string;
+        description?: string;
+        beds?: number;
+        bedRoom?: number;
+        livingRoom?: number;
+        wc?: number;
+        amenities?: [string, ...string[]];
+    };
 }>;
 export type ListingSchemaType = z.infer<typeof listingSchema>;

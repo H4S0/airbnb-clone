@@ -13,7 +13,6 @@ interface ListingStore {
   ) => void;
   updateDetails: (key: keyof listingDetails, value: string | number) => void;
   updateLocation: (key: keyof listingLocation, value: string | number) => void;
-  uploadImages: (files: File[]) => void;
 }
 
 export const useListingStore = create<ListingStore>((set) => ({
@@ -23,7 +22,7 @@ export const useListingStore = create<ListingStore>((set) => ({
       country: '',
       city: '',
       address: '',
-      postalNumber: '',
+      postalNumber: 0,
     },
     listingDetails: {
       name: '',
@@ -35,7 +34,6 @@ export const useListingStore = create<ListingStore>((set) => ({
       amenities: [],
     },
     price: 50,
-    images: [],
   },
   updateListing: (key, value) =>
     set((state) => ({
@@ -78,13 +76,6 @@ export const useListingStore = create<ListingStore>((set) => ({
           ...state.listingData.listingLocation,
           [key]: value,
         },
-      },
-    })),
-  uploadImages: (files) =>
-    set((state) => ({
-      listingData: {
-        ...state.listingData,
-        images: [...state.listingData.images, ...files],
       },
     })),
 }));
