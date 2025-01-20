@@ -1,18 +1,17 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
   Post,
-  Req,
   UseGuards,
 } from '@nestjs/common';
 import { ListingService } from './listing.service';
 import { ListingSchemaType } from 'src/shared/libs/zodSchema';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/decorators/get-user.decorator';
-import { User } from '@prisma/client';
 
 @Controller('listing')
 export class ListingController {
@@ -42,5 +41,10 @@ export class ListingController {
   @Get(':id')
   async getListingByID(@Param('id', ParseIntPipe) id: number) {
     return this.listingService.getListingByID(id);
+  }
+
+  @Delete('deleteListing/:id')
+  async deleteListing(@Param('id', ParseIntPipe) id: number) {
+    return this.listingService.deleteListing(id);
   }
 }

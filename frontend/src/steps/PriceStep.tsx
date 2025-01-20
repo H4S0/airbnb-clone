@@ -70,16 +70,9 @@ const PriceStep = () => {
       </div>
 
       <div className="w-full max-w-lg text-center">
-        <h2 className="text-2xl font-medium text-gray-700 mb-4">
-          Ready to post your listing?
-        </h2>
-        <p className="text-md text-gray-500 mb-6">
-          Ensure all the details, including the price, are set correctly. Click
-          the button below to finalize your listing.
-        </p>
         {error ? (
           <div className="grid gap-2">
-            <p className="text-xl text-red-500">
+            <p className="text-xl text-red-500 font-semibold">
               {' '}
               Please make sure to pass all steps, so we can post your listing !!
             </p>
@@ -90,13 +83,22 @@ const PriceStep = () => {
             </Link>
           </div>
         ) : (
-          <Button
-            onClick={onSubmit}
-            variant="destructive"
-            className="w-full py-3 text-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition rounded-md"
-          >
-            Post Your Listing
-          </Button>
+          <>
+            <h2 className="text-2xl font-medium text-gray-700 mb-4">
+              Ready to post your listing?
+            </h2>
+            <p className="text-md text-gray-500 mb-6">
+              Ensure all the details, including the price, are set correctly.
+              Click the button below to finalize your listing.
+            </p>
+            <Button
+              onClick={onSubmit}
+              variant="destructive"
+              className="w-full py-3 text-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition rounded-md"
+            >
+              Post Your Listing
+            </Button>
+          </>
         )}
       </div>
     </div>

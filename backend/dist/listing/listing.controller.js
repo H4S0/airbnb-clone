@@ -36,6 +36,9 @@ let ListingController = class ListingController {
     async getListingByID(id) {
         return this.listingService.getListingByID(id);
     }
+    async deleteListing(id) {
+        return this.listingService.deleteListing(id);
+    }
 };
 exports.ListingController = ListingController;
 __decorate([
@@ -60,6 +63,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ListingController.prototype, "getListingByID", null);
+__decorate([
+    (0, common_1.Delete)('deleteListing/:id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ListingController.prototype, "deleteListing", null);
 exports.ListingController = ListingController = __decorate([
     (0, common_1.Controller)('listing'),
     __metadata("design:paramtypes", [listing_service_1.ListingService])

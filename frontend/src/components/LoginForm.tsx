@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from './ui/button';
@@ -11,6 +12,7 @@ import { useLogin } from '@/hooks/useLogin';
 
 const LoginForm = ({ onClose }) => {
   const { mutate, isPending } = useLogin();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const {
     register,
@@ -21,12 +23,17 @@ const LoginForm = ({ onClose }) => {
   });
 
   const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
+    setErrorMessage(''); // Reset the error message before submitting
     mutate(data, {
       onSuccess: () => {
         console.log('Login successful');
       },
-      onError: (error) => {
-        console.error('Login failed', error);
+      onError: () => {
+        setErrorMessage('Invalid credentials. Please try again.');
+
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 5000);
       },
     });
   };
@@ -56,9 +63,13 @@ const LoginForm = ({ onClose }) => {
             )}
           </div>
 
+          {errorMessage && (
+            <p className="text-red-500 text-center text-sm">{errorMessage}</p>
+          )}
+
           <div className="mt-4 ">
             <Button className="w-full" type="submit" variant="destructive">
-              {isPending ? 'Logging' : 'Login'}
+              {isPending ? 'Logging in...' : 'Login'}
             </Button>
             <Button className="w-full mt-3" onClick={onClose}>
               Cancel
