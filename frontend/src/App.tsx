@@ -9,13 +9,16 @@ import LocationStep from './steps/LocationStep';
 import DetailsStep from './steps/DetailsStep';
 import PriceStep from './steps/PriceStep';
 import Dashboard from './pages/dashboard';
+import DashboardNavbar from './components/DashboardNavbar';
 
 function App() {
   const { isLoggedIn } = useAuth();
 
+  const isDashboardNavbar = location.pathname.startsWith('/dashboard');
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 mt-7">
-      <MainNavbar />
+      {isDashboardNavbar ? <DashboardNavbar /> : <MainNavbar />}
       <Routes>
         <Route index element={<Home />} />
 
