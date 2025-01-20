@@ -8,6 +8,7 @@ import CategoryStep from './steps/CategoryStep';
 import LocationStep from './steps/LocationStep';
 import DetailsStep from './steps/DetailsStep';
 import PriceStep from './steps/PriceStep';
+import Dashboard from './pages/dashboard';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -30,8 +31,21 @@ function App() {
         <Route path="category" element={<CategoryStep />} />
         <Route path="location" element={<LocationStep />} />
         <Route path="details" element={<DetailsStep />} />
-
         <Route path="price" element={<PriceStep />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        >
+          {/*</Routes> <Route index element={<Listings />} /> 
+          <Route path="listings" element={<Listings />} />
+          <Route path="listings/add" element={<AddListing />} />
+          <Route path="listings/edit/:id" element={<EditListing />} />*/}
+        </Route>
       </Routes>
     </div>
   );

@@ -53,6 +53,7 @@ const MainNavbar = () => {
 
               <div className="border-t border-gray-300 w-full my-2" />
 
+              <Link to={'/dashboard'}>Dashboard</Link>
               <Link to={'/apartments'}>Your apartments</Link>
               <p className="cursor-pointer hover:underline">Helping Center</p>
               <Button onClick={handleLogout}>Logout</Button>

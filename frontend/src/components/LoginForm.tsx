@@ -23,7 +23,7 @@ const LoginForm = ({ onClose }) => {
   });
 
   const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
-    setErrorMessage(''); // Reset the error message before submitting
+    setErrorMessage('');
     mutate(data, {
       onSuccess: () => {
         console.log('Login successful');
