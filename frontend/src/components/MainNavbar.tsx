@@ -29,8 +29,6 @@ const MainNavbar = () => {
     logout();
   };
 
-  console.log('useremail', user);
-  console.log('jelprijavljen', isLoggedIn);
   return (
     <div className="flex justify-between items-center mt-[-10px]">
       <div>
