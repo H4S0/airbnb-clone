@@ -27,8 +27,8 @@ const DashboardNavbar = () => {
           <Link to={'/dashboard'} className="hover:text-gray-800">
             Dashboard
           </Link>
-          <Link to={'/apartments'} className="hover:text-gray-800">
-            Your apartments
+          <Link to={'/listings'} className="hover:text-gray-800">
+            Listings
           </Link>
           <p className="cursor-pointer hover:underline">Helping Center</p>
           <Button onClick={handleLogout} className="text-sm">
@@ -56,7 +56,7 @@ const DashboardNavbar = () => {
               className="hover:text-gray-800"
               onClick={() => setMenuOpen(false)}
             >
-              Your apartments
+              Listings
             </Link>
             <p
               className="cursor-pointer hover:underline"
