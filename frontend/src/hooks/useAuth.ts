@@ -11,6 +11,11 @@ const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const checkAuthState = async () => {
+    const token = localStorage.getItem('accessToken');
+    setIsLoggedIn(!!token);
+  };
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('accessToken');
@@ -50,7 +55,7 @@ const useAuth = () => {
     location.reload();
   };
 
-  return { user, isLoggedIn, isLoading, logout };
+  return { user, isLoggedIn, isLoading, logout, checkAuthState };
 };
 
 export default useAuth;

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import MainNavbar from './components/MainNavbar';
 import Apartments from './Apartments';
 import Home from './Home';
@@ -12,12 +12,15 @@ import Dashboard from './pages/dashboard';
 import DashboardNavbar from './components/DashboardNavbar';
 
 function App() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, checkAuthState } = useAuth();
+  const location = useLocation();
 
+  // Check if the current path starts with "/dashboard"
   const isDashboardNavbar = location.pathname.startsWith('/dashboard');
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 mt-7">
+      {/* Conditionally render the Navbar */}
       {isDashboardNavbar ? <DashboardNavbar /> : <MainNavbar />}
       <Routes>
         <Route index element={<Home />} />
@@ -25,11 +28,14 @@ function App() {
         <Route
           path="/apartments"
           element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
+            <ProtectedRoute
+              isLoggedIn={isLoggedIn}
+              checkAuthState={checkAuthState}
+            >
               <Apartments />
             </ProtectedRoute>
           }
-        ></Route>
+        />
 
         <Route path="category" element={<CategoryStep />} />
         <Route path="location" element={<LocationStep />} />
@@ -39,15 +45,19 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
+            <ProtectedRoute
+              isLoggedIn={isLoggedIn}
+              checkAuthState={checkAuthState}
+            >
               <Dashboard />
             </ProtectedRoute>
           }
         >
-          {/*</Routes> <Route index element={<Listings />} /> 
+          {/* Uncomment and add nested routes for Dashboard */}
+          {/* <Route index element={<Listings />} />
           <Route path="listings" element={<Listings />} />
           <Route path="listings/add" element={<AddListing />} />
-          <Route path="listings/edit/:id" element={<EditListing />} />*/}
+          <Route path="listings/edit/:id" element={<EditListing />} /> */}
         </Route>
       </Routes>
     </div>
