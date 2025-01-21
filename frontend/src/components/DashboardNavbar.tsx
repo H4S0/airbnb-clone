@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import useAuth from '@/hooks/useAuth';
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { Separator } from './ui/separator';
 
 const DashboardNavbar = () => {
   const { user, logout } = useAuth();
@@ -13,7 +14,7 @@ const DashboardNavbar = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <div>
           <Link to={'/'} className="text-xl font-bold text-gray-800">
@@ -73,6 +74,7 @@ const DashboardNavbar = () => {
           </div>
         </div>
       )}
+      <Separator className="mt-3" />
     </div>
   );
 };
