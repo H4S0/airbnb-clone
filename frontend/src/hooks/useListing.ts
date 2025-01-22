@@ -2,7 +2,7 @@ import api from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 
 export interface listingDetails {
-  name: string;
+  listingName: string;
   description: string;
   beds: number;
   bedRoom: number;

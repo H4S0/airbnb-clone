@@ -25,7 +25,7 @@ export const useListingStore = create<ListingStore>((set) => ({
       postalNumber: 0,
     },
     listingDetails: {
-      name: '',
+      listingName: '',
       description: '',
       beds: 0,
       bedRoom: 0,
