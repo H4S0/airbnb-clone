@@ -13,11 +13,12 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
-  listings Listing[]
+  listings    Listing[]
+  Application Application[]
 }
 
 model Listing {
-  id           Int      @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   category     String
   country      String
   city         String
@@ -31,9 +32,22 @@ model Listing {
   Amenities    String[]
   description  String
   price        Float
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
   userId       Int
+  Application  Application[]
 
   user User @relation(fields: [userId], references: [id])
+}
+
+model Application {
+  id          Int    @id @default(autoincrement())
+  fullName    String
+  email       String
+  phoneNumber String
+  listingId   Int
+  userId      Int
+
+  Listing Listing? @relation(fields: [listingId], references: [id])
+  User    User     @relation(fields: [userId], references: [id])
 }
