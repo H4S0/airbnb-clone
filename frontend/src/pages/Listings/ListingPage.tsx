@@ -12,16 +12,17 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useDeleteListing } from '@/hooks/deleteListing';
 
-interface listingProps {
+export interface listingProps {
   id: number;
   listingName: string;
   address: string;
   createdAt: string;
   city: string;
   country: string;
+  price: number;
 }
 
-const fetchListings = async () => {
+export const fetchListings = async () => {
   const response = await fetch('http://localhost:4000/listing/getAllListings');
   if (!response.ok) {
     throw new Error('not ok');
