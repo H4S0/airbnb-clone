@@ -45,6 +45,8 @@ model Application {
   fullName    String
   email       String
   phoneNumber String
+  startDate   String
+  endDate     String
   listingId   Int
   userId      Int
 
