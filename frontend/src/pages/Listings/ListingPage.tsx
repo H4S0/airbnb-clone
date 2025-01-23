@@ -4,6 +4,12 @@ import { FaSearch } from 'react-icons/fa';
 import { MdAddToPhotos } from 'react-icons/md';
 import { BsGridFill } from 'react-icons/bs';
 import { CiGrid2H } from 'react-icons/ci';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const fetchListings = async () => {
   const response = await fetch('http://localhost:4000/listing/getAllListings');
@@ -63,7 +69,15 @@ const ListingPage = () => {
           </div>
 
           <div className="flex justify-end">
-            <IoMenu className="text-3xl text-gray-600 cursor-pointer hover:text-gray-800" />
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <IoMenu className="text-3xl text-gray-600 cursor-pointer hover:text-gray-800" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Update listing</DropdownMenuItem>
+                <DropdownMenuItem>Delete listing</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       ))}
