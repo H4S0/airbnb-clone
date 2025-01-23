@@ -10,6 +10,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useDeleteListing } from '@/hooks/deleteListing';
+
+interface listingProps {
+  id: number;
+  listingName: string;
+  address: string;
+  createdAt: string;
+  city: string;
+  country: string;
+}
 
 const fetchListings = async () => {
   const response = await fetch('http://localhost:4000/listing/getAllListings');
@@ -20,10 +30,16 @@ const fetchListings = async () => {
 };
 
 const ListingPage = () => {
+  const deleteListing = useDeleteListing();
   const { isPending, error, data } = useQuery({
     queryKey: ['listings'],
     queryFn: fetchListings,
   });
+
+  const handleDelete = () => {
+    const listingId = data.map((listing) => listing.id);
+    deleteListing.mutationFn(listingId);
+  };
 
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -45,42 +61,51 @@ const ListingPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 p-4 text-gray-500 font-semibold mt-12">
-        <p>Listing Name</p>
-        <p>Created At</p>
-        <p>Location</p>
-        <p className="text-right">Actions</p>
-      </div>
+      {data.length > 0 ? (
+        data.map((listing: listingProps) => (
+          <>
+            <div className="grid grid-cols-4 gap-4 p-4 text-gray-500 font-semibold mt-12">
+              <p>Listing Name</p>
+              <p>Created At</p>
+              <p>Location</p>
+              <p className="text-right">Actions</p>
+            </div>
+            <div
+              key={listing.id}
+              className="grid grid-cols-4 gap-4 bg-gray-50 rounded-3xl p-4 mb-4 items-center hover:bg-gray-200 transition"
+            >
+              <h2 className="font-bold">{listing.listingName}</h2>
 
-      {data.map((listing) => (
-        <div
-          key={listing.id}
-          className="grid grid-cols-4 gap-4 bg-gray-50 rounded-3xl p-4 mb-4 items-center hover:bg-gray-200 transition"
-        >
-          <h2 className="font-bold">{listing.listingName}</h2>
+              <div>
+                <p>{listing.createdAt.split('T')[0]}</p>
+              </div>
 
-          <div>
-            <p>{listing.createdAt.split('T')[0]}</p>
-          </div>
+              <div>
+                <p>{listing.address}</p>
+                <p className="text-sm text-gray-500">{listing.city}</p>
+              </div>
 
-          <div>
-            <p>{listing.address}</p>
-            <p className="text-sm text-gray-500">{listing.city}</p>
-          </div>
-
-          <div className="flex justify-end">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <IoMenu className="text-3xl text-gray-600 cursor-pointer hover:text-gray-800" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>Update listing</DropdownMenuItem>
-                <DropdownMenuItem>Delete listing</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-      ))}
+              <div className="flex justify-end">
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <IoMenu className="text-3xl text-gray-600 cursor-pointer hover:text-gray-800" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>Update listing</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <button onClick={handleDelete}>Delete listing</button>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+          </>
+        ))
+      ) : (
+        <h2 className="text-2xl font-semibold flex items-center justify-center mt-20">
+          Currently, you don't have active listings!
+        </h2>
+      )}
     </div>
   );
 };
