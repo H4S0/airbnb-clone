@@ -24,7 +24,7 @@ export interface listingProps {
   handleDelete: () => void;
 }
 
-const fetchListings = async () => {
+export const fetchListings = async () => {
   const response = await fetch('http://localhost:4000/listing/getAllListings');
   if (!response.ok) {
     throw new Error('not ok');
