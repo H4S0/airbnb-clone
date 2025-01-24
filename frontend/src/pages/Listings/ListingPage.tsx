@@ -72,30 +72,36 @@ const ListingPage = () => {
 
   return (
     <div className="container mx-auto px-4 mt-14">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-4 sm:gap-0">
         <h2 className="text-3xl">Your listings</h2>
-        <div className="flex flex-row items-center gap-5">
-          <div className="bg-gray-200 p-4 rounded-full relative flex flex-row items-center">
-            <button onClick={handleSearch}>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleSearch}
+              className="bg-gray-200 p-4 rounded-full"
+            >
               {activeSearch ? <IoClose /> : <FaSearch />}
             </button>
-            {activeSearch && (
-              <Input
-                className="absolute left-[-330px] min-w-80"
-                placeholder="Search for you listing by name or location"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            )}
-          </div>
-          <Link to={'/apartments'}>
-            <button className="bg-gray-200 p-4 rounded-full">
-              <MdAddToPhotos />
+            <Link to={'/apartments'}>
+              <button className="bg-gray-200 p-4 rounded-full">
+                <MdAddToPhotos />
+              </button>
+            </Link>
+            <button
+              onClick={handleGrid}
+              className="bg-gray-200 p-4 rounded-full"
+            >
+              {grid ? <CiGrid2H /> : <BsGridFill />}
             </button>
-          </Link>
-          <button onClick={handleGrid} className="bg-gray-200 p-4 rounded-full">
-            {grid ? <CiGrid2H /> : <BsGridFill />}
-          </button>
+          </div>
+          {activeSearch && (
+            <Input
+              className="mt-2 w-full sm:w-80 rounded-md shadow-lg"
+              placeholder="Search for your listing by name or location"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          )}
         </div>
       </div>
 

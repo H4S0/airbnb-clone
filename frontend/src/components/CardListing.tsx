@@ -10,9 +10,9 @@ import { listingProps } from '@/pages/Listings/ListingPage';
 
 const CardListing = ({ listing, handleDelete }: listingProps) => {
   return (
-    <div className="max-w-sm bg-white shadow-md rounded-lg">
+    <div className="max-w-sm bg-white shadow-md rounded-lg mt-5">
       {/* Card Header */}
-      <div className="bg-gray-200 p-4">
+      <div className="bg-gray-200 p-4 rounded-lg">
         <h2 className="font-bold text-xl text-gray-800 truncate">
           {listing.listingName}
         </h2>
