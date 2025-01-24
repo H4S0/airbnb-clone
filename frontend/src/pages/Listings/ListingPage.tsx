@@ -1,16 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { IoMenu } from 'react-icons/io5';
+
 import { FaSearch } from 'react-icons/fa';
 import { MdAddToPhotos } from 'react-icons/md';
 import { BsGridFill } from 'react-icons/bs';
 import { CiGrid2H } from 'react-icons/ci';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+
 import { useDeleteListing } from '@/hooks/deleteListing';
+import RowListing from '@/components/RowListing';
+import { useState } from 'react';
+import CardListing from '@/components/CardListing';
 
 export interface listingProps {
   id: number;
@@ -20,9 +18,10 @@ export interface listingProps {
   city: string;
   country: string;
   price: number;
+  handleDelete: () => void;
 }
 
-export const fetchListings = async () => {
+const fetchListings = async () => {
   const response = await fetch('http://localhost:4000/listing/getAllListings');
   if (!response.ok) {
     throw new Error('not ok');
@@ -31,6 +30,7 @@ export const fetchListings = async () => {
 };
 
 const ListingPage = () => {
+  const [grid, setGrid] = useState<boolean>(false);
   const deleteListing = useDeleteListing();
   const { isPending, error, data } = useQuery({
     queryKey: ['listings'],
@@ -38,8 +38,12 @@ const ListingPage = () => {
   });
 
   const handleDelete = () => {
-    const listingId = data.map((listing) => listing.id);
+    const listingId = data.map((listing: listingProps) => listing.id);
     deleteListing.mutationFn(listingId);
+  };
+
+  const handleGrid = () => {
+    setGrid((prev) => !prev);
   };
 
   if (isPending) return <div>Loading...</div>;
@@ -53,53 +57,23 @@ const ListingPage = () => {
           <div className="bg-gray-200 p-4 rounded-full">
             <FaSearch />
           </div>
-          <div className="bg-gray-200 p-4 rounded-full">
+          <button className="bg-gray-200 p-4 rounded-full">
             <MdAddToPhotos />
-          </div>
-          <div className="bg-gray-200 p-4 rounded-full">
-            <BsGridFill />
-          </div>
+          </button>
+          <button onClick={handleGrid} className="bg-gray-200 p-4 rounded-full">
+            {grid ? <CiGrid2H /> : <BsGridFill />}
+          </button>
         </div>
       </div>
 
       {data.length > 0 ? (
         data.map((listing: listingProps) => (
           <>
-            <div className="grid grid-cols-4 gap-4 p-4 text-gray-500 font-semibold mt-12">
-              <p>Listing Name</p>
-              <p>Created At</p>
-              <p>Location</p>
-              <p className="text-right">Actions</p>
-            </div>
-            <div
-              key={listing.id}
-              className="grid grid-cols-4 gap-4 bg-gray-50 rounded-3xl p-4 mb-4 items-center hover:bg-gray-200 transition"
-            >
-              <h2 className="font-bold">{listing.listingName}</h2>
-
-              <div>
-                <p>{listing.createdAt.split('T')[0]}</p>
-              </div>
-
-              <div>
-                <p>{listing.address}</p>
-                <p className="text-sm text-gray-500">{listing.city}</p>
-              </div>
-
-              <div className="flex justify-end">
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <IoMenu className="text-3xl text-gray-600 cursor-pointer hover:text-gray-800" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem>Update listing</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <button onClick={handleDelete}>Delete listing</button>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
+            {grid ? (
+              <CardListing listing={listing} handleDelete={handleDelete} />
+            ) : (
+              <RowListing listing={listing} handleDelete={handleDelete} />
+            )}
           </>
         ))
       ) : (
