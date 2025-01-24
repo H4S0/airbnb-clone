@@ -9,6 +9,9 @@ import { useDeleteListing } from '@/hooks/deleteListing';
 import RowListing from '@/components/RowListing';
 import { useState } from 'react';
 import CardListing from '@/components/CardListing';
+import { Link } from 'react-router-dom';
+import { Input } from '@/components/ui/input';
+import { IoClose } from 'react-icons/io5';
 
 export interface listingProps {
   id: number;
@@ -31,6 +34,8 @@ const fetchListings = async () => {
 
 const ListingPage = () => {
   const [grid, setGrid] = useState<boolean>(false);
+  const [activeSearch, setActiveSearch] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const deleteListing = useDeleteListing();
   const { isPending, error, data } = useQuery({
     queryKey: ['listings'],
@@ -46,6 +51,10 @@ const ListingPage = () => {
     setGrid((prev) => !prev);
   };
 
+  const handleSearch = () => {
+    setActiveSearch((prev) => !prev);
+  };
+
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -54,12 +63,22 @@ const ListingPage = () => {
       <div className="flex flex-row justify-between">
         <h2 className="text-3xl">Your listings</h2>
         <div className="flex flex-row items-center gap-5">
-          <div className="bg-gray-200 p-4 rounded-full">
-            <FaSearch />
+          <div className="bg-gray-200 p-4 rounded-full relative flex flex-row items-center">
+            <button onClick={handleSearch}>
+              {activeSearch ? <IoClose /> : <FaSearch />}
+            </button>
+            {activeSearch && (
+              <Input
+                className="absolute left-[-330px] w-80"
+                placeholder="Search for you listing by name or location"
+              />
+            )}
           </div>
-          <button className="bg-gray-200 p-4 rounded-full">
-            <MdAddToPhotos />
-          </button>
+          <Link to={'/apartments'}>
+            <button className="bg-gray-200 p-4 rounded-full">
+              <MdAddToPhotos />
+            </button>
+          </Link>
           <button onClick={handleGrid} className="bg-gray-200 p-4 rounded-full">
             {grid ? <CiGrid2H /> : <BsGridFill />}
           </button>
