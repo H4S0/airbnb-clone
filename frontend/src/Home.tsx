@@ -5,6 +5,8 @@ import DefaultLogo from './assets/4595376-200.png';
 import { useRef, useState, useEffect } from 'react';
 import { categoryData } from './data/categoryData';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { Button } from './components/ui/button';
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -124,9 +126,14 @@ const Home = () => {
                 <div className="p-5">
                   <p className="text-xl font-bold">{listing.listingName}</p>
                   <p className="text-lg font-semibold text-gray-800">{`${listing.city}, ${listing.country}`}</p>
-                  <p className="text-gray-500 mt-1">
-                    ${listing.price} per night
-                  </p>
+                  <div className="flex flex-row justify-between">
+                    <p className="text-gray-500 mt-1">
+                      ${listing.price} per night
+                    </p>
+                    <Link to={`${listing.id}`}>
+                      <Button>View listing</Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))

@@ -11,6 +11,7 @@ import PriceStep from './steps/PriceStep';
 import Dashboard from './pages/dashboard';
 import DashboardNavbar from './components/DashboardNavbar';
 import ListingPage from './pages/Listings/ListingPage';
+import ListingPageId from './pages/ListingPageId';
 
 function App() {
   const { isLoggedIn, checkAuthState } = useAuth();
@@ -40,7 +41,7 @@ function App() {
         <Route path="location" element={<LocationStep />} />
         <Route path="details" element={<DetailsStep />} />
         <Route path="price" element={<PriceStep />} />
-
+        <Route path=":id" element={<ListingPageId />} />
         <Route
           path="/dashboard"
           element={
