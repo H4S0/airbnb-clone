@@ -55,6 +55,18 @@ const ListingPage = () => {
     setActiveSearch((prev) => !prev);
   };
 
+  const filteredListings = data
+    ? data.filter(
+        (listing: listingProps) =>
+          listing.listingName
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          listing.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          listing.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          listing.address.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
+
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -69,8 +81,10 @@ const ListingPage = () => {
             </button>
             {activeSearch && (
               <Input
-                className="absolute left-[-330px] w-80"
+                className="absolute left-[-330px] min-w-80"
                 placeholder="Search for you listing by name or location"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             )}
           </div>
@@ -86,7 +100,7 @@ const ListingPage = () => {
       </div>
 
       {data.length > 0 ? (
-        data.map((listing: listingProps) => (
+        filteredListings.map((listing: listingProps) => (
           <>
             {grid ? (
               <CardListing listing={listing} handleDelete={handleDelete} />
