@@ -42,38 +42,41 @@ const MainNavbar = () => {
 
         <div
           onClick={toggleUserMenu}
-          className={`flex items-center p-2 relative rounded-3xl gap-3 border-gray-200 border-2 hover:shadow-md hover:transition-shadow`}
+          className={`flex items-center p-2 relative rounded-3xl gap-3 bg-white border-gray-200 border-2 hover:shadow-md hover:transition-shadow`}
         >
           <IoMenuSharp size={23} />
           <img src={DefaultLogo} alt="logo" width={33} />
-          {isUserMenu &&
-            (isLoggedIn ? (
-              <div className="flex flex-col gap-3 absolute top-full mt-2 right-0 bg-white shadow-md p-4 rounded-lg items-start w-72">
-                <p>{user?.email}</p>
-
-                <div className="border-t border-gray-300 w-full my-2" />
-
-                <Link to={'/dashboard'}>Dashboard</Link>
-                <Link to={'/apartments'}>Your apartments</Link>
-                <p className="cursor-pointer hover:underline">Helping Center</p>
-                <Button onClick={handleLogout}>Logout</Button>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-3 absolute top-full mt-2 right-0 bg-white shadow-md p-4 rounded-lg items-start w-72">
-                <p
-                  onClick={() => setIsRegisterModal(true)}
-                  className="cursor-pointer hover:underline font-semibold"
-                >
-                  Register
-                </p>
-                <p
-                  onClick={() => setIsLoginModal(true)}
-                  className="cursor-pointer hover:underline"
-                >
-                  Login
-                </p>
-              </div>
-            ))}
+          {isUserMenu && (
+            <div className="flex flex-col gap-3 absolute top-full mt-2 right-0 bg-white shadow-md p-4 rounded-lg items-start w-72 z-50">
+              {isLoggedIn ? (
+                <>
+                  <p>{user?.email}</p>
+                  <div className="border-t border-gray-300 w-full my-2" />
+                  <Link to={'/dashboard'}>Dashboard</Link>
+                  <Link to={'/apartments'}>Your apartments</Link>
+                  <p className="cursor-pointer hover:underline">
+                    Helping Center
+                  </p>
+                  <Button onClick={handleLogout}>Logout</Button>
+                </>
+              ) : (
+                <>
+                  <p
+                    onClick={() => setIsRegisterModal(true)}
+                    className="cursor-pointer hover:underline font-semibold"
+                  >
+                    Register
+                  </p>
+                  <p
+                    onClick={() => setIsLoginModal(true)}
+                    className="cursor-pointer hover:underline"
+                  >
+                    Login
+                  </p>
+                </>
+              )}
+            </div>
+          )}
         </div>
 
         {isRegiserModal && <RegistrationForm onClose={onCloseRegisterModal} />}
