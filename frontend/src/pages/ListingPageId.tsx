@@ -20,7 +20,7 @@ const ListingPageId = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p>loading</p> {/* Optional: Replace with a loading spinner */}
+        <p>loading</p>
       </div>
     );
   }

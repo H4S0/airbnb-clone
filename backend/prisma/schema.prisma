@@ -32,6 +32,8 @@ model Listing {
   Amenities    String[]
   description  String
   price        Float
+  maxPerson    Int
+  isPet        Boolean
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   userId       Int
