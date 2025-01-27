@@ -17,7 +17,7 @@ let ListingService = class ListingService {
         this.prisma = prisma;
     }
     async createListing(data) {
-        const { category, price, listingLocation: { country, city, address, postalNumber }, listingDetails: { name, description, beds, bedRoom, livingRoom, wc, amenities, }, } = data;
+        const { category, price, listingLocation: { country, city, address, postalNumber }, listingDetails: { name, description, beds, bedRoom, livingRoom, wc, amenities, maxPerson, isPet, }, } = data;
         return this.prisma.listing.create({
             data: {
                 category,
@@ -32,6 +32,8 @@ let ListingService = class ListingService {
                 bedRoom,
                 livingRoom,
                 wc,
+                maxPerson,
+                isPet,
                 Amenities: amenities,
                 user: {
                     connect: {
@@ -63,6 +65,8 @@ let ListingService = class ListingService {
                 Amenities: true,
                 category: true,
                 price: true,
+                maxPerson: true,
+                isPet: true,
             },
         });
     }

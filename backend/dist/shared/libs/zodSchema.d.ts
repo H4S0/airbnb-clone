@@ -60,6 +60,8 @@ export declare const listingSchema: z.ZodObject<{
         livingRoom: z.ZodNumber;
         wc: z.ZodNumber;
         amenities: z.ZodArray<z.ZodString, "atleastone">;
+        maxPerson: z.ZodNumber;
+        isPet: z.ZodBoolean;
     }, "strip", z.ZodTypeAny, {
         name?: string;
         description?: string;
@@ -68,6 +70,8 @@ export declare const listingSchema: z.ZodObject<{
         livingRoom?: number;
         wc?: number;
         amenities?: [string, ...string[]];
+        maxPerson?: number;
+        isPet?: boolean;
     }, {
         name?: string;
         description?: string;
@@ -76,6 +80,8 @@ export declare const listingSchema: z.ZodObject<{
         livingRoom?: number;
         wc?: number;
         amenities?: [string, ...string[]];
+        maxPerson?: number;
+        isPet?: boolean;
     }>;
 }, "strip", z.ZodTypeAny, {
     userId?: number;
@@ -95,6 +101,8 @@ export declare const listingSchema: z.ZodObject<{
         livingRoom?: number;
         wc?: number;
         amenities?: [string, ...string[]];
+        maxPerson?: number;
+        isPet?: boolean;
     };
 }, {
     userId?: number;
@@ -114,6 +122,8 @@ export declare const listingSchema: z.ZodObject<{
         livingRoom?: number;
         wc?: number;
         amenities?: [string, ...string[]];
+        maxPerson?: number;
+        isPet?: boolean;
     };
 }>;
 export type ListingSchemaType = z.infer<typeof listingSchema>;

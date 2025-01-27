@@ -19,6 +19,8 @@ export class ListingService {
         livingRoom,
         wc,
         amenities,
+        maxPerson,
+        isPet,
       },
     } = data;
     return this.prisma.listing.create({
@@ -35,6 +37,8 @@ export class ListingService {
         bedRoom,
         livingRoom,
         wc,
+        maxPerson,
+        isPet,
         Amenities: amenities,
         user: {
           connect: {
@@ -68,6 +72,8 @@ export class ListingService {
         Amenities: true,
         category: true,
         price: true,
+        maxPerson: true,
+        isPet: true,
       },
     });
   }

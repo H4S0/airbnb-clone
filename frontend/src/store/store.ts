@@ -32,6 +32,8 @@ export const useListingStore = create<ListingStore>((set) => ({
       livingRoom: 0,
       wc: 0,
       amenities: [],
+      isPet: false,
+      maxPerson: 0,
     },
     price: 50,
   },

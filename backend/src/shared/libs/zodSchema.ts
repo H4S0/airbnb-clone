@@ -38,6 +38,8 @@ export const listingSchema = z.object({
     livingRoom: z.number().int(),
     wc: z.number().int(),
     amenities: z.array(z.string()).nonempty(),
+    maxPerson: z.number(),
+    isPet: z.boolean(),
   }),
 });
 

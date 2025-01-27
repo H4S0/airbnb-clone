@@ -9,6 +9,8 @@ export interface listingDetails {
   wc: number;
   livingRoom: number;
   amenities: [];
+  maxPerson: number;
+  isPet: boolean;
 }
 
 export interface listingLocation {
