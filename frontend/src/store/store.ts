@@ -9,9 +9,12 @@ interface ListingStore {
   listingData: listingData;
   updateListing: (
     key: keyof listingData,
-    value: string | number | listingDetails | listingLocation | []
+    value: string | number | boolean | listingDetails | listingLocation | []
   ) => void;
-  updateDetails: (key: keyof listingDetails, value: string | number) => void;
+  updateDetails: (
+    key: keyof listingDetails,
+    value: string | number | boolean
+  ) => void;
   updateLocation: (key: keyof listingLocation, value: string | number) => void;
 }
 

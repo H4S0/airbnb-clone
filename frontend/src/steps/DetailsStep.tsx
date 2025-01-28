@@ -15,9 +15,10 @@ import { useListingStore } from '@/store/store';
 import { detailsData } from '@/data/detailsData';
 import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router';
+import { keyframes } from 'framer-motion';
 
 const DetailsStep = () => {
-  const { listingData, updateDetails } = useListingStore(); // Access Zustand store methods
+  const { listingData, updateDetails } = useListingStore();
   const {
     register,
     handleSubmit,
@@ -28,10 +29,12 @@ const DetailsStep = () => {
 
   const navigate = useNavigate();
 
-  const [bedrooms, setBedrooms] = useState(0);
-  const [beds, setBeds] = useState(0);
-  const [livingRoom, setLivingRoom] = useState(0);
-  const [wc, setWc] = useState(0);
+  const [bedrooms, setBedrooms] = useState<number>(0);
+  const [beds, setBeds] = useState<number>(0);
+  const [livingRoom, setLivingRoom] = useState<number>(0);
+  const [wc, setWc] = useState<number>(0);
+  const [maxPerson, setMaxPerson] = useState<number>(0);
+  const [isPet, setIsPet] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<string[]>([]);
 
   const handleSelect = (index: string) => {
@@ -104,10 +107,21 @@ const DetailsStep = () => {
     [listingData.listingDetails]
   );
 
+  const handleIncreaseMaxPerson = (key: keyof ListingSchemaType) => {
+    const updatedValue = maxPerson + 1;
+    setMaxPerson(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
+  const handleDecreaseMaxPerson = (key: keyof ListingSchemaType) => {
+    const updatedValue = Math.max(maxPerson - 1, 0);
+    setMaxPerson(updatedValue);
+    updateDetails(key, updatedValue);
+  };
+
   const handleNext = useCallback(() => {
     if (allFieldSet) navigate('/price');
   }, [allFieldSet, navigate]);
-  console.log(listingData);
 
   return (
     <>
@@ -143,7 +157,7 @@ const DetailsStep = () => {
             <h2 className="py-5 text-2xl">Rooms information:</h2>
             <Separator />
             <div className="flex flex-row items-center justify-between p-8">
-              <h2 className="text-2xl">Bedroom</h2>
+              <h2>Bedroom</h2>
               <div className="flex items-center gap-4">
                 <Button type="button" onClick={() => handleDecrease('bedRoom')}>
                   -
@@ -156,7 +170,7 @@ const DetailsStep = () => {
             </div>
             <Separator />
             <div className="flex flex-row items-center justify-between p-8">
-              <h2 className="text-2xl">Beds</h2>
+              <h2>Beds</h2>
               <div className="flex items-center gap-4">
                 <Button
                   type="button"
@@ -175,7 +189,7 @@ const DetailsStep = () => {
             </div>
             <Separator />
             <div className="flex flex-row items-center justify-between p-8">
-              <h2 className="text-2xl">Living room</h2>
+              <h2>Living room</h2>
               <div className="flex items-center gap-4">
                 <Button
                   type="button"
@@ -194,7 +208,7 @@ const DetailsStep = () => {
             </div>
             <Separator />
             <div className="flex flex-row items-center justify-between p-8">
-              <h2 className="text-2xl">WC</h2>
+              <h2>WC</h2>
               <div className="flex items-center gap-4">
                 <Button type="button" onClick={() => handleDecreaseWc('wc')}>
                   -
@@ -205,11 +219,30 @@ const DetailsStep = () => {
                 </Button>
               </div>
             </div>
+            <Separator />
+            <div className="flex flex-row items-center justify-between p-8">
+              <h2>Maximum person</h2>
+              <div className="flex items-center gap-4">
+                <Button
+                  type="button"
+                  onClick={() => handleDecreaseMaxPerson('maxPerson')}
+                >
+                  -
+                </Button>
+                <p>{maxPerson}</p>
+                <Button
+                  type="button"
+                  onClick={() => handleIncreaseMaxPerson('maxPerson')}
+                >
+                  +
+                </Button>
+              </div>
+            </div>
           </form>
         </div>
 
         <div className="flex flex-col items-start gap-5">
-          <h2 className="text-2xl">Additional infromation</h2>
+          <h2 className="text-2xl">Additional information</h2>
           <Separator />
           <div className="grid grid-cols-3 gap-5">
             {detailsData.map((amenity) => (
@@ -226,6 +259,34 @@ const DetailsStep = () => {
                 <p>{amenity.name}</p>
               </div>
             ))}
+          </div>
+          <div className="flex flex-row items-center justify-between p-6 bg-gray-50 rounded-lg shadow-sm w-full">
+            <h2 className="text-lg font-semibold text-gray-800">
+              Is this pet-friendly?
+            </h2>
+            <div className="flex items-center gap-6">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isPet}
+                  onChange={() => {
+                    setIsPet(!isPet);
+                    updateDetails('isPet', !isPet);
+                  }}
+                  className="sr-only peer"
+                />
+                <div className="w-12 h-7 bg-gray-300 rounded-full peer peer-checked:bg-red-500 transition-colors">
+                  <div
+                    className={`absolute top-1 left-1 h-5 w-5 bg-white rounded-full shadow-md transition-transform ${
+                      isPet ? 'translate-x-5' : ''
+                    }`}
+                  ></div>
+                </div>
+              </label>
+              <span className="text-sm font-medium text-gray-700">
+                {isPet ? "Yes, it's pet-friendly!" : 'No, not pet-friendly'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
