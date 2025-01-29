@@ -42,7 +42,7 @@ const ListingPageId = () => {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Section: Image */}
-          <div className="w-full h-64 bg-gray-100 flex items-center justify-center">
+          <div className="w-full h-64 bg-gray-100 flex items-center justify-center rounded-xl">
             {data?.image ? (
               <img
                 src={data.image}
@@ -56,7 +56,7 @@ const ListingPageId = () => {
 
           {/* Right Section: Description */}
           <div>
-            <h2 className="text-xl font-semibold mb-2">Details</h2>
+            <h2 className="text-xl font-semibold mb-2">{data.listingName}</h2>
             <p className="text-gray-700">
               {data?.description || 'No description available.'}
             </p>

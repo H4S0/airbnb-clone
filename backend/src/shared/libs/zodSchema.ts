@@ -44,3 +44,17 @@ export const listingSchema = z.object({
 });
 
 export type ListingSchemaType = z.infer<typeof listingSchema>;
+
+export const applicationSchema = z.object({
+  fullName: z.string().min(3),
+  email: z.string().email(),
+  phoneNumber: z.string(),
+  startData: z.string(),
+  endDate: z.string(),
+  adults: z.number(),
+  kids: z.number(),
+  userId: z.coerce.number().min(1, 'Must provide userId'),
+  listingId: z.coerce.number().min(1, 'Must provide userId'),
+});
+
+export type ApplicationSchemaType = z.infer<typeof applicationSchema>;

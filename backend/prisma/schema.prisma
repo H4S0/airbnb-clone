@@ -49,7 +49,7 @@ model Application {
   phoneNumber String
   startDate   String
   endDate     String
-  adults      String
+  adults      Int
   kids        Int
   listingId   Int
   userId      Int

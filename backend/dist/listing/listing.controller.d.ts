@@ -22,9 +22,9 @@ export declare class ListingController {
         maxPerson: number;
         isPet: boolean;
         id: number;
-        createdAt: Date;
         listingName: string;
         Amenities: string[];
+        createdAt: Date;
         updatedAt: Date;
     }>;
     getAllListings(): Promise<{
@@ -43,9 +43,9 @@ export declare class ListingController {
         maxPerson: number;
         isPet: boolean;
         id: number;
-        createdAt: Date;
         listingName: string;
         Amenities: string[];
+        createdAt: Date;
         updatedAt: Date;
     }[]>;
     getListingByID(id: number): Promise<{
@@ -81,9 +81,9 @@ export declare class ListingController {
         maxPerson: number;
         isPet: boolean;
         id: number;
-        createdAt: Date;
         listingName: string;
         Amenities: string[];
+        createdAt: Date;
         updatedAt: Date;
     }>;
 }

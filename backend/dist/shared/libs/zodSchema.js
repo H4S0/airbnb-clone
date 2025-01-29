@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listingSchema = exports.loginSchema = exports.registerSchema = void 0;
+exports.applicationSchema = exports.listingSchema = exports.loginSchema = exports.registerSchema = void 0;
 const zod_1 = require("zod");
 exports.registerSchema = zod_1.z
     .object({
@@ -37,5 +37,16 @@ exports.listingSchema = zod_1.z.object({
         maxPerson: zod_1.z.number(),
         isPet: zod_1.z.boolean(),
     }),
+});
+exports.applicationSchema = zod_1.z.object({
+    fullName: zod_1.z.string().min(3),
+    email: zod_1.z.string().email(),
+    phoneNumber: zod_1.z.string(),
+    startData: zod_1.z.string(),
+    endDate: zod_1.z.string(),
+    adults: zod_1.z.number(),
+    kids: zod_1.z.number(),
+    userId: zod_1.z.coerce.number().min(1, 'Must provide userId'),
+    listingId: zod_1.z.coerce.number().min(1, 'Must provide userId'),
 });
 //# sourceMappingURL=zodSchema.js.map

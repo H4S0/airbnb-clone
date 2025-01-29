@@ -127,3 +127,35 @@ export declare const listingSchema: z.ZodObject<{
     };
 }>;
 export type ListingSchemaType = z.infer<typeof listingSchema>;
+export declare const applicationSchema: z.ZodObject<{
+    fullName: z.ZodString;
+    email: z.ZodString;
+    phoneNumber: z.ZodString;
+    startData: z.ZodString;
+    endDate: z.ZodString;
+    adults: z.ZodNumber;
+    kids: z.ZodNumber;
+    userId: z.ZodNumber;
+    listingId: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    email?: string;
+    userId?: number;
+    fullName?: string;
+    phoneNumber?: string;
+    startData?: string;
+    endDate?: string;
+    adults?: number;
+    kids?: number;
+    listingId?: number;
+}, {
+    email?: string;
+    userId?: number;
+    fullName?: string;
+    phoneNumber?: string;
+    startData?: string;
+    endDate?: string;
+    adults?: number;
+    kids?: number;
+    listingId?: number;
+}>;
+export type ApplicationSchemaType = z.infer<typeof applicationSchema>;

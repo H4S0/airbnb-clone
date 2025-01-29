@@ -15,7 +15,6 @@ import { useListingStore } from '@/store/store';
 import { detailsData } from '@/data/detailsData';
 import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router';
-import { keyframes } from 'framer-motion';
 
 const DetailsStep = () => {
   const { listingData, updateDetails } = useListingStore();
