@@ -1,3 +1,4 @@
+import ApplicationForm from '@/components/ApplicationForm';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 
@@ -36,7 +37,7 @@ const ListingPageId = () => {
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Listing Details */}
-      <div className="bg-white shadow-lg rounded-lg p-6">
+      <>
         <h1 className="text-2xl font-bold mb-4">
           {data?.title || 'Listing Title'}
         </h1>
@@ -72,6 +73,9 @@ const ListingPageId = () => {
             </div>
           </div>
         </div>
+      </>
+      <div>
+        <ApplicationForm />
       </div>
     </div>
   );

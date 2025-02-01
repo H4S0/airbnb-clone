@@ -42,7 +42,7 @@ exports.applicationSchema = zod_1.z.object({
     fullName: zod_1.z.string().min(3),
     email: zod_1.z.string().email(),
     phoneNumber: zod_1.z.string(),
-    startData: zod_1.z.string(),
+    startDate: zod_1.z.string(),
     endDate: zod_1.z.string(),
     adults: zod_1.z.number(),
     kids: zod_1.z.number(),

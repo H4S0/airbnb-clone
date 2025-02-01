@@ -49,7 +49,7 @@ export const applicationSchema = z.object({
   fullName: z.string().min(3),
   email: z.string().email(),
   phoneNumber: z.string(),
-  startData: z.string(),
+  startDate: z.string(),
   endDate: z.string(),
   adults: z.number(),
   kids: z.number(),
