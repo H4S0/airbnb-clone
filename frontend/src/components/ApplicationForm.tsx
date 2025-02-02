@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useApplication } from '@/hooks/useApplication';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import { DatePickerWithRange } from './DatePicker';
 
 const ApplicationForm = () => {
   const { mutate, isPending } = useApplication();
@@ -30,25 +31,33 @@ const ApplicationForm = () => {
     });
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={inputStyle}>
-          <Label>Full name</Label>
-          <Input {...register('fullName')} placeholder="Enter your fullname" />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-row justify-around">
+        <div>
+          <div className={inputStyle}>
+            <Label>Full name</Label>
+            <Input
+              {...register('fullName')}
+              placeholder="Enter your fullname"
+            />
+          </div>
+          <div className={inputStyle}>
+            <Label>Email</Label>
+            <Input {...register('email')} placeholder="Enter your email" />
+          </div>
+          <div className={inputStyle}>
+            <Label>Phone number</Label>
+            <Input
+              {...register('phoneNumber')}
+              placeholder="Enter your phone number"
+            />
+          </div>
         </div>
         <div className={inputStyle}>
-          <Label>Email</Label>
-          <Input {...register('email')} placeholder="Enter your email" />
+          <DatePickerWithRange />
         </div>
-        <div className={inputStyle}>
-          <Label>Phone number</Label>
-          <Input
-            {...register('phoneNumber')}
-            placeholder="Enter your phone number"
-          />
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

@@ -11,6 +11,24 @@ const buttonVariants = cva(
       variant: {
         default:
           'bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90',
+        light:
+          'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-50 dark:hover:bg-neutral-600',
+        gray100:
+          'bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700',
+        gray200:
+          'bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-50 dark:hover:bg-gray-600',
+        gray300:
+          'bg-gray-300 text-gray-900 hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-50 dark:hover:bg-gray-500',
+        gray400:
+          'bg-gray-400 text-gray-900 hover:bg-gray-500 dark:bg-gray-500 dark:text-gray-50 dark:hover:bg-gray-400',
+        gray500:
+          'bg-gray-500 text-gray-50 hover:bg-gray-600 dark:bg-gray-400 dark:text-gray-900 dark:hover:bg-gray-300',
+        gray600:
+          'bg-gray-600 text-gray-50 hover:bg-gray-700 dark:bg-gray-300 dark:text-gray-900 dark:hover:bg-gray-200',
+        gray700:
+          'bg-gray-700 text-gray-50 hover:bg-gray-800 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-100',
+        gray800:
+          'bg-gray-800 text-gray-50 hover:bg-gray-900 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-50',
         destructive:
           'bg-red-500 text-neutral-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-neutral-50 dark:hover:bg-red-900/90',
         outline:
