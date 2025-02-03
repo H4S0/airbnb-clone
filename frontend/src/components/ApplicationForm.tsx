@@ -30,8 +30,8 @@ const ApplicationForm = ({ data }) => {
   const adults = watch('adults');
   const kids = watch('kids');
 
-  const onSubmit: SubmitHandler<ApplicationSchemaType> = (data) => {
-    mutate(data, {
+  const onSubmit: SubmitHandler<ApplicationSchemaType> = (formData) => {
+    mutate(formData, {
       onSuccess: (response) => {
         alert(response.message);
       },
@@ -55,91 +55,67 @@ const ApplicationForm = ({ data }) => {
   const pricePerNight = data.price;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="gap-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="max-w-3xl mx-auto p-4 space-y-6"
+    >
       <h2 className="text-xl font-semibold text-center mb-4">
         Application Form
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Left Column */}
-        <div className="flex flex-col w-full md:w-1/2 gap-4">
+      <div className="flex flex-col md:flex-row md:gap-x-8 gap-y-6">
+        <div className="flex flex-col flex-1 space-y-4">
           <div className={inputStyle}>
-            <Label className="text-neutral-800 dark:text-neutral-300">
-              Full Name
-            </Label>
+            <Label>Full Name</Label>
             <Input
               {...register('fullName')}
               placeholder="Enter your full name"
-              className="input-field"
             />
             {errors.fullName && (
-              <span className="text-red-500 text-sm">
-                {errors.fullName.message}
-              </span>
+              <span className="text-sm">{errors.fullName.message}</span>
             )}
           </div>
+
           <div className={inputStyle}>
-            <Label className="text-neutral-800 dark:text-neutral-300">
-              Email
-            </Label>
-            <Input
-              {...register('email')}
-              placeholder="Enter your email"
-              className="input-field"
-            />
+            <Label>Email</Label>
+            <Input {...register('email')} placeholder="Enter your email" />
             {errors.email && (
-              <span className="text-red-500 text-sm">
-                {errors.email.message}
-              </span>
+              <span className="text-sm">{errors.email.message}</span>
             )}
           </div>
+
           <div className={inputStyle}>
-            <Label className="text-neutral-800 dark:text-neutral-300">
-              Phone Number
-            </Label>
+            <Label>Phone Number</Label>
             <Input
               {...register('phoneNumber')}
               placeholder="Enter your phone number"
-              className="input-field"
             />
             {errors.phoneNumber && (
-              <span className="text-red-500 text-sm">
-                {errors.phoneNumber.message}
-              </span>
+              <span className="text-sm">{errors.phoneNumber.message}</span>
             )}
           </div>
+
           <div className="flex justify-start mt-8">
-            <button
-              type="submit"
-              className="w-full md:w-auto bg-neutral-900 text-white px-6 py-2 rounded-md hover:bg-neutral-800 dark:bg-neutral-700 dark:hover:bg-neutral-600 transition"
-              disabled={isPending}
-            >
+            <Button type="submit" disabled={isPending} variant="destructive">
               {isPending ? 'Submitting...' : 'Submit Application'}
-            </button>
+            </Button>
           </div>
         </div>
 
-        {/* Right Column */}
-        <div className="flex flex-col w-full md:w-1/2 gap-4 border p-6 rounded-md">
+        <div className="flex flex-col flex-1 space-y-4 border p-6 rounded-md">
           <div className={inputStyle}>
-            <Label className="text-neutral-800 dark:text-neutral-300">
-              Select Date Range
-            </Label>
+            <Label>Select Date Range</Label>
             <DatePickerWithRange NightPrice={pricePerNight} />
           </div>
 
-          {/* Number of Adults */}
-          <div className="flex flex-row justify-between items-center">
-            <div>
+          <div className="flex flex-col md:flex-row justify-start md:justify-start md:items-center items-start gap-4">
+            <div className="space-y-4">
               <div className={inputStyle}>
-                <Label className="text-neutral-800 dark:text-neutral-300">
-                  Number of Adults
-                </Label>
+                <Label>Number of Adults</Label>
                 <div className="flex items-center gap-2">
                   <Button
                     type="button"
                     onClick={() => handleDecrement('adults')}
-                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
                   >
                     -
                   </Button>
@@ -147,71 +123,59 @@ const ApplicationForm = ({ data }) => {
                     {...register('adults', { valueAsNumber: true })}
                     value={adults}
                     readOnly
-                    className="w-16 text-center input-field"
+                    className="w-16 text-center"
                   />
                   <Button
                     type="button"
                     onClick={() => handleIncrement('adults')}
-                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
                   >
                     +
                   </Button>
                 </div>
                 {errors.adults && (
-                  <span className="text-red-500 text-sm">
-                    {errors.adults.message}
-                  </span>
+                  <span className="text-sm">{errors.adults.message}</span>
                 )}
               </div>
 
-              {/* Number of Kids */}
               <div className={inputStyle}>
-                <Label className="text-neutral-800 dark:text-neutral-300">
-                  Number of Kids
-                </Label>
+                <Label>Number of Kids</Label>
                 <div className="flex items-center gap-2">
-                  <Button
-                    type="button"
-                    onClick={() => handleDecrement('kids')}
-                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
-                  >
+                  <Button type="button" onClick={() => handleDecrement('kids')}>
                     -
                   </Button>
                   <Input
                     {...register('kids', { valueAsNumber: true })}
                     value={kids}
                     readOnly
-                    className="w-16 text-center input-field"
+                    className="w-16 text-center"
                   />
-                  <Button
-                    type="button"
-                    onClick={() => handleIncrement('kids')}
-                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
-                  >
+                  <Button type="button" onClick={() => handleIncrement('kids')}>
                     +
                   </Button>
-                  {errors.kids && (
-                    <span className="text-red-500 text-sm">
-                      {errors.kids.message}
-                    </span>
-                  )}
                 </div>
+                {errors.kids && (
+                  <span className="text-sm">{errors.kids.message}</span>
+                )}
               </div>
             </div>
-            <div>
-              <p>pets availabity</p>
-              <p>max adults</p>
-              <p>max kids</p>
-              price od do na osnovu odabrani noci
+
+            <div className="space-y-2">
+              {data.isPet ? (
+                <p>Pets are allowed.</p>
+              ) : (
+                <p>Pets are not allowed.</p>
+              )}
+              <p>
+                Maximum {data.maxPerson}{' '}
+                {data.maxPerson > 1 ? 'persons' : 'person'} in this listing.
+              </p>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Submit Button */}
     </form>
   );
 };
 
-const inputStyle = 'flex flex-col gap-2 mt-3';
+const inputStyle = 'flex flex-col gap-2';
 export default ApplicationForm;

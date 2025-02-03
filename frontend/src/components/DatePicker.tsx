@@ -73,7 +73,7 @@ export function DatePickerWithRange({
             <strong>{nights}</strong> night{nights > 1 ? 's' : ''} at $
             {NightPrice} per night
           </p>
-          <p>
+          <p className="underline underline-offset-4">
             Total Price: <strong>${totalPrice}</strong>
           </p>
         </div>
