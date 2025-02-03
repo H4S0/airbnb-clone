@@ -19,8 +19,8 @@ export function DatePickerWithRange({
   NightPrice,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
+    from: new Date(2025, 0, 20),
+    to: addDays(new Date(2025, 0, 20), 20),
   });
 
   const nights =
@@ -66,7 +66,6 @@ export function DatePickerWithRange({
         </PopoverContent>
       </Popover>
 
-      {/* Display the calculated price if a valid date range is selected */}
       {nights > 0 && (
         <div className="mt-2">
           <p>

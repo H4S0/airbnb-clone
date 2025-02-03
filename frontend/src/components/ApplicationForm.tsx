@@ -53,6 +53,7 @@ const ApplicationForm = ({ data }) => {
   };
 
   const pricePerNight = data.price;
+  const maxPerson = data.maxPerson;
 
   return (
     <form
