@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { addDays, format } from 'date-fns';
+import { addDays, differenceInCalendarDays, format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
 
@@ -16,12 +16,17 @@ import {
 
 export function DatePickerWithRange({
   className,
+  NightPrice,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2022, 0, 20),
     to: addDays(new Date(2022, 0, 20), 20),
   });
 
+  const nights =
+    date?.from && date.to ? differenceInCalendarDays(date.to, date.from) : 0;
+
+  const totalPrice = nights * NightPrice;
   return (
     <div className={cn('grid gap-2', className)}>
       <Popover>
@@ -60,6 +65,19 @@ export function DatePickerWithRange({
           />
         </PopoverContent>
       </Popover>
+
+      {/* Display the calculated price if a valid date range is selected */}
+      {nights > 0 && (
+        <div className="mt-2">
+          <p>
+            <strong>{nights}</strong> night{nights > 1 ? 's' : ''} at $
+            {NightPrice} per night
+          </p>
+          <p>
+            Total Price: <strong>${totalPrice}</strong>
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -11,7 +11,7 @@ import { Input } from './ui/input';
 import { DatePickerWithRange } from './DatePicker';
 import { Button } from './ui/button';
 
-const ApplicationForm = () => {
+const ApplicationForm = ({ data }) => {
   const { mutate, isPending } = useApplication();
   const {
     register,
@@ -22,8 +22,8 @@ const ApplicationForm = () => {
   } = useForm<ApplicationSchemaType>({
     resolver: zodResolver(applicationSchema),
     defaultValues: {
-      adults: 1, // Default value for adults
-      kids: 0, // Default value for kids
+      adults: 1,
+      kids: 0,
     },
   });
 
@@ -51,6 +51,8 @@ const ApplicationForm = () => {
       setValue(field, currentValue - 1);
     }
   };
+
+  const pricePerNight = data.price;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="gap-6">
@@ -106,97 +108,107 @@ const ApplicationForm = () => {
               </span>
             )}
           </div>
+          <div className="flex justify-start mt-8">
+            <button
+              type="submit"
+              className="w-full md:w-auto bg-neutral-900 text-white px-6 py-2 rounded-md hover:bg-neutral-800 dark:bg-neutral-700 dark:hover:bg-neutral-600 transition"
+              disabled={isPending}
+            >
+              {isPending ? 'Submitting...' : 'Submit Application'}
+            </button>
+          </div>
         </div>
 
         {/* Right Column */}
-        <div className="flex flex-col w-full md:w-1/2 gap-4">
+        <div className="flex flex-col w-full md:w-1/2 gap-4 border p-6 rounded-md">
           <div className={inputStyle}>
             <Label className="text-neutral-800 dark:text-neutral-300">
               Select Date Range
             </Label>
-            <DatePickerWithRange />
+            <DatePickerWithRange NightPrice={pricePerNight} />
           </div>
 
           {/* Number of Adults */}
-          <div className={inputStyle}>
-            <Label className="text-neutral-800 dark:text-neutral-300">
-              Number of Adults
-            </Label>
-            <div className="flex items-center gap-2">
-              <Button
-                type="button"
-                onClick={() => handleDecrement('adults')}
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-700 dark:hover:bg-neutral-600"
-              >
-                -
-              </Button>
-              <Input
-                {...register('adults', { valueAsNumber: true })}
-                value={adults}
-                readOnly
-                className="w-16 text-center input-field"
-              />
-              <Button
-                type="button"
-                onClick={() => handleIncrement('adults')}
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-700 dark:hover:bg-neutral-600"
-              >
-                +
-              </Button>
-            </div>
-            {errors.adults && (
-              <span className="text-red-500 text-sm">
-                {errors.adults.message}
-              </span>
-            )}
-          </div>
+          <div className="flex flex-row justify-between items-center">
+            <div>
+              <div className={inputStyle}>
+                <Label className="text-neutral-800 dark:text-neutral-300">
+                  Number of Adults
+                </Label>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    onClick={() => handleDecrement('adults')}
+                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
+                  >
+                    -
+                  </Button>
+                  <Input
+                    {...register('adults', { valueAsNumber: true })}
+                    value={adults}
+                    readOnly
+                    className="w-16 text-center input-field"
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => handleIncrement('adults')}
+                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
+                  >
+                    +
+                  </Button>
+                </div>
+                {errors.adults && (
+                  <span className="text-red-500 text-sm">
+                    {errors.adults.message}
+                  </span>
+                )}
+              </div>
 
-          {/* Number of Kids */}
-          <div className={inputStyle}>
-            <Label className="text-neutral-800 dark:text-neutral-300">
-              Number of Kids
-            </Label>
-            <div className="flex items-center gap-2">
-              <Button
-                type="button"
-                onClick={() => handleDecrement('kids')}
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-700 dark:hover:bg-neutral-600"
-              >
-                -
-              </Button>
-              <Input
-                {...register('kids', { valueAsNumber: true })}
-                value={kids}
-                readOnly
-                className="w-16 text-center input-field"
-              />
-              <Button
-                type="button"
-                onClick={() => handleIncrement('kids')}
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-700 dark:hover:bg-neutral-600"
-              >
-                +
-              </Button>
+              {/* Number of Kids */}
+              <div className={inputStyle}>
+                <Label className="text-neutral-800 dark:text-neutral-300">
+                  Number of Kids
+                </Label>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    onClick={() => handleDecrement('kids')}
+                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
+                  >
+                    -
+                  </Button>
+                  <Input
+                    {...register('kids', { valueAsNumber: true })}
+                    value={kids}
+                    readOnly
+                    className="w-16 text-center input-field"
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => handleIncrement('kids')}
+                    className="w-8 h-8 rounded-full  text-white  dark:bg-gray-300 dark:hover:bg-gray-600 hover:text-white"
+                  >
+                    +
+                  </Button>
+                  {errors.kids && (
+                    <span className="text-red-500 text-sm">
+                      {errors.kids.message}
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
-            {errors.kids && (
-              <span className="text-red-500 text-sm">
-                {errors.kids.message}
-              </span>
-            )}
+            <div>
+              <p>pets availabity</p>
+              <p>max adults</p>
+              <p>max kids</p>
+              price od do na osnovu odabrani noci
+            </div>
           </div>
         </div>
       </div>
 
       {/* Submit Button */}
-      <div className="flex justify-center mt-6">
-        <button
-          type="submit"
-          className="w-full md:w-auto bg-neutral-900 text-white px-6 py-2 rounded-md hover:bg-neutral-800 dark:bg-neutral-700 dark:hover:bg-neutral-600 transition"
-          disabled={isPending}
-        >
-          {isPending ? 'Submitting...' : 'Submit Application'}
-        </button>
-      </div>
     </form>
   );
 };

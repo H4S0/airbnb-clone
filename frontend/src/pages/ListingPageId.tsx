@@ -75,7 +75,7 @@ const ListingPageId = () => {
         </div>
       </>
       <div>
-        <ApplicationForm />
+        <ApplicationForm data={data} />
       </div>
     </div>
   );
