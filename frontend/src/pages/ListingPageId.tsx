@@ -1,6 +1,10 @@
 import ApplicationForm from '@/components/ApplicationForm';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
+import { FaBed } from 'react-icons/fa';
+import { MdBedroomParent } from 'react-icons/md';
+import { MdLiving } from 'react-icons/md';
+import { FaToilet } from 'react-icons/fa';
 
 const fetchListingId = async (id: number) => {
   const response = await fetch(`http://localhost:4000/listing/${id}`);
@@ -36,13 +40,11 @@ const ListingPageId = () => {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      {/* Listing Details */}
       <>
         <h1 className="text-2xl font-bold mb-4">
           {data?.title || 'Listing Title'}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left Section: Image */}
           <div className="w-full h-64 bg-gray-100 flex items-center justify-center rounded-xl">
             {data?.image ? (
               <img
@@ -55,7 +57,6 @@ const ListingPageId = () => {
             )}
           </div>
 
-          {/* Right Section: Description */}
           <div>
             <h2 className="text-xl font-semibold mb-2">{data.listingName}</h2>
             <p className="text-gray-700">
@@ -63,13 +64,31 @@ const ListingPageId = () => {
             </p>
             <div className="mt-4">
               <p className="text-sm text-gray-600">
-                <span className="font-semibold">Price:</span> $
-                {data?.price || 'N/A'}
+                <span className="font-semibold">Location:</span> {data?.address}
+                , {data?.city}, {data.country}
               </p>
               <p className="text-sm text-gray-600">
-                <span className="font-semibold">Location:</span>{' '}
-                {data?.location || 'N/A'}
+                <span className="font-semibold">Price per night:</span> $
+                {data?.price || 'N/A'}
               </p>
+            </div>
+            <div className="grid grid-cols-2 gap-5 mt-5">
+              <div className="flex items-center gap-3 p-3 text-2xl bg-gray-100 rounded-lg shadow hover:shadow-md transition-shadow">
+                <FaBed />
+                <p>{data.beds}</p>
+              </div>
+              <div className="flex items-center gap-3 p-3 text-2xl bg-gray-100 rounded-lg shadow hover:shadow-md transition-shadow">
+                <MdBedroomParent />
+                <p>{data.bedRoom}</p>
+              </div>
+              <div className="flex items-center gap-3 p-3 text-2xl bg-gray-100 rounded-lg shadow hover:shadow-md transition-shadow">
+                <MdLiving />
+                <p>{data.livingRoom}</p>
+              </div>
+              <div className="flex items-center gap-3 p-3 text-2xl bg-gray-100 rounded-lg shadow hover:shadow-md transition-shadow">
+                <FaToilet />
+                <p>{data.wc}</p>
+              </div>
             </div>
           </div>
         </div>
