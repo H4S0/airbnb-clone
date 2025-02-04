@@ -20,6 +20,6 @@ export class ApplicationController {
       userId,
     });
 
-    return newApplication;
+    return { message: 'Application created successfully', newApplication };
   }
 }

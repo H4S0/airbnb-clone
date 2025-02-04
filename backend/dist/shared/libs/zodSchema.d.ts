@@ -131,7 +131,16 @@ export declare const applicationSchema: z.ZodObject<{
     fullName: z.ZodString;
     email: z.ZodString;
     phoneNumber: z.ZodString;
-    dateRange: z.ZodString;
+    dateRange: z.ZodObject<{
+        from: z.ZodString;
+        to: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        from?: string;
+        to?: string;
+    }, {
+        from?: string;
+        to?: string;
+    }>;
     adults: z.ZodNumber;
     kids: z.ZodNumber;
     userId: z.ZodNumber;
@@ -141,7 +150,10 @@ export declare const applicationSchema: z.ZodObject<{
     userId?: number;
     fullName?: string;
     phoneNumber?: string;
-    dateRange?: string;
+    dateRange?: {
+        from?: string;
+        to?: string;
+    };
     adults?: number;
     kids?: number;
     listingId?: number;
@@ -150,7 +162,10 @@ export declare const applicationSchema: z.ZodObject<{
     userId?: number;
     fullName?: string;
     phoneNumber?: string;
-    dateRange?: string;
+    dateRange?: {
+        from?: string;
+        to?: string;
+    };
     adults?: number;
     kids?: number;
     listingId?: number;

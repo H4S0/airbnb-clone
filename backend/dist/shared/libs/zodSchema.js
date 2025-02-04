@@ -42,7 +42,10 @@ exports.applicationSchema = zod_1.z.object({
     fullName: zod_1.z.string().min(3),
     email: zod_1.z.string().email(),
     phoneNumber: zod_1.z.string(),
-    dateRange: zod_1.z.string(),
+    dateRange: zod_1.z.object({
+        from: zod_1.z.string(),
+        to: zod_1.z.string(),
+    }),
     adults: zod_1.z.number(),
     kids: zod_1.z.number(),
     userId: zod_1.z.coerce.number().min(1, 'Must provide userId'),

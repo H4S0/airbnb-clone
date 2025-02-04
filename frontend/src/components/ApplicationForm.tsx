@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import {
   applicationSchema,
   ApplicationSchemaType,
@@ -18,6 +18,7 @@ const ApplicationForm = ({ data }) => {
     handleSubmit,
     setValue,
     watch,
+    control,
     formState: { errors },
   } = useForm<ApplicationSchemaType>({
     resolver: zodResolver(applicationSchema),
@@ -31,9 +32,9 @@ const ApplicationForm = ({ data }) => {
   const kids = watch('kids');
 
   const onSubmit: SubmitHandler<ApplicationSchemaType> = (formData) => {
+    console.log('Form Data:', formData);
     mutate(formData, {
       onSuccess: (response) => {
-        console.log(data);
         alert(response.message);
       },
       onError: (error) => {
@@ -96,20 +97,21 @@ const ApplicationForm = ({ data }) => {
               <span className="text-sm">{errors.phoneNumber.message}</span>
             )}
           </div>
-
-          <div className="flex justify-start mt-8">
-            <Button type="submit" disabled={isPending} variant="destructive">
-              {isPending ? 'Submitting...' : 'Submit Application'}
-            </Button>
-          </div>
         </div>
 
         <div className="flex flex-col flex-1 space-y-4 border p-6 rounded-md">
           <div className={inputStyle}>
             <Label>Select Date Range</Label>
-            <DatePickerWithRange
-              NightPrice={pricePerNight}
-              {...register('dateRange')}
+            <Controller
+              name="dateRange"
+              control={control} // ✅ Now `control` exists
+              render={({ field }) => (
+                <DatePickerWithRange
+                  NightPrice={pricePerNight}
+                  selected={field.value}
+                  onChange={(date) => field.onChange(date)}
+                />
+              )}
             />
           </div>
 
@@ -182,6 +184,11 @@ const ApplicationForm = ({ data }) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex justify-start mt-8">
+        <Button type="submit" disabled={isPending} variant="destructive">
+          {isPending ? 'Submitting...' : 'Submit Application'}
+        </Button>
       </div>
     </form>
   );

@@ -49,7 +49,10 @@ export const applicationSchema = z.object({
   fullName: z.string().min(3),
   email: z.string().email(),
   phoneNumber: z.string(),
-  dateRange: z.string(),
+  dateRange: z.object({
+    from: z.string(),
+    to: z.string(),
+  }),
   adults: z.number(),
   kids: z.number(),
   userId: z.coerce.number().min(1, 'Must provide userId'),

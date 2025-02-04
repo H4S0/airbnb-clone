@@ -47,7 +47,7 @@ model Application {
   fullName    String
   email       String
   phoneNumber String
-  dateRange   String
+  dateRange   Json
   adults      Int
   kids        Int
   listingId   Int

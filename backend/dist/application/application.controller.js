@@ -27,7 +27,7 @@ let ApplicationController = class ApplicationController {
             ...createApplicationDto,
             userId,
         });
-        return newApplication;
+        return { message: 'Application created successfully', newApplication };
     }
 };
 exports.ApplicationController = ApplicationController;

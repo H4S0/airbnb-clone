@@ -7,14 +7,17 @@ export declare class ApplicationController {
         userId: number;
         email: string;
     }): Promise<{
-        email: string;
-        userId: number;
-        fullName: string;
-        phoneNumber: string;
-        dateRange: string;
-        adults: number;
-        kids: number;
-        listingId: number;
-        id: number;
+        message: string;
+        newApplication: {
+            id: number;
+            fullName: string;
+            email: string;
+            phoneNumber: string;
+            dateRange: import("@prisma/client/runtime/library").JsonValue;
+            adults: number;
+            kids: number;
+            listingId: number;
+            userId: number;
+        };
     }>;
 }

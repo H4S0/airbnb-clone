@@ -5,7 +5,10 @@ interface applicationData {
   fullName: string;
   email: string;
   phoneNumber: string;
-  dateRange: string;
+  dateRange: {
+    from: string;
+    to: string;
+  };
   adults: number;
   kids: number;
 }
