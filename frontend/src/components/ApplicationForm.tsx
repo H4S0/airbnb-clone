@@ -10,47 +10,42 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { DatePickerWithRange } from './DatePicker';
 import { Button } from './ui/button';
+import { useApplicationStore } from '@/store/applicationStore';
 
 const ApplicationForm = ({ data }) => {
+  const { applicationData, updateApplication } = useApplicationStore();
   const { mutate, isPending } = useApplication();
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     control,
     formState: { errors },
   } = useForm<ApplicationSchemaType>({
     resolver: zodResolver(applicationSchema),
-    defaultValues: {
-      adults: 1,
-      kids: 0,
-    },
+    defaultValues: applicationData,
   });
 
-  const adults = watch('adults');
-  const kids = watch('kids');
-
-  const onSubmit: SubmitHandler<ApplicationSchemaType> = (formData) => {
-    console.log('Form Data:', formData);
-    mutate(formData, {
+  const onSubmit: SubmitHandler<ApplicationSchemaType> = () => {
+    console.log('Form Data:', applicationData);
+    mutate(applicationData, {
       onSuccess: (response) => {
+        console.log('Success:', response);
         alert(response.message);
       },
       onError: (error) => {
+        console.error('Error:', error);
         alert(error.message);
       },
     });
   };
 
   const handleIncrement = (field: 'adults' | 'kids') => {
-    setValue(field, (field === 'adults' ? adults : kids) + 1);
+    updateApplication(field, applicationData[field] + 1);
   };
 
   const handleDecrement = (field: 'adults' | 'kids') => {
-    const currentValue = field === 'adults' ? adults : kids;
-    if (currentValue > (field === 'kids' ? 0 : 1)) {
-      setValue(field, currentValue - 1);
+    if (applicationData[field] > (field === 'kids' ? 0 : 1)) {
+      updateApplication(field, applicationData[field] - 1);
     }
   };
 
@@ -72,6 +67,8 @@ const ApplicationForm = ({ data }) => {
             <Label>Full Name</Label>
             <Input
               {...register('fullName')}
+              value={applicationData.fullName}
+              onChange={(e) => updateApplication('fullName', e.target.value)}
               placeholder="Enter your full name"
             />
             {errors.fullName && (
@@ -81,7 +78,11 @@ const ApplicationForm = ({ data }) => {
 
           <div className={inputStyle}>
             <Label>Email</Label>
-            <Input {...register('email')} placeholder="Enter your email" />
+            <Input
+              value={applicationData.email}
+              onChange={(e) => updateApplication('email', e.target.value)}
+              placeholder="Enter your email"
+            />
             {errors.email && (
               <span className="text-sm">{errors.email.message}</span>
             )}
@@ -90,7 +91,8 @@ const ApplicationForm = ({ data }) => {
           <div className={inputStyle}>
             <Label>Phone Number</Label>
             <Input
-              {...register('phoneNumber')}
+              value={applicationData.phoneNumber}
+              onChange={(e) => updateApplication('phoneNumber', e.target.value)}
               placeholder="Enter your phone number"
             />
             {errors.phoneNumber && (
@@ -104,12 +106,12 @@ const ApplicationForm = ({ data }) => {
             <Label>Select Date Range</Label>
             <Controller
               name="dateRange"
-              control={control} // ✅ Now `control` exists
+              control={control}
               render={({ field }) => (
                 <DatePickerWithRange
                   NightPrice={pricePerNight}
                   selected={field.value}
-                  onChange={(date) => field.onChange(date)}
+                  onChange={(date) => updateApplication('dateRange', date)}
                 />
               )}
             />
@@ -127,15 +129,17 @@ const ApplicationForm = ({ data }) => {
                     -
                   </Button>
                   <Input
-                    {...register('adults', { valueAsNumber: true })}
-                    value={adults}
+                    value={applicationData.adults}
                     readOnly
                     className="w-16 text-center"
                   />
                   <Button
                     type="button"
                     onClick={() => handleIncrement('adults')}
-                    disabled={kids + adults === maxPerson}
+                    disabled={
+                      applicationData.kids + applicationData.adults ===
+                      maxPerson
+                    }
                   >
                     +
                   </Button>
@@ -152,15 +156,17 @@ const ApplicationForm = ({ data }) => {
                     -
                   </Button>
                   <Input
-                    {...register('kids', { valueAsNumber: true })}
-                    value={kids}
+                    value={applicationData.kids}
                     readOnly
                     className="w-16 text-center"
                   />
                   <Button
                     type="button"
                     onClick={() => handleIncrement('kids')}
-                    disabled={kids + adults === maxPerson}
+                    disabled={
+                      applicationData.kids + applicationData.adults ===
+                      maxPerson
+                    }
                   >
                     +
                   </Button>
