@@ -5,8 +5,7 @@ interface applicationData {
   fullName: string;
   email: string;
   phoneNumber: string;
-  startDate: string;
-  endDate: string;
+  dateRange: string;
   adults: number;
   kids: number;
 }

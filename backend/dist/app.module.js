@@ -12,12 +12,19 @@ const prisma_module_1 = require("./prismaService/prisma.module");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
 const listing_module_1 = require("./listing/listing.module");
+const application_module_1 = require("./application/application.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [prisma_module_1.PrismaModule, auth_module_1.AuthModule, users_module_1.UsersModule, listing_module_1.ListingModule],
+        imports: [
+            prisma_module_1.PrismaModule,
+            auth_module_1.AuthModule,
+            users_module_1.UsersModule,
+            listing_module_1.ListingModule,
+            application_module_1.ApplicationModule,
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

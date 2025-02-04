@@ -49,12 +49,11 @@ export const applicationSchema = z.object({
   fullName: z.string().min(3),
   email: z.string().email(),
   phoneNumber: z.string(),
-  startDate: z.string(),
-  endDate: z.string(),
+  dateRange: z.string(),
   adults: z.number(),
   kids: z.number(),
   userId: z.coerce.number().min(1, 'Must provide userId'),
-  listingId: z.coerce.number().min(1, 'Must provide userId'),
+  listingId: z.coerce.number().min(1, 'Must provide listingId'),
 });
 
 export type ApplicationSchemaType = z.infer<typeof applicationSchema>;

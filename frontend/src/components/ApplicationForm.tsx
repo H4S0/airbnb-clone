@@ -21,10 +21,6 @@ const ApplicationForm = ({ data }) => {
     formState: { errors },
   } = useForm<ApplicationSchemaType>({
     resolver: zodResolver(applicationSchema),
-    defaultValues: {
-      adults: 1,
-      kids: 0,
-    },
   });
 
   const adults = watch('adults');
@@ -33,6 +29,7 @@ const ApplicationForm = ({ data }) => {
   const onSubmit: SubmitHandler<ApplicationSchemaType> = (formData) => {
     mutate(formData, {
       onSuccess: (response) => {
+        console.log(data);
         alert(response.message);
       },
       onError: (error) => {
@@ -106,7 +103,10 @@ const ApplicationForm = ({ data }) => {
         <div className="flex flex-col flex-1 space-y-4 border p-6 rounded-md">
           <div className={inputStyle}>
             <Label>Select Date Range</Label>
-            <DatePickerWithRange NightPrice={pricePerNight} />
+            <DatePickerWithRange
+              NightPrice={pricePerNight}
+              onChange={(date) => setValue('dateRange', date)}
+            />
           </div>
 
           <div className="flex flex-col md:flex-row justify-start md:justify-start md:items-center items-start gap-4">
