@@ -21,6 +21,10 @@ const ApplicationForm = ({ data }) => {
     formState: { errors },
   } = useForm<ApplicationSchemaType>({
     resolver: zodResolver(applicationSchema),
+    defaultValues: {
+      adults: 1,
+      kids: 0,
+    },
   });
 
   const adults = watch('adults');
@@ -51,6 +55,7 @@ const ApplicationForm = ({ data }) => {
 
   const pricePerNight = data.price;
   const maxPerson = data.maxPerson;
+  const limit = kids + adults;
 
   return (
     <form
@@ -105,7 +110,7 @@ const ApplicationForm = ({ data }) => {
             <Label>Select Date Range</Label>
             <DatePickerWithRange
               NightPrice={pricePerNight}
-              onChange={(date) => setValue('dateRange', date)}
+              {...register('dateRange')}
             />
           </div>
 
@@ -129,6 +134,7 @@ const ApplicationForm = ({ data }) => {
                   <Button
                     type="button"
                     onClick={() => handleIncrement('adults')}
+                    disabled={kids + adults === maxPerson}
                   >
                     +
                   </Button>
@@ -150,7 +156,11 @@ const ApplicationForm = ({ data }) => {
                     readOnly
                     className="w-16 text-center"
                   />
-                  <Button type="button" onClick={() => handleIncrement('kids')}>
+                  <Button
+                    type="button"
+                    onClick={() => handleIncrement('kids')}
+                    disabled={kids + adults === maxPerson}
+                  >
                     +
                   </Button>
                 </div>
