@@ -55,7 +55,6 @@ const ApplicationForm = ({ data }) => {
 
   const pricePerNight = data.price;
   const maxPerson = data.maxPerson;
-  const limit = kids + adults;
 
   return (
     <form
