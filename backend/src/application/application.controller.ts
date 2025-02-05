@@ -1,8 +1,9 @@
-import { Body, Controller, Post, UseGuards, Param } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Param, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/decorators/get-user.decorator';
 import { ApplicationSchemaType } from 'src/shared/libs/zodSchema';
 import { ApplicationService } from './application.service';
+import { number } from 'zod';
 
 @Controller('application')
 export class ApplicationController {
@@ -26,4 +27,7 @@ export class ApplicationController {
 
     return console.log('uspjesno');
   }
+
+  @Get('getApplication')
+  async getApplication(@GetUser() user: { userId: number; email: string }) {}
 }

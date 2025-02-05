@@ -81,6 +81,11 @@ let ListingService = class ListingService {
             where: { id },
         });
     }
+    async getListingByUser(userId) {
+        return this.prisma.listing.findMany({
+            where: { userId },
+        });
+    }
 };
 exports.ListingService = ListingService;
 exports.ListingService = ListingService = __decorate([

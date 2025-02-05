@@ -7,4 +7,8 @@ export declare class ApplicationController {
         userId: number;
         email: string;
     }): Promise<void>;
+    getApplication(user: {
+        userId: number;
+        email: string;
+    }): Promise<void>;
 }

@@ -24,8 +24,13 @@ export interface listingProps {
   handleDelete: () => void;
 }
 
-export const fetchListings = async () => {
-  const response = await fetch('http://localhost:4000/listing/getAllListings');
+export const fetchListingsByUser = async () => {
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('http://localhost:4000/listing/byuser', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!response.ok) {
     throw new Error('not ok');
   }
@@ -39,7 +44,7 @@ const ListingPage = () => {
   const deleteListing = useDeleteListing();
   const { isPending, error, data } = useQuery({
     queryKey: ['listings'],
-    queryFn: fetchListings,
+    queryFn: fetchListingsByUser,
   });
 
   const handleDelete = () => {

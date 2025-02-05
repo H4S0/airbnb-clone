@@ -32,6 +32,13 @@ export class ListingController {
     return newListing;
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/byuser')
+  async getListingByUser(@GetUser() user: { userId: number; email: string }) {
+    const { userId } = user;
+    return this.listingService.getListingByUser(userId);
+  }
+
   @Get('getAllListings')
   async getAllListings() {
     const allListings = this.listingService.getAllListings();

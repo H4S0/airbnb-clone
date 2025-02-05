@@ -1,4 +1,4 @@
-import { fetchListings, listingProps } from './pages/Listings/ListingPage';
+import { listingProps } from './pages/Listings/ListingPage';
 import { useQuery } from '@tanstack/react-query';
 import DefaultLogo from './assets/4595376-200.png';
 
@@ -7,6 +7,14 @@ import { categoryData } from './data/categoryData';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Button } from './components/ui/button';
+
+const fetchListings = async () => {
+  const response = await fetch('http://localhost:4000/listing/getAllListings');
+  if (!response.ok) {
+    throw new Error('not ok');
+  }
+  return response.json();
+};
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);

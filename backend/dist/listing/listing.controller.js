@@ -29,6 +29,10 @@ let ListingController = class ListingController {
         });
         return newListing;
     }
+    async getListingByUser(user) {
+        const { userId } = user;
+        return this.listingService.getListingByUser(userId);
+    }
     async getAllListings() {
         const allListings = this.listingService.getAllListings();
         return allListings;
@@ -50,6 +54,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ListingController.prototype, "createListing", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('/byuser'),
+    __param(0, (0, get_user_decorator_1.GetUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ListingController.prototype, "getListingByUser", null);
 __decorate([
     (0, common_1.Get)('getAllListings'),
     __metadata("design:type", Function),
