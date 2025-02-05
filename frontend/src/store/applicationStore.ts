@@ -10,6 +10,7 @@ interface applicationDetails {
   };
   adults: number;
   kids: number;
+  listingId: number;
 }
 
 interface applicationStore {
@@ -31,6 +32,7 @@ export const useApplicationStore = create<applicationStore>((set) => ({
     },
     adults: 0,
     kids: 0,
+    listingId: 0,
   },
   updateApplication: (field, value) =>
     set((state) => ({

@@ -21,7 +21,6 @@ const ListingPageId = () => {
     queryFn: () => fetchListingId(Number(id)),
     enabled: !!id,
   });
-  const [showAmenities, setShowAmenities] = useState(false);
 
   if (isLoading) {
     return (
@@ -156,7 +155,7 @@ const ListingPageId = () => {
         </div>
       </div>
       <div>
-        <ApplicationForm data={data} />
+        <ApplicationForm data={data} id={id} />
       </div>
     </div>
   );

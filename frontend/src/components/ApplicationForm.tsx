@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import {
   applicationSchema,
@@ -12,18 +12,22 @@ import { DatePickerWithRange } from './DatePicker';
 import { Button } from './ui/button';
 import { useApplicationStore } from '@/store/applicationStore';
 
-const ApplicationForm = ({ data }) => {
+const ApplicationForm = ({ data, id }) => {
   const { applicationData, updateApplication } = useApplicationStore();
   const { mutate, isPending } = useApplication();
+
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
-  } = useForm<ApplicationSchemaType>({
-    resolver: zodResolver(applicationSchema),
-    defaultValues: applicationData,
-  });
+  } = useForm<ApplicationSchemaType>();
+
+  // Update listingId in your store when `id` changes.
+  useEffect(() => {
+    if (id) {
+      updateApplication('listingId', parseInt(id));
+    }
+  }, [id, updateApplication]);
 
   const onSubmit: SubmitHandler<ApplicationSchemaType> = () => {
     console.log('Form Data:', applicationData);
@@ -38,8 +42,6 @@ const ApplicationForm = ({ data }) => {
       },
     });
   };
-
-  console.log(applicationData);
 
   const handleIncrement = (field: 'adults' | 'kids') => {
     updateApplication(field, applicationData[field] + 1);
@@ -106,16 +108,11 @@ const ApplicationForm = ({ data }) => {
         <div className="flex flex-col flex-1 space-y-4 border p-6 rounded-md">
           <div className={inputStyle}>
             <Label>Select Date Range</Label>
-            <Controller
-              name="dateRange"
-              control={control}
-              render={({ field }) => (
-                <DatePickerWithRange
-                  NightPrice={pricePerNight}
-                  selected={applicationData.dateRange}
-                  onChange={(date) => updateApplication('dateRange', date)}
-                />
-              )}
+
+            <DatePickerWithRange
+              NightPrice={pricePerNight}
+              selected={applicationData.dateRange}
+              onChange={(date) => updateApplication('dateRange', date)}
             />
           </div>
 
@@ -201,6 +198,5 @@ const ApplicationForm = ({ data }) => {
     </form>
   );
 };
-
 const inputStyle = 'flex flex-col gap-2';
 export default ApplicationForm;

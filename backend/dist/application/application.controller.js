@@ -23,11 +23,14 @@ let ApplicationController = class ApplicationController {
     }
     async createApplication(createApplicationDto, user) {
         const { userId } = user;
+        const { listingId } = createApplicationDto;
         const newApplication = await this.applicationService.createApplication({
             ...createApplicationDto,
             userId,
+            listingId,
         });
-        return { message: 'Application created successfully', newApplication };
+        console.log(listingId);
+        return console.log('uspjesno');
     }
 };
 exports.ApplicationController = ApplicationController;

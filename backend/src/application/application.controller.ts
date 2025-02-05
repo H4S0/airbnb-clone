@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/decorators/get-user.decorator';
 import { ApplicationSchemaType } from 'src/shared/libs/zodSchema';
@@ -7,6 +7,7 @@ import { ApplicationService } from './application.service';
 @Controller('application')
 export class ApplicationController {
   constructor(private readonly applicationService: ApplicationService) {}
+
   @UseGuards(AuthGuard('jwt'))
   @Post('create')
   async createApplication(
@@ -14,12 +15,15 @@ export class ApplicationController {
     @GetUser() user: { userId: number; email: string }
   ) {
     const { userId } = user;
-
+    const { listingId } = createApplicationDto;
     const newApplication = await this.applicationService.createApplication({
       ...createApplicationDto,
       userId,
+      listingId,
     });
 
-    return { message: 'Application created successfully', newApplication };
+    console.log(listingId);
+
+    return console.log('uspjesno');
   }
 }

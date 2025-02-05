@@ -63,7 +63,7 @@ export const DatePickerWithRange = ({
             mode="range"
             defaultMonth={selected?.from}
             selected={selected}
-            onSelect={onChange} // Update parent state
+            onSelect={onChange}
             numberOfMonths={2}
           />
         </PopoverContent>
