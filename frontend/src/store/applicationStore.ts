@@ -32,11 +32,11 @@ export const useApplicationStore = create<applicationStore>((set) => ({
     adults: 0,
     kids: 0,
   },
-  updateApplication: (key, value) =>
+  updateApplication: (field, value) =>
     set((state) => ({
       applicationData: {
         ...state.applicationData,
-        [key]: value,
+        [field]: value,
       },
     })),
 }));

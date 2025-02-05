@@ -39,6 +39,8 @@ const ApplicationForm = ({ data }) => {
     });
   };
 
+  console.log(applicationData);
+
   const handleIncrement = (field: 'adults' | 'kids') => {
     updateApplication(field, applicationData[field] + 1);
   };
@@ -110,7 +112,7 @@ const ApplicationForm = ({ data }) => {
               render={({ field }) => (
                 <DatePickerWithRange
                   NightPrice={pricePerNight}
-                  selected={field.value}
+                  selected={applicationData.dateRange}
                   onChange={(date) => updateApplication('dateRange', date)}
                 />
               )}

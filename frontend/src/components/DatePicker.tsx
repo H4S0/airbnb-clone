@@ -15,16 +15,21 @@ import {
 export const DatePickerWithRange = ({
   className,
   NightPrice,
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 0, 20),
-    to: addDays(new Date(2025, 0, 20), 20),
-  });
-
+  selected,
+  onChange,
+}: {
+  className?: string;
+  NightPrice: number;
+  selected: DateRange | undefined;
+  onChange: (date: DateRange | undefined) => void;
+}) => {
   const nights =
-    date?.from && date.to ? differenceInCalendarDays(date.to, date.from) : 0;
+    selected?.from && selected.to
+      ? differenceInCalendarDays(selected.to, selected.from)
+      : 0;
 
   const totalPrice = nights * NightPrice;
+
   return (
     <div className={cn('grid gap-2', className)}>
       <Popover>
@@ -34,18 +39,18 @@ export const DatePickerWithRange = ({
             variant="ghost"
             className={cn(
               'w-[300px] justify-start text-left font-normal bg-gray-300',
-              !date && 'text-muted-foreground'
+              !selected && 'text-muted-foreground'
             )}
           >
             <CalendarIcon />
-            {date?.from ? (
-              date.to ? (
+            {selected?.from ? (
+              selected.to ? (
                 <>
-                  {format(date.from, 'LLL dd, y')} -{' '}
-                  {format(date.to, 'LLL dd, y')}
+                  {format(selected.from, 'LLL dd, y')} -{' '}
+                  {format(selected.to, 'LLL dd, y')}
                 </>
               ) : (
-                format(date.from, 'LLL dd, y')
+                format(selected.from, 'LLL dd, y')
               )
             ) : (
               <span>Pick a date</span>
@@ -56,9 +61,9 @@ export const DatePickerWithRange = ({
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
+            defaultMonth={selected?.from}
+            selected={selected}
+            onSelect={onChange} // Update parent state
             numberOfMonths={2}
           />
         </PopoverContent>
