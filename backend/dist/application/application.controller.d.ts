@@ -7,10 +7,7 @@ export declare class ApplicationController {
         userId: number;
         email: string;
     }): Promise<void>;
-    getApplication(createApplicationDto: ApplicationSchemaType, user: {
-        userId: number;
-        email: string;
-    }): Promise<{
+    getApplication(createApplicationDto: ApplicationSchemaType): Promise<{
         fullName: string;
         email: string;
         phoneNumber: string;

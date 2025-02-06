@@ -29,10 +29,7 @@ export class ApplicationController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('getApplication')
-  async getApplication(
-    @Body() createApplicationDto: ApplicationSchemaType,
-    @GetUser() user: { userId: number; email: string }
-  ) {
+  async getApplication(@Body() createApplicationDto: ApplicationSchemaType) {
     const { listingId } = createApplicationDto;
     return this.applicationService.getApplicationByUser(listingId);
   }

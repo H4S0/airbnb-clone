@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface applicationDetails {
+export interface applicationDetails {
   fullName: string;
   email: string;
   phoneNumber: string;
