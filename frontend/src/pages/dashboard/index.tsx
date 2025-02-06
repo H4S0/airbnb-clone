@@ -5,14 +5,11 @@ import { useState } from 'react';
 
 const fetchApplication = async () => {
   const token = localStorage.getItem('accessToken');
-  const response = await fetch(
-    'http://localhost:4000/application/getApplication',
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch('http://localhost:4000/listing/byuser', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!response.ok) {
     throw new Error('not ok');
   }
@@ -29,7 +26,8 @@ const Dashboard = () => {
     queryFn: fetchApplication,
   });
 
-  console.log('fetched data', data);
+  const applications = data?.flatMap((listing) => listing.Application);
+  console.log(applications);
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -80,10 +78,11 @@ const Dashboard = () => {
         <div className="space-y-4">
           {activeButton === 'current' ? (
             <p className="text-sm text-gray-500">
-              {data?.currentBookings || 'No current bookings available.'}
+              {applications?.currentBookings ||
+                'No current bookings available.'}
             </p>
-          ) : data?.length > 0 ? (
-            data.map((item: applicationDetails) => (
+          ) : applications?.length > 0 ? (
+            applications?.map((item: applicationDetails) => (
               <div
                 key={item.email}
                 className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"

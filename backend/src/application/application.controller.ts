@@ -26,11 +26,4 @@ export class ApplicationController {
 
     return console.log('uspjesno');
   }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get('getApplication')
-  async getApplication(@Body() createApplicationDto: ApplicationSchemaType) {
-    const { listingId } = createApplicationDto;
-    return this.applicationService.getApplicationByUser(listingId);
-  }
 }

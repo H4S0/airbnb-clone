@@ -7,15 +7,4 @@ export declare class ApplicationController {
         userId: number;
         email: string;
     }): Promise<void>;
-    getApplication(createApplicationDto: ApplicationSchemaType): Promise<{
-        fullName: string;
-        email: string;
-        phoneNumber: string;
-        dateRange: import("@prisma/client/runtime/library").JsonValue;
-        adults: number;
-        kids: number;
-        userId: number;
-        listingId: number;
-        id: number;
-    }[]>;
 }

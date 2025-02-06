@@ -32,10 +32,4 @@ export class ApplicationService {
       },
     });
   }
-
-  async getApplicationByUser(listingId: number) {
-    return this.prisma.application.findMany({
-      where: { listingId: listingId },
-    });
-  }
 }

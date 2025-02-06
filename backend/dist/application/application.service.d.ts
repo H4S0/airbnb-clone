@@ -14,15 +14,4 @@ export declare class ApplicationService {
         listingId: number;
         userId: number;
     }>;
-    getApplicationByUser(listingId: number): Promise<{
-        id: number;
-        fullName: string;
-        email: string;
-        phoneNumber: string;
-        dateRange: import("@prisma/client/runtime/library").JsonValue;
-        adults: number;
-        kids: number;
-        listingId: number;
-        userId: number;
-    }[]>;
 }
