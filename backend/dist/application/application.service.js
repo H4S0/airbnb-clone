@@ -31,6 +31,12 @@ let ApplicationService = class ApplicationService {
             },
         });
     }
+    async updateApplication(id, createApplicationDto) {
+        return this.prisma.application.update({
+            where: { id: Number(id) },
+            data: createApplicationDto,
+        });
+    }
 };
 exports.ApplicationService = ApplicationService;
 exports.ApplicationService = ApplicationService = __decorate([

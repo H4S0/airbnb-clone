@@ -50,5 +50,7 @@ exports.applicationSchema = zod_1.z.object({
     kids: zod_1.z.number(),
     userId: zod_1.z.coerce.number().min(1, 'Must provide userId'),
     listingId: zod_1.z.coerce.number().min(1, 'Must provide listingId'),
+    isAccepted: zod_1.z.boolean(),
+    isDeclined: zod_1.z.boolean(),
 });
 //# sourceMappingURL=zodSchema.js.map

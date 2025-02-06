@@ -57,6 +57,8 @@ export const applicationSchema = z.object({
   kids: z.number(),
   userId: z.coerce.number().min(1, 'Must provide userId'),
   listingId: z.coerce.number().min(1, 'Must provide listingId'),
+  isAccepted: z.boolean(),
+  isDeclined: z.boolean(),
 });
 
 export type ApplicationSchemaType = z.infer<typeof applicationSchema>;

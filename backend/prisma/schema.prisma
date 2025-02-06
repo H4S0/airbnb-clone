@@ -52,8 +52,8 @@ model Application {
   kids        Int
   listingId   Int
   userId      Int
-  isAccepted  Boolean
-  isDeclined  Boolean
+  isAccepted  Boolean @default(false)
+  isDeclined  Boolean @default(false)
 
   Listing Listing? @relation(fields: [listingId], references: [id])
   user    User     @relation(fields: [userId], references: [id])

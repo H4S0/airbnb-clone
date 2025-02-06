@@ -19,7 +19,7 @@ const fetchApplication = async () => {
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const [activeButton, setActiveButton] = useState('current'); // Track active button
+  const [activeButton, setActiveButton] = useState('current');
 
   const { isPending, error, data } = useQuery({
     queryKey: ['application'],
@@ -28,6 +28,28 @@ const Dashboard = () => {
 
   const applications = data?.flatMap((listing) => listing.Application);
   console.log(applications);
+
+  const handleStatusUpdate = async (id: number, status) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/application/${id}/update`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(status),
+        }
+      );
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Application updated successfully!');
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Failed to update status:', error);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -115,10 +137,26 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="flex flex-row items-center gap-3 mt-5">
-                  <button className="bg-green-500 text-white p-2 rounded-lg">
+                  <button
+                    onClick={() =>
+                      handleStatusUpdate(item.id, {
+                        isAccepted: true,
+                        isDeclined: false,
+                      })
+                    }
+                    className="bg-green-500 text-white p-2 rounded-lg"
+                  >
                     Accept
                   </button>
-                  <button className="bg-red-500 text-white p-2 rounded-lg">
+                  <button
+                    onClick={() =>
+                      handleStatusUpdate(item.id, {
+                        isAccepted: false,
+                        isDeclined: true,
+                      })
+                    }
+                    className="bg-red-500 text-white p-2 rounded-lg"
+                  >
                     Decline
                   </button>
                 </div>

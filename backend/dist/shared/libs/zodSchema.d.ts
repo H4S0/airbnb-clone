@@ -145,6 +145,8 @@ export declare const applicationSchema: z.ZodObject<{
     kids: z.ZodNumber;
     userId: z.ZodNumber;
     listingId: z.ZodNumber;
+    isAccepted: z.ZodBoolean;
+    isDeclined: z.ZodBoolean;
 }, "strip", z.ZodTypeAny, {
     email?: string;
     userId?: number;
@@ -157,6 +159,8 @@ export declare const applicationSchema: z.ZodObject<{
     adults?: number;
     kids?: number;
     listingId?: number;
+    isAccepted?: boolean;
+    isDeclined?: boolean;
 }, {
     email?: string;
     userId?: number;
@@ -169,5 +173,7 @@ export declare const applicationSchema: z.ZodObject<{
     adults?: number;
     kids?: number;
     listingId?: number;
+    isAccepted?: boolean;
+    isDeclined?: boolean;
 }>;
 export type ApplicationSchemaType = z.infer<typeof applicationSchema>;
