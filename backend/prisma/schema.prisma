@@ -43,7 +43,7 @@ model Listing {
 }
 
 model Application {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   fullName    String
   email       String
   phoneNumber String
@@ -52,6 +52,8 @@ model Application {
   kids        Int
   listingId   Int
   userId      Int
+  isAccepted  Boolean
+  isDeclined  Boolean
 
   Listing Listing? @relation(fields: [listingId], references: [id])
   user    User     @relation(fields: [userId], references: [id])

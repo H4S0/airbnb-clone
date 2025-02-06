@@ -31,6 +31,11 @@ let ApplicationService = class ApplicationService {
             },
         });
     }
+    async getApplicationByUser(listingId) {
+        return this.prisma.application.findMany({
+            where: { listingId: listingId },
+        });
+    }
 };
 exports.ApplicationService = ApplicationService;
 exports.ApplicationService = ApplicationService = __decorate([

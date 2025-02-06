@@ -32,7 +32,10 @@ let ApplicationController = class ApplicationController {
         console.log(listingId);
         return console.log('uspjesno');
     }
-    async getApplication(user) { }
+    async getApplication(createApplicationDto, user) {
+        const { listingId } = createApplicationDto;
+        return this.applicationService.getApplicationByUser(listingId);
+    }
 };
 exports.ApplicationController = ApplicationController;
 __decorate([
@@ -45,10 +48,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ApplicationController.prototype, "createApplication", null);
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Get)('getApplication'),
-    __param(0, (0, get_user_decorator_1.GetUser)()),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, get_user_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ApplicationController.prototype, "getApplication", null);
 exports.ApplicationController = ApplicationController = __decorate([
