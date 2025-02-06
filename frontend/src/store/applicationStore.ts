@@ -11,6 +11,8 @@ export interface applicationDetails {
   adults: number;
   kids: number;
   listingId: number;
+  isAccepted: boolean;
+  isDeclined: boolean;
 }
 
 interface applicationStore {
@@ -33,6 +35,8 @@ export const useApplicationStore = create<applicationStore>((set) => ({
     adults: 0,
     kids: 0,
     listingId: 0,
+    isAccepted: false,
+    isDeclined: false,
   },
   updateApplication: (field, value) =>
     set((state) => ({

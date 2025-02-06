@@ -27,7 +27,7 @@ const Dashboard = () => {
   });
 
   const applications = data?.flatMap((listing) => listing.Application);
-  console.log(applications);
+  const isAccepted = applications?.map((item) => item.isAccepted);
 
   const handleStatusUpdate = async (id: number, status) => {
     try {
@@ -99,10 +99,51 @@ const Dashboard = () => {
         </h3>
         <div className="space-y-4">
           {activeButton === 'current' ? (
-            <p className="text-sm text-gray-500">
-              {applications?.currentBookings ||
-                'No current bookings available.'}
-            </p>
+            applications?.filter((item: applicationDetails) => item.isAccepted)
+              .length > 0 ? (
+              applications
+                .filter((item: applicationDetails) => item.isAccepted)
+                .map((item: applicationDetails) => (
+                  <div
+                    key={item.email}
+                    className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-600">
+                          <span className="font-medium">Email:</span>{' '}
+                          {item.email}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          <span className="font-medium">Full Name:</span>{' '}
+                          {item.fullName}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          <span className="font-medium">Phone:</span>{' '}
+                          {item.phoneNumber}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">
+                          <span className="font-medium">Dates:</span>{' '}
+                          {item.dateRange.from} - {item.dateRange.to}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          <span className="font-medium">Adults:</span>{' '}
+                          {item.adults}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          <span className="font-medium">Kids:</span> {item.kids}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+            ) : (
+              <p className="text-sm text-gray-500">
+                No current bookings available.
+              </p>
+            )
           ) : applications?.length > 0 ? (
             applications?.map((item: applicationDetails) => (
               <div
