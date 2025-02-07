@@ -45,7 +45,7 @@ export class ApplicationService {
 
   async deleteApplicationOnDecline(id: number) {
     return this.prisma.application.delete({
-      where: { id: id },
+      where: { id: Number(id) },
     });
   }
 }

@@ -1,3 +1,4 @@
+import { useDeclineApplication } from '@/hooks/declineApplication';
 import useAuth from '@/hooks/useAuth';
 import { applicationDetails } from '@/store/applicationStore';
 import { useQuery } from '@tanstack/react-query';
@@ -20,7 +21,7 @@ const fetchApplication = async () => {
 const Dashboard = () => {
   const { user } = useAuth();
   const [activeButton, setActiveButton] = useState('current');
-
+  const declineApplication = useDeclineApplication();
   const { isPending, error, data } = useQuery({
     queryKey: ['application'],
     queryFn: fetchApplication,
@@ -28,6 +29,10 @@ const Dashboard = () => {
 
   const applications = data?.flatMap((listing) => listing.Application);
   const isAccepted = applications?.map((item) => item.isAccepted);
+
+  const handleDecline = (id: number) => {
+    declineApplication.mutationFn(id);
+  };
 
   const handleStatusUpdate = async (id: number, status) => {
     try {
@@ -144,12 +149,11 @@ const Dashboard = () => {
                 No current bookings available.
               </p>
             )
-          ) : applications?.length > 0 ? (
+          ) : applications?.filter(
+              (item: applicationDetails) => item.isAccepted === false
+            ).length > 0 ? (
             applications
-              ?.filter(
-                (item: applicationDetails) =>
-                  item.isAccepted === false && item.isDeclined === false
-              )
+              ?.filter((item: applicationDetails) => item.isAccepted === false)
               .map((item: applicationDetails) => (
                 <div
                   key={item.email}
@@ -196,12 +200,7 @@ const Dashboard = () => {
                       Accept
                     </button>
                     <button
-                      onClick={() =>
-                        handleStatusUpdate(item.id, {
-                          isAccepted: false,
-                          isDeclined: true,
-                        })
-                      }
+                      onClick={handleDecline(item.id)}
                       className="bg-red-500 text-white p-2 rounded-lg"
                     >
                       Decline
