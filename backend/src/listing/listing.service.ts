@@ -74,6 +74,7 @@ export class ListingService {
         price: true,
         maxPerson: true,
         isPet: true,
+        Application: true,
       },
     });
   }
