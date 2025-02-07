@@ -42,4 +42,10 @@ export class ApplicationService {
       data: createApplicationDto,
     });
   }
+
+  async deleteApplicationOnDecline(id: number) {
+    return this.prisma.application.delete({
+      where: { id: id },
+    });
+  }
 }

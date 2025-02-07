@@ -29,12 +29,14 @@ let ApplicationController = class ApplicationController {
             userId,
             listingId,
         });
-        console.log(listingId);
         return console.log('uspjesno');
     }
     async updateStatus(id, createApplicationDto) {
         console.log('Received update:', { id, createApplicationDto });
         return this.applicationService.updateApplication(id, createApplicationDto);
+    }
+    async deleteApplicationOnDecline(id) {
+        return this.applicationService.deleteApplicationOnDecline(id);
     }
 };
 exports.ApplicationController = ApplicationController;
@@ -55,6 +57,13 @@ __decorate([
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
 ], ApplicationController.prototype, "updateStatus", null);
+__decorate([
+    (0, common_1.Delete)(':id/delete'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ApplicationController.prototype, "deleteApplicationOnDecline", null);
 exports.ApplicationController = ApplicationController = __decorate([
     (0, common_1.Controller)('application'),
     __metadata("design:paramtypes", [application_service_1.ApplicationService])

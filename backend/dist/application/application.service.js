@@ -37,6 +37,11 @@ let ApplicationService = class ApplicationService {
             data: createApplicationDto,
         });
     }
+    async deleteApplicationOnDecline(id) {
+        return this.prisma.application.delete({
+            where: { id: id },
+        });
+    }
 };
 exports.ApplicationService = ApplicationService;
 exports.ApplicationService = ApplicationService = __decorate([

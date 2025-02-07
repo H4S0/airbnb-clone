@@ -3,9 +3,9 @@ import {
   Controller,
   Post,
   UseGuards,
-  Get,
   Patch,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/decorators/get-user.decorator';
@@ -30,8 +30,6 @@ export class ApplicationController {
       listingId,
     });
 
-    console.log(listingId);
-
     return console.log('uspjesno');
   }
 
@@ -42,5 +40,10 @@ export class ApplicationController {
   ) {
     console.log('Received update:', { id, createApplicationDto }); // Debugging
     return this.applicationService.updateApplication(id, createApplicationDto);
+  }
+
+  @Delete(':id/delete')
+  async deleteApplicationOnDecline(@Param('id') id: number) {
+    return this.applicationService.deleteApplicationOnDecline(id);
   }
 }
