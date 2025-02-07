@@ -1,8 +1,9 @@
 import { useDeclineApplication } from '@/hooks/declineApplication';
 import useAuth from '@/hooks/useAuth';
 import { applicationDetails } from '@/store/applicationStore';
-import { useQuery } from '@tanstack/react-query';
+
 import { useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const fetchApplication = async () => {
   const token = localStorage.getItem('accessToken');
@@ -30,9 +31,7 @@ const Dashboard = () => {
   const applications = data?.flatMap((listing) => listing.Application);
   const isAccepted = applications?.map((item) => item.isAccepted);
 
-  const handleDecline = (id: number) => {
-    declineApplication.mutationFn(id);
-  };
+  const queryClient = useQueryClient();
 
   const handleStatusUpdate = async (id: number, status) => {
     try {
@@ -48,12 +47,18 @@ const Dashboard = () => {
       const result = await response.json();
       if (response.ok) {
         alert('Application updated successfully!');
+        queryClient.invalidateQueries(['application']); // Refresh data
       } else {
         alert(`Error: ${result.message}`);
       }
     } catch (error) {
       console.error('Failed to update status:', error);
     }
+  };
+
+  const handleDecline = (id: number) => {
+    declineApplication.mutationFn(id);
+    queryClient.invalidateQueries(['application']); // Refresh data after decline
   };
 
   return (

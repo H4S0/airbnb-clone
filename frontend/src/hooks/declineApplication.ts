@@ -10,6 +10,7 @@ export const useDeclineApplication = () => {
     mutationFn: deleteApplication,
     onSuccess: () => {
       console.log('delete successfully');
+      location.reload();
     },
     onError: (error) => {
       console.log(error);

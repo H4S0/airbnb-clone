@@ -11,11 +11,13 @@ import { Input } from './ui/input';
 import { DatePickerWithRange } from './DatePicker';
 import { Button } from './ui/button';
 import { useApplicationStore } from '@/store/applicationStore';
+import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from './ui/toast';
 
 const ApplicationForm = ({ data, id }) => {
   const { applicationData, updateApplication } = useApplicationStore();
   const { mutate, isPending } = useApplication();
-
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -33,11 +35,19 @@ const ApplicationForm = ({ data, id }) => {
     mutate(applicationData, {
       onSuccess: (response) => {
         console.log('Success:', response);
-        alert(response.message);
+        toast({
+          title: 'Application Submitted!',
+          description: 'Your application has been successfully submitted.',
+        });
       },
       onError: (error) => {
         console.error('Error:', error);
-        alert(error.message);
+        toast({
+          title: 'Submission Failed',
+          description:
+            error.message || 'Something went wrong. Please try again.',
+          variant: 'destructive',
+        });
       },
     });
   };
@@ -190,7 +200,18 @@ const ApplicationForm = ({ data, id }) => {
         </div>
       </div>
       <div className="flex justify-start mt-8">
-        <Button type="submit" disabled={isPending} variant="destructive">
+        <Button
+          onClick={() =>
+            toast({
+              title: 'Uh oh! Something went wrong.',
+              description: 'There was a problem with your request.',
+              action: <ToastAction altText="Try again">Try again</ToastAction>,
+            })
+          }
+          type="submit"
+          disabled={isPending}
+          variant="destructive"
+        >
           {isPending ? 'Submitting...' : 'Submit Application'}
         </Button>
       </div>
