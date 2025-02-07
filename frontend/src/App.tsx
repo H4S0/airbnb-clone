@@ -17,7 +17,9 @@ function App() {
   const { isLoggedIn, checkAuthState } = useAuth();
   const location = useLocation();
 
-  const isDashboardNavbar = location.pathname.startsWith('/dashboard');
+  const isDashboardNavbar =
+    location.pathname.startsWith('/dashboard') ||
+    location.pathname.startsWith('/listings');
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 mt-7">
