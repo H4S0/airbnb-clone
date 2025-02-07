@@ -22,7 +22,6 @@ const ApplicationForm = ({ data, id }) => {
     formState: { errors },
   } = useForm<ApplicationSchemaType>();
 
-  // Update listingId in your store when `id` changes.
   useEffect(() => {
     if (id) {
       updateApplication('listingId', parseInt(id));

@@ -11,16 +11,16 @@ export declare class ApplicationController {
         isAccepted: boolean;
         isDeclined: boolean;
     }): Promise<{
-        id: number;
-        fullName: string;
         email: string;
+        userId: number;
+        fullName: string;
         phoneNumber: string;
         dateRange: import("@prisma/client/runtime/library").JsonValue;
         adults: number;
         kids: number;
         listingId: number;
-        userId: number;
         isAccepted: boolean;
         isDeclined: boolean;
+        id: number;
     }>;
 }

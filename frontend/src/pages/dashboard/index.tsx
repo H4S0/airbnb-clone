@@ -145,64 +145,70 @@ const Dashboard = () => {
               </p>
             )
           ) : applications?.length > 0 ? (
-            applications?.map((item: applicationDetails) => (
-              <div
-                key={item.email}
-                className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Email:</span> {item.email}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Full Name:</span>{' '}
-                      {item.fullName}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Phone:</span>{' '}
-                      {item.phoneNumber}
-                    </p>
+            applications
+              ?.filter(
+                (item: applicationDetails) =>
+                  item.isAccepted === false && item.isDeclined === false
+              )
+              .map((item: applicationDetails) => (
+                <div
+                  key={item.email}
+                  className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Email:</span> {item.email}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Full Name:</span>{' '}
+                        {item.fullName}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Phone:</span>{' '}
+                        {item.phoneNumber}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Dates:</span>{' '}
+                        {item.dateRange.from} - {item.dateRange.to}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Adults:</span>{' '}
+                        {item.adults}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Kids:</span> {item.kids}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Dates:</span>{' '}
-                      {item.dateRange.from} - {item.dateRange.to}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Adults:</span> {item.adults}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Kids:</span> {item.kids}
-                    </p>
+                  <div className="flex flex-row items-center gap-3 mt-5">
+                    <button
+                      onClick={() =>
+                        handleStatusUpdate(item.id, {
+                          isAccepted: true,
+                          isDeclined: false,
+                        })
+                      }
+                      className="bg-green-500 text-white p-2 rounded-lg"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleStatusUpdate(item.id, {
+                          isAccepted: false,
+                          isDeclined: true,
+                        })
+                      }
+                      className="bg-red-500 text-white p-2 rounded-lg"
+                    >
+                      Decline
+                    </button>
                   </div>
                 </div>
-                <div className="flex flex-row items-center gap-3 mt-5">
-                  <button
-                    onClick={() =>
-                      handleStatusUpdate(item.id, {
-                        isAccepted: true,
-                        isDeclined: false,
-                      })
-                    }
-                    className="bg-green-500 text-white p-2 rounded-lg"
-                  >
-                    Accept
-                  </button>
-                  <button
-                    onClick={() =>
-                      handleStatusUpdate(item.id, {
-                        isAccepted: false,
-                        isDeclined: true,
-                      })
-                    }
-                    className="bg-red-500 text-white p-2 rounded-lg"
-                  >
-                    Decline
-                  </button>
-                </div>
-              </div>
-            ))
+              ))
           ) : (
             <p className="text-sm text-gray-500">
               No upcoming bookings available.
