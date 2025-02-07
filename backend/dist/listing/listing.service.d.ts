@@ -107,6 +107,10 @@ export declare class ListingService {
         updatedAt: Date;
     }>;
     getListingByUser(userId: number): Promise<{
+        country: string;
+        city: string;
+        address: string;
+        createdAt: Date;
         Application: {
             email: string;
             userId: number;
@@ -120,5 +124,6 @@ export declare class ListingService {
             isDeclined: boolean;
             id: number;
         }[];
+        listingName: string;
     }[]>;
 }

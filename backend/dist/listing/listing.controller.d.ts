@@ -31,6 +31,10 @@ export declare class ListingController {
         userId: number;
         email: string;
     }): Promise<{
+        country: string;
+        city: string;
+        address: string;
+        createdAt: Date;
         Application: {
             email: string;
             userId: number;
@@ -44,6 +48,7 @@ export declare class ListingController {
             isDeclined: boolean;
             id: number;
         }[];
+        listingName: string;
     }[]>;
     getAllListings(): Promise<{
         userId: number;

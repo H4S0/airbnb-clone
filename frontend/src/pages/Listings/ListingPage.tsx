@@ -112,13 +112,13 @@ const ListingPage = () => {
 
       {data.length > 0 ? (
         filteredListings.map((listing: listingProps) => (
-          <>
+          <div key={listing.id}>
             {grid ? (
               <CardListing listing={listing} handleDelete={handleDelete} />
             ) : (
               <RowListing listing={listing} handleDelete={handleDelete} />
             )}
-          </>
+          </div>
         ))
       ) : (
         <h2 className="text-2xl font-semibold flex items-center justify-center mt-20">

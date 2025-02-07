@@ -35,7 +35,7 @@ export class ApplicationService {
 
   async updateApplication(
     id: number,
-    createApplicationDto: { isAccepted: boolean; isDeclined: boolean }
+    createApplicationDto: ApplicationSchemaType
   ) {
     return this.prisma.application.update({
       where: { id: Number(id) },

@@ -85,6 +85,11 @@ let ListingService = class ListingService {
         return this.prisma.listing.findMany({
             where: { userId },
             select: {
+                listingName: true,
+                address: true,
+                city: true,
+                country: true,
+                createdAt: true,
                 Application: true,
             },
         });

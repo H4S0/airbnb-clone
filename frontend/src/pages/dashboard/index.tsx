@@ -200,7 +200,7 @@ const Dashboard = () => {
                       Accept
                     </button>
                     <button
-                      onClick={handleDecline(item.id)}
+                      onClick={() => handleDecline(item.id)}
                       className="bg-red-500 text-white p-2 rounded-lg"
                     >
                       Decline

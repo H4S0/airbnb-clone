@@ -16,10 +16,7 @@ export declare class ApplicationService {
         isAccepted: boolean;
         isDeclined: boolean;
     }>;
-    updateApplication(id: number, createApplicationDto: {
-        isAccepted: boolean;
-        isDeclined: boolean;
-    }): Promise<{
+    updateApplication(id: number, createApplicationDto: ApplicationSchemaType): Promise<{
         id: number;
         fullName: string;
         email: string;
