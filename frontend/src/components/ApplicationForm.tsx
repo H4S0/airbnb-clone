@@ -112,6 +112,24 @@ const ApplicationForm = ({ data, id }) => {
               <span className="text-sm">{errors.phoneNumber.message}</span>
             )}
           </div>
+          <div className="flex justify-start mt-8">
+            <Button
+              onClick={() =>
+                toast({
+                  title: 'Uh oh! Something went wrong.',
+                  description: 'There was a problem with your request.',
+                  action: (
+                    <ToastAction altText="Try again">Try again</ToastAction>
+                  ),
+                })
+              }
+              type="submit"
+              disabled={isPending}
+              variant="destructive"
+            >
+              {isPending ? 'Submitting...' : 'Submit Application'}
+            </Button>
+          </div>
         </div>
 
         <div className="flex flex-col flex-1 space-y-4 border p-6 rounded-md">
@@ -198,22 +216,6 @@ const ApplicationForm = ({ data, id }) => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-start mt-8">
-        <Button
-          onClick={() =>
-            toast({
-              title: 'Uh oh! Something went wrong.',
-              description: 'There was a problem with your request.',
-              action: <ToastAction altText="Try again">Try again</ToastAction>,
-            })
-          }
-          type="submit"
-          disabled={isPending}
-          variant="destructive"
-        >
-          {isPending ? 'Submitting...' : 'Submit Application'}
-        </Button>
       </div>
     </form>
   );

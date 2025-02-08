@@ -48,8 +48,9 @@ const ListingPage = () => {
   });
 
   const handleDelete = () => {
-    const listingId = data.map((listing: listingProps) => listing.id);
+    const listingId = data.map((item) => item.id);
     deleteListing.mutationFn(listingId);
+    location.reload();
   };
 
   const handleGrid = () => {

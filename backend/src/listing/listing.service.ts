@@ -89,6 +89,9 @@ export class ListingService {
   async deleteListing(id: number) {
     return this.prisma.listing.delete({
       where: { id },
+      include: {
+        Application: true,
+      },
     });
   }
 
@@ -96,6 +99,7 @@ export class ListingService {
     return this.prisma.listing.findMany({
       where: { userId },
       select: {
+        id: true,
         listingName: true,
         address: true,
         city: true,

@@ -55,6 +55,6 @@ model Application {
   isAccepted  Boolean @default(false)
   isDeclined  Boolean @default(false)
 
-  Listing Listing? @relation(fields: [listingId], references: [id])
+  Listing Listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
   user    User     @relation(fields: [userId], references: [id])
 }

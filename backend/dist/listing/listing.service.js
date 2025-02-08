@@ -80,12 +80,16 @@ let ListingService = class ListingService {
     async deleteListing(id) {
         return this.prisma.listing.delete({
             where: { id },
+            include: {
+                Application: true,
+            },
         });
     }
     async getListingByUser(userId) {
         return this.prisma.listing.findMany({
             where: { userId },
             select: {
+                id: true,
                 listingName: true,
                 address: true,
                 city: true,
