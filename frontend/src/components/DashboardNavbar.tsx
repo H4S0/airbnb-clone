@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import useAuth from '@/hooks/useAuth';
 import { useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaAirbnb, FaBars, FaTimes } from 'react-icons/fa';
 import { Separator } from './ui/separator';
 
 const DashboardNavbar = () => {
@@ -16,9 +16,9 @@ const DashboardNavbar = () => {
   return (
     <div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <div>
-          <Link to={'/'} className="text-xl font-bold text-gray-800">
-            AirBnb Logo
+        <div className="text-4xl text-red-400">
+          <Link to={'/'}>
+            <FaAirbnb />
           </Link>
         </div>
 
@@ -31,7 +31,11 @@ const DashboardNavbar = () => {
             Listings
           </Link>
           <p className="cursor-pointer hover:underline">Helping Center</p>
-          <Button onClick={handleLogout} className="text-sm">
+          <Button
+            variant="destructive"
+            onClick={handleLogout}
+            className="text-sm"
+          >
             Logout
           </Button>
         </div>

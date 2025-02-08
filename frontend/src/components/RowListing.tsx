@@ -38,7 +38,6 @@ const RowListing = ({ listing, handleDelete }: listingProps) => {
               <IoMenu className="text-3xl text-gray-600 cursor-pointer hover:text-gray-800" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Update listing</DropdownMenuItem>
               <DropdownMenuItem>
                 <button onClick={handleDelete}>Delete listing</button>
               </DropdownMenuItem>

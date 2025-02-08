@@ -8,6 +8,7 @@ import useAuth from '@/hooks/useAuth';
 import { Button } from './ui/button';
 import { Link } from 'react-router';
 import { Separator } from './ui/separator';
+import { FaAirbnb } from 'react-icons/fa';
 
 const MainNavbar = () => {
   const [isUserMenu, setIsUserMenu] = useState(false);
@@ -33,8 +34,10 @@ const MainNavbar = () => {
   return (
     <>
       <div className="flex justify-between items-center mt-[-10px]">
-        <div>
-          <Link to={'/'}>AirBnb Logo</Link>
+        <div className="text-4xl text-red-400">
+          <Link to={'/'}>
+            <FaAirbnb />
+          </Link>
         </div>
         <div>
           <SearchingOptions />

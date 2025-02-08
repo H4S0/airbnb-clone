@@ -37,9 +37,6 @@ const CardListing = ({ listing, handleDelete }: listingProps) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>
-                <button className="w-full text-left">Update listing</button>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
                 <button
                   onClick={handleDelete}
                   className="w-full text-left text-red-500 hover:text-red-700"
