@@ -7,6 +7,7 @@ import { categoryData } from './data/categoryData';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Button } from './components/ui/button';
+import { useSearchStore } from './store/searchStore';
 
 const fetchListings = async () => {
   const response = await fetch('http://localhost:4000/listing/getAllListings');
@@ -17,6 +18,7 @@ const fetchListings = async () => {
 };
 
 const Home = () => {
+  const { location, persons } = useSearchStore();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isScrolledToStart, setIsScrolledToStart] = useState(true);
   const [isScrolledToEnd, setIsScrolledToEnd] = useState(false);
@@ -62,10 +64,31 @@ const Home = () => {
     return () => container?.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const filteredListings =
-    selectedCategory === null
-      ? data
-      : data.filter((item) => item.category === selectedCategory);
+  const filterListingsByLocation = (listings, location) => {
+    if (!location) return listings;
+    return listings.filter((listing) =>
+      listing.city.toLowerCase().includes(location.toLowerCase())
+    );
+  };
+
+  const filterListingsByPersons = (listings, persons) => {
+    if (!persons) return listings;
+    return listings.filter(
+      (listing) => Number(listing.maxPerson) >= Number(persons)
+    );
+  };
+
+  const filteredListings = filterListingsByPersons(
+    filterListingsByLocation(
+      selectedCategory === null
+        ? data
+        : data.filter((item) => item.category === selectedCategory),
+      location
+    ),
+    persons
+  );
+
+  console.log(filteredListings);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;

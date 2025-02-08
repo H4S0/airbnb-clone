@@ -39,7 +39,7 @@ const MainNavbar = () => {
             <FaAirbnb />
           </Link>
         </div>
-        <div>
+        <div className="bg-white">
           <SearchingOptions />
         </div>
 
