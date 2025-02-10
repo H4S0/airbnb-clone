@@ -40,7 +40,7 @@ const SearchingOptions = () => {
             setIsWhere(!isWhere);
             setIsWho(false);
           }}
-          className="cursor-pointer text-blue-500 hover:underline"
+          className="cursor-pointer text-red-500 hover:underline"
         >
           Where
         </p>
@@ -72,7 +72,7 @@ const SearchingOptions = () => {
             setIsWho(!isWho);
             setIsWhere(false);
           }}
-          className="cursor-pointer text-blue-500 hover:underline"
+          className="cursor-pointer text-red-500 hover:underline"
         >
           Who
         </p>

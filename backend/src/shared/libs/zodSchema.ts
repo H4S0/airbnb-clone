@@ -38,7 +38,9 @@ export const listingSchema = z.object({
     livingRoom: z.number().int(),
     wc: z.number().int(),
     amenities: z.array(z.string()).nonempty(),
-    maxPerson: z.number(),
+    maxPerson: z
+      .number()
+      .min(1, 'Must provide maximum person for this listing'),
     isPet: z.boolean(),
   }),
 });

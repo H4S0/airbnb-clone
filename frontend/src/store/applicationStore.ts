@@ -32,7 +32,7 @@ export const useApplicationStore = create<applicationStore>((set) => ({
       from: '',
       to: '',
     },
-    adults: 0,
+    adults: 1,
     kids: 0,
     listingId: 0,
     isAccepted: false,

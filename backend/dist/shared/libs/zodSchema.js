@@ -34,7 +34,9 @@ exports.listingSchema = zod_1.z.object({
         livingRoom: zod_1.z.number().int(),
         wc: zod_1.z.number().int(),
         amenities: zod_1.z.array(zod_1.z.string()).nonempty(),
-        maxPerson: zod_1.z.number(),
+        maxPerson: zod_1.z
+            .number()
+            .min(1, 'Must provide maximum person for this listing'),
         isPet: zod_1.z.boolean(),
     }),
 });

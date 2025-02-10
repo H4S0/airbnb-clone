@@ -137,15 +137,21 @@ const ListingPageId = () => {
               Dates that are already booked:
             </p>
             <div className="flex flex-wrap gap-2 mt-2">
-              {data?.Application?.map((item, index) => (
-                <span
-                  key={index}
-                  className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-medium shadow-sm"
-                >
-                  {item.dateRange.from.split('', 10)} -{' '}
-                  {item.dateRange.to.split('', 10)}
-                </span>
-              ))}
+              {data?.Application.length > 0 ? (
+                data?.Application?.map((item, index) => (
+                  <span
+                    key={index}
+                    className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-medium shadow-sm"
+                  >
+                    {item.dateRange.from.split('', 10)} -{' '}
+                    {item.dateRange.to.split('', 10)}
+                  </span>
+                ))
+              ) : (
+                <p className="text-red-500 font-semibold">
+                  Current this listing doesn't have any bookings.
+                </p>
+              )}
             </div>
           </li>
         </ul>

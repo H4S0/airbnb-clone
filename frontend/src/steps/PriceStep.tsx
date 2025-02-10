@@ -34,7 +34,8 @@ const PriceStep = () => {
     if (
       !listingData.category ||
       !listingData.listingLocation ||
-      !listingData.listingDetails
+      !listingData.listingDetails ||
+      !listingData.listingDetails.maxPerson
     ) {
       setError(true);
     } else {
