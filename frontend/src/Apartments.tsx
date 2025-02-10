@@ -20,26 +20,67 @@ const Apartments = () => {
         </div>
 
         <div className="space-y-12">
-          {[1, 2, 3].map((number) => (
-            <div
-              key={number}
-              className="flex items-start gap-6 p-6 rounded-lg shadow-lg"
-            >
-              <div className="flex items-center justify-center w-12 h-12 text-white bg-red-900 rounded-full font-bold text-xl">
-                {number}
-              </div>
+          <div className="space-y-12">
+            <div className="space-y-12">
+              <div className="space-y-12">
+                {[1, 2, 3].map((number) => (
+                  <div
+                    key={number}
+                    className="flex items-start gap-6 p-6 rounded-lg shadow-lg"
+                  >
+                    <div className="flex items-center justify-center min-w-[50px] min-h-[50px] text-white bg-red-900 rounded-full font-bold text-xl">
+                      {number}
+                    </div>
 
-              <div>
-                <h2 className="text-xl font-semibold mb-2">
-                  Recite nam nešto o svome smještaju
-                </h2>
-                <p className="text-gray-600">
-                  Navedite nekoliko osnovnih informacija, kao što su lokacija
-                  smještaja i koliko gostiju može u njemu boraviti.
-                </p>
+                    <div>
+                      {number === 1 && (
+                        <>
+                          <h2 className="text-xl font-semibold mb-2">
+                            Choose a Category
+                          </h2>
+                          <p className="text-gray-600">
+                            The first step is selecting the right category.
+                            Whether you're listing a rental, vehicle, or
+                            service, choosing the correct category helps with
+                            visibility and searchability.
+                          </p>
+                        </>
+                      )}
+
+                      {number === 2 && (
+                        <>
+                          <h2 className="text-xl font-semibold mb-2">
+                            Add Listing Details
+                          </h2>
+                          <p className="text-gray-600">
+                            Enter key details such as **location**,
+                            **amenities**, and other relevant information.
+                            Providing more details makes your listing more
+                            attractive and helps potential users make informed
+                            decisions.
+                          </p>
+                        </>
+                      )}
+
+                      {number === 3 && (
+                        <>
+                          <h2 className="text-xl font-semibold mb-2">
+                            Set a Price
+                          </h2>
+                          <p className="text-gray-600">
+                            Determine the price for your listing. You can set a
+                            fixed price or allow negotiations. A clear and
+                            competitive price increases engagement and attracts
+                            more potential users.
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
 

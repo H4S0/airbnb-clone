@@ -102,7 +102,9 @@ const DetailsStep = () => {
 
   const allFieldSet = useMemo(
     () =>
-      ['name', 'description'].every((key) => listingData.listingDetails[key]),
+      ['name', 'description', 'maxPerson'].every(
+        (key) => listingData.listingDetails[key]
+      ),
     [listingData.listingDetails]
   );
 
