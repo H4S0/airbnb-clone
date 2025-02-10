@@ -126,8 +126,8 @@ const DetailsStep = () => {
 
   return (
     <>
-      <div className="flex flex-row items-start justify-between mt-10">
-        <div className="w-1/2">
+      <div className="flex flex-wrap md:flex-nowrap items-start justify-between mt-10 gap-6">
+        <div className="w-full md:w-1/2">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-3">
               <Label>Listing name</Label>
@@ -142,6 +142,7 @@ const DetailsStep = () => {
                 </p>
               )}
             </div>
+
             <div className="grid gap-3 mt-3">
               <Label>Listing description</Label>
               <Textarea
@@ -155,97 +156,77 @@ const DetailsStep = () => {
                 </p>
               )}
             </div>
+
             <h2 className="py-5 text-2xl">Rooms information:</h2>
             <Separator />
-            <div className="flex flex-row items-center justify-between p-8">
-              <h2>Bedroom</h2>
-              <div className="flex items-center gap-4">
-                <Button type="button" onClick={() => handleDecrease('bedRoom')}>
-                  -
-                </Button>
-                <p>{bedrooms}</p>
-                <Button type="button" onClick={() => handleIncrease('bedRoom')}>
-                  +
-                </Button>
+
+            {[
+              {
+                label: 'Bedroom',
+                value: bedrooms,
+                increase: handleIncrease,
+                decrease: handleDecrease,
+                key: 'bedRoom',
+              },
+              {
+                label: 'Beds',
+                value: beds,
+                increase: handleIncreaseBeds,
+                decrease: handleDecreaseBeds,
+                key: 'beds',
+              },
+              {
+                label: 'Living room',
+                value: livingRoom,
+                increase: handleIncreaseLivingRoom,
+                decrease: handleDecreaseLivingRoom,
+                key: 'livingRoom',
+              },
+              {
+                label: 'WC',
+                value: wc,
+                increase: handleIncreaseWc,
+                decrease: handleDecreaseWc,
+                key: 'wc',
+              },
+              {
+                label: 'Maximum person',
+                value: maxPerson,
+                increase: handleIncreaseMaxPerson,
+                decrease: handleDecreaseMaxPerson,
+                key: 'maxPerson',
+              },
+            ].map((room, index) => (
+              <div key={index}>
+                <div className="flex flex-col sm:flex-row items-center justify-between p-4">
+                  <h2 className="text-center sm:text-left">{room.label}</h2>
+                  <div className="flex items-center gap-4">
+                    <Button
+                      type="button"
+                      onClick={() => room.decrease(room.key)}
+                    >
+                      -
+                    </Button>
+                    <p>{room.value}</p>
+                    <Button
+                      type="button"
+                      onClick={() => room.increase(room.key)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+                <Separator />
               </div>
-            </div>
-            <Separator />
-            <div className="flex flex-row items-center justify-between p-8">
-              <h2>Beds</h2>
-              <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  onClick={() => handleDecreaseBeds('beds')}
-                >
-                  -
-                </Button>
-                <p>{beds}</p>
-                <Button
-                  type="button"
-                  onClick={() => handleIncreaseBeds('beds')}
-                >
-                  +
-                </Button>
-              </div>
-            </div>
-            <Separator />
-            <div className="flex flex-row items-center justify-between p-8">
-              <h2>Living room</h2>
-              <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  onClick={() => handleDecreaseLivingRoom('livingRoom')}
-                >
-                  -
-                </Button>
-                <p>{livingRoom}</p>
-                <Button
-                  type="button"
-                  onClick={() => handleIncreaseLivingRoom('livingRoom')}
-                >
-                  +
-                </Button>
-              </div>
-            </div>
-            <Separator />
-            <div className="flex flex-row items-center justify-between p-8">
-              <h2>WC</h2>
-              <div className="flex items-center gap-4">
-                <Button type="button" onClick={() => handleDecreaseWc('wc')}>
-                  -
-                </Button>
-                <p>{wc}</p>
-                <Button type="button" onClick={() => handleIncreaseWc('wc')}>
-                  +
-                </Button>
-              </div>
-            </div>
-            <Separator />
-            <div className="flex flex-row items-center justify-between p-8">
-              <h2>Maximum person</h2>
-              <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  onClick={() => handleDecreaseMaxPerson('maxPerson')}
-                >
-                  -
-                </Button>
-                <p>{maxPerson}</p>
-                <Button
-                  type="button"
-                  onClick={() => handleIncreaseMaxPerson('maxPerson')}
-                >
-                  +
-                </Button>
-              </div>
-            </div>
+            ))}
           </form>
         </div>
 
-        <div className="flex flex-col items-start gap-5">
+        <div className="flex flex-col items-start gap-5 w-full md:w-1/2">
           <h2 className="text-2xl">Additional information</h2>
           <Separator />
-          <div className="grid grid-cols-3 gap-5">
+
+          <div className="grid grid-cols-3 sm:grid-cols-4 sm:items-center md:grid-cols-3 gap-5">
             {detailsData.map((amenity) => (
               <div
                 key={amenity.name}
@@ -261,7 +242,8 @@ const DetailsStep = () => {
               </div>
             ))}
           </div>
-          <div className="flex flex-row items-center justify-between p-6 bg-gray-50 rounded-lg shadow-sm w-full">
+
+          <div className="flex flex-wrap items-center justify-between p-6 bg-gray-50 rounded-lg shadow-sm w-full">
             <h2 className="text-lg font-semibold text-gray-800">
               Is this pet-friendly?
             </h2>
@@ -291,6 +273,7 @@ const DetailsStep = () => {
           </div>
         </div>
       </div>
+
       <Footer handleNext={handleNext} disabled={!allFieldSet} />
     </>
   );
